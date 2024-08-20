@@ -1,0 +1,33 @@
+{
+  "name": "sever",
+  "version": "1.0.0",
+  "description": "backend nodejs",
+  "main": "sever.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node src/sever.js"
+  },
+  "keywords": [
+    "fullstack",
+    "nodejs",
+    "express"
+  ],
+  "author": "Bao Duy",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.2",
+    "dotenv": "16.4.5",
+    "ejs": "3.1.10",
+    "express": "4.19.2",
+    "mysql2": "^3.11.0",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "@babel/core": "7.25.2",
+    "@babel/node": "7.25.0",
+    "@babel/preset-env": "7.25.3",
+    "@babel/preset-react": "^7.24.7",
+    "nodemon": "3.1.4"
+  }
+}
