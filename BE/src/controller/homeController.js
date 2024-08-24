@@ -82,5 +82,4 @@ module.exports = {
     getEditCRUD:getEditCRUD,
     putCRUD : putCRUD,
     deleteCRUD:deleteCRUD,
-    
 }
