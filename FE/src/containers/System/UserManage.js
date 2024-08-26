@@ -3,12 +3,15 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
 import { getAllUsers } from '../../services/userService';
+import ModalUser from './ModalUser';
+import { Modal } from 'reactstrap';
 class UserManage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-
+            arrUsers :[],
+            isOpenModalUser : false,
         }
     }
 
@@ -24,12 +27,32 @@ class UserManage extends Component {
 
     }
 
+    handleAddNewUser = (event) => {
+        this.setState({isOpenModalUser : true});
+    }
+
+    toggleUserModal = () =>{
+        this.setState({
+            isOpenModalUser : !this.state.isOpenModalUser
+        })
+    }
+
     render() {
         console.log('this', this.state.arrUsers);
         let arrUsers = this.state.arrUsers;
         return (
             <div className="user-container">
+                <ModalUser
+                toggleFromParent = {this.toggleUserModal}
+                isOpen = {this.state.isOpenModalUser}></ModalUser>
+                
+
                 <div className='title text-center'>Manage</div>
+                <div className="mx-1">
+                    <button
+                    onClick = {(event)=>this.handleAddNewUser(event)}
+                    className="btn btn-primary px-3"><i className="fas fa-plus pe-3"></i>Add new users</button>
+                </div>
                 <div className="user-table mt-4 mx-1">
                     <table id="customers">
                         <tr>
@@ -40,7 +63,6 @@ class UserManage extends Component {
                         </tr>
 
                         {arrUsers && arrUsers.map((item, index) => {
-                            console.log("Bao Duy check map", item, index)
                             return (
                                 <tr>
 
