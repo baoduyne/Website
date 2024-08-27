@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers } from '../../services/userService';
+import { getAllUsers , createNewUserService } from '../../services/userService';
 import ModalUser from './ModalUser';
 import { Modal } from 'reactstrap';
 class UserManage extends Component {
@@ -16,6 +16,11 @@ class UserManage extends Component {
     }
 
     async componentDidMount() {
+     await this.getAllUsersFromReact();
+
+    }
+
+    getAllUsersFromReact = async () =>{
         let response = await getAllUsers("ALL");
         if (response && response.errCode === 0) {
             this.setState({
@@ -24,7 +29,6 @@ class UserManage extends Component {
 
             })
         }
-
     }
 
     handleAddNewUser = (event) => {
@@ -37,6 +41,22 @@ class UserManage extends Component {
         })
     }
 
+    createNewUser = async (data) =>{
+        try{
+        let response = await createNewUserService(data);
+        console.log("check",response);
+        if(response && response.errCode !== 0){
+            alert(response.errMessage);
+        }
+        else{
+            await this.getAllUsersFromReact();
+        }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
     render() {
         console.log('this', this.state.arrUsers);
         let arrUsers = this.state.arrUsers;
@@ -44,9 +64,10 @@ class UserManage extends Component {
             <div className="user-container">
                 <ModalUser
                 toggleFromParent = {this.toggleUserModal}
-                isOpen = {this.state.isOpenModalUser}></ModalUser>
-                
-
+                isOpen = {this.state.isOpenModalUser}
+                createNewUser = {this.createNewUser}  
+                >  
+                </ModalUser>
                 <div className='title text-center'>Manage</div>
                 <div className="mx-1">
                     <button
@@ -54,7 +75,9 @@ class UserManage extends Component {
                     className="btn btn-primary px-3"><i className="fas fa-plus pe-3"></i>Add new users</button>
                 </div>
                 <div className="user-table mt-4 mx-1">
+               
                     <table id="customers">
+                    <tbody>
                         <tr>
                             <th>Email</th>
                             <th>FirstName</th>
@@ -78,8 +101,9 @@ class UserManage extends Component {
                         })
 
                         }
-
+                    </tbody>
                     </table>
+                    
                 </div>
             </div>
         );
