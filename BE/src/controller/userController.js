@@ -57,7 +57,8 @@ let handleDeleteUser = async (req,res) =>{
     }
     let message = await userService.deleteUser(req.body.id);
     res.status(200).json({
-        message
+        errCode : message.errCode,
+        errMessage : message.errMessage,
     })
 }
 

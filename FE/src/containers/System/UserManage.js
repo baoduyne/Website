@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers , createNewUserService } from '../../services/userService';
+import { getAllUsers , createNewUserService,deleteUserService } from '../../services/userService';
 import ModalUser from './ModalUser';
 import { Modal } from 'reactstrap';
+import {emitter} from '../../utils/emitter';
 class UserManage extends Component {
 
     constructor(props) {
@@ -34,6 +35,22 @@ class UserManage extends Component {
     handleAddNewUser = (event) => {
         this.setState({isOpenModalUser : true});
     }
+    handleDeleteUser = async (user) =>{
+        try{
+            
+        let response = await deleteUserService(user.id);
+        console.log(response);
+            if(response && response.errCode === 0){
+                this.getAllUsersFromReact();
+            }
+            else{
+                alert(response.errMessage);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
 
     toggleUserModal = () =>{
         this.setState({
@@ -44,12 +61,16 @@ class UserManage extends Component {
     createNewUser = async (data) =>{
         try{
         let response = await createNewUserService(data);
-        console.log("check",response);
+     
         if(response && response.errCode !== 0){
             alert(response.errMessage);
         }
         else{
             await this.getAllUsersFromReact();
+            this.setState({
+                isOpenModalUser : false,
+            })
+            emitter.emit('EVENT_CLEAR_MODAL_DATA',);
         }
         }
         catch(e){
@@ -94,7 +115,7 @@ class UserManage extends Component {
                                     <td>{item.lastName}</td>
                                     <td>
                                         <button className="btn-edit"><i className="far fa-edit"></i></button>
-                                        <button className="btn-delete"><i className="fas fa-trash-alt"></i></button>
+                                        <button className="btn-delete" onClick={() => this.handleDeleteUser(item) }><i className="fas fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             )
