@@ -64,7 +64,7 @@ let handleDeleteUser = async (req,res) =>{
 
 let handleEditUser = async (req,res) =>{
     let data = req.body;
-
+    console.log("Check user node",data.id);
     if(!data.id){
         res.status(200).json({
             errCode:1,
@@ -75,7 +75,8 @@ let handleEditUser = async (req,res) =>{
     let message = await userService.editUser(data);
 
     res.status(200).json({
-        message
+        errCode:message.errCode,
+        errMessage : message.errMessage
     })
 
 }
