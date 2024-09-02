@@ -1,4 +1,26 @@
 {
+    "home-header":{
+        "speciality":"Medical specialty",
+        "searchdoctor":"Find a doctor by specialty",
+        "health-facility":"Health facilities",
+        "select-room":"Chose hospital clinic",
+        "doctor":"Doctor",
+        "select-doctor":"Chose profestional doctor",
+        "fee" : "Packages health",
+        "overall-check":"Overall health check",
+        "support":"Support"
+    },
+    "banner":{
+        "title1":"MEDICAL FOUNDATION",
+        "title2":"THE PRIMARY OF HEALTH",
+        "specialist-examination":"Specialist examination",
+        "examination-online":"Examination online",
+        "examination-overall":"Overall examination",
+        "health-test":"Medical test",
+        "health-psy":"Psychology health",
+        "tooth-test":"Check dentistry"
+
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",
