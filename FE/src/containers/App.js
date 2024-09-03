@@ -9,7 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
 
 import { path } from '../utils'
-
+import CustomScrollbars from '../components/CustomScrollbars.js';
 import Home from '../routes/Home';
 //import Login from '../routes/Login';
 import Login from './Auth/Login';
@@ -48,6 +48,7 @@ class App extends Component {
                        {/* {this.props.isLoggedIn && <Header />}  */}
 
                         <span className="content-container">
+                            <CustomScrollbars style = {{height:"100vh",width:"100%"}}>
                             <Switch>
                                 <Route path={path.HOME} exact component={(Home)} />
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
@@ -55,8 +56,9 @@ class App extends Component {
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                 <Route path={path.HOMEPAGE} component = {HomePage}/>
                             </Switch>
+                            </CustomScrollbars>
                         </span>
-
+                            
                         <ToastContainer
                             className="toast-container" toastClassName="toast-item" bodyClassName="toast-item-body"
                             autoClose={false} hideProgressBar={true} pauseOnHover={false}
