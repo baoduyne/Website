@@ -56,15 +56,17 @@
             }
             .language-vi{
                 cursor: pointer;
-
+                opacity: 0.2;
                 &.active{
+                    opacity: 1;
                     color:orange;
                 }
             }
             .language-en{
                 cursor: pointer;
-
+                opacity: 0.2;
                 &.active{
+                    opacity: 1;
                     color:blue;
                 }
             }
