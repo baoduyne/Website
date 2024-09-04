@@ -1,0 +1,150 @@
+.section-container {
+    width: 100%;
+    height: 380px;
+    margin-top: 50px;
+
+
+    &.section-specialty {
+        background-color: rgba(242, 242, 242, 0.8);
+    }
+
+    &.section-medical-facility {
+        background-color: white;
+
+    }
+
+    &.section-outstanding-doctor {
+        background-color: rgba(242, 242, 242, 0.8);
+    }
+
+    &.section-hand-book {
+        background-color: white;
+    }
+
+    .section-content {
+        width: 80%;
+        height: 100%;
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: auto;
+
+        .section-detail {
+            width: 100%;
+            height: 18%;
+            margin-top: 30px;
+            font-weight: 700;
+            font-size: large;
+            position: relative;
+
+            span {
+                position: absolute;
+                left: 55px;
+                font-size: 120%;
+                font-weight: 700;
+            }
+
+            button {
+                position: absolute;
+                right: 30px;
+                border: none;
+                padding: 5px 10px;
+                color: gray;
+            }
+
+        }
+
+        .carousel-container {
+            margin-left: 2% !important;
+            width: 95%;
+            height: 250px;
+            overflow: hidden;
+
+            .react-multi-carousel-track {
+                list-style: none;
+                padding: 0;
+                margin-left: 2%;
+                display: flex;
+                flex-direction: row;
+                position: relative;
+                transform-style: preserve-3d;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                will-change: transform, transition;
+            }
+
+            .react-multiple-carousel__arrow--left {
+                left: 0;
+            }
+
+            .react-multiple-carousel__arrow--right {
+                right: 0px;
+            }
+
+            .section-items {
+                width: 240px;
+                height: 250px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                &.section-hand-book {
+                    width: 480px;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid rgba(0,0,0,0.3);
+                }
+
+                .section-image {
+                    width: 100%;
+                    height: 80%;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+
+                    &.section-specialty {
+                        background-image: url('../../assets/specialtyImg.jpg');
+                    }
+
+                    &.section-medical-facility {
+                        background-image: url('../../assets/Medical-facility-Img.jpg');
+                    }
+
+                    &.section-outstanding-doctor {
+                        background-image: url('../../assets/Out-Standing-Doctor.jpg');
+                        border-radius: 579px;
+                        width: 85%;
+                    }
+
+                    &.section-hand-book {
+                        background-image: url('../../assets/Medical-facility-Img.jpg');
+                        width: 60%;
+                        height: 100%;
+
+                    }
+                }
+
+
+                .section-text {
+                    width: 100%;
+                    height: 20%;
+                    text-align: left;
+                    user-select: none;
+                    padding-top: 10px;
+
+                    &.section-outstanding-doctor {
+                        text-align: center;
+                    }
+
+                    &.section-hand-book {
+                        width: 40%;
+                        height: 100%;
+                        text-align: left;
+                    }
+                }
+
+            }
+        }
+    }
+}
