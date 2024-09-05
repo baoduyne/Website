@@ -1,11 +1,14 @@
 .home-header-container{
-    height : 100%;
-    width  : 100%;  
-    .home-header-content{
+    width: 100%;
+    height: 80px;
+        .home-header-content{
         width: 100%;
         height: 80px;
         display: flex;
         flex-direction: row;
+        position: fixed;
+        z-index: 10;
+        background-color: white;
         
         .left-content{
             width: 25%;

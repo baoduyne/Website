@@ -5,6 +5,8 @@ import Specialty from './Section/Specialty.js';
 import MedicalFacility from './Section/MedicalFacility.js';
 import OutStandingDoctor from './Section/OutStandingDoctor.js';
 import HandBook from './Section/HandBook.js';
+import About from './Section/About.js';
+import HomeFooter from './Section/HomeFooter.js';
 import "./HomePage.scss"
 class HomePage extends Component {
 
@@ -50,6 +52,8 @@ class HomePage extends Component {
                 <MedicalFacility responsive = {responsive}></MedicalFacility>
                 <OutStandingDoctor responsive = {responsive}></OutStandingDoctor>
                 <HandBook responsive = {responsiveHandBook}></HandBook>
+                <About></About>
+                <HomeFooter></HomeFooter>
             </div>
         );
     }
