@@ -210,10 +210,35 @@ let editUser = (data) => {
     })
 }
 
+let getAllCodeService = (type) =>{
+    return new Promise(async (resolve,reject) =>{
+        try{
+            let res = {};
+            let allCode = await db.Allcode.findAll(
+                {where : {type : type}}
+            );
+            if(allCode){
+            res.errCode = 0;
+            res.errMessage = allCode;
+            }
+            else{
+                res.errCode = 1;
+                res.errMessage = "Missing object!"
+            }
+            resolve(res);
+        }
+        catch(e){
+            reject(e);
+        }
+    })
+}
+
+
 module.exports = {
     handleUserLogin: handleUserLogin,
     getAllUsers: getAllUsers,
     createNewUser: createNewUser,
     deleteUser: deleteUser,
-    editUser: editUser
+    editUser: editUser,
+    getAllCodeService : getAllCodeService
 }

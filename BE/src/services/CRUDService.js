@@ -124,10 +124,22 @@ let deleteUserById = (userId) =>{
     })
 }
 
+let getAllCodeService = () =>{
+    new Promise(async (resolve,reject) =>{
+        try{
+            
+        }
+        catch(e){
+
+        }
+    })
+}
+
 module.exports = {
     createNewUser : createNewUser,
     getAllUser : getAllUser,
     getUserInfoById : getUserInfoById,
     updateUserData:updateUserData,
-    deleteUserById : deleteUserById
+    deleteUserById : deleteUserById,
+    getAllCodeService : getAllCodeService
 }

@@ -54,8 +54,8 @@
             "system-administrator": {
                 "header": "Quản trị hệ thống",
                 "user-manage": "Quản lý người sử dụng",
-                "product-manage": "Quản lý gói",
-                "register-package-group-or-account": "Đăng ký gói dịch vụ cho nhóm/tài khoản"
+                "user-redux": "Quản lý user redux"
+                
             },
             "system-parameter": {
                 "header": "Tham số hệ thống"
