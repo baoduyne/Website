@@ -21,13 +21,16 @@
         }
     }
     .languages{
+        .welcome{
+            margin-right: 20px;
+        }
         .language-en{
             margin:0 15px;
             cursor: pointer;
             opacity: 0.4;
             &.active{
                 opacity: 1;
-                color:white;
+                color:blue;
             }
         }
         .language-vi{
@@ -35,7 +38,7 @@
             opacity: 0.4;
             &.active{
                 opacity: 1;
-                color:white;
+                color:yellow;
             }
         }
         
