@@ -9,6 +9,7 @@ import UserRedux from '../containers/System/Admin/UserRedux'
 class System extends Component {
     render() {
         const { systemMenuPath,isLoggedIn } = this.props;
+        console.log("check",this.props.data)
         return (
             <React.Fragment>
                 <div className="system-container">
@@ -32,6 +33,7 @@ const mapStateToProps = state => {
     return {
         systemMenuPath: state.app.systemMenuPath,
         isLoggedIn: state.user.isLoggedIn,
+        data:state.user,
     };
 };
 

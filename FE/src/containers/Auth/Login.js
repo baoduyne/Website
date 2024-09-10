@@ -42,7 +42,7 @@ class Login extends Component {
 
             if (data && data.errCode !== 0) {
                 this.setState({
-                    errMessage: data.message
+                    errMessage: data.errMessage
                 })
             }
             else {

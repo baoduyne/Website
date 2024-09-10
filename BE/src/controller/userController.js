@@ -83,8 +83,8 @@ let handleEditUser = async (req,res) =>{
 
 let getAllCode = async (req,res) =>{
     try{
-        let type = req.body.type;
-      
+        let type = req.query.type;
+     
         if(type){
         let data = await userService.getAllCodeService(type);
         

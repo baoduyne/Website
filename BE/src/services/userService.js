@@ -214,8 +214,9 @@ let getAllCodeService = (type) =>{
     return new Promise(async (resolve,reject) =>{
         try{
             let res = {};
+          
             let allCode = await db.Allcode.findAll(
-                {where : {type : type}}
+                {where : {type:type}}
             );
             if(allCode){
             res.errCode = 0;

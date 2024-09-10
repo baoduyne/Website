@@ -1,31 +1,32 @@
-import actionTypes from '../actions/actionTypes';
+import actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    isLoggedIn: false,
-    adminInfo: null
+    genders :[],
+    roles :[],
+    positions:[]
 }
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.ADMIN_LOGIN_SUCCESS:
+        case actionTypes.FETCH_GENDER_START:
+            console.log("check admin redux state",action);
+            
             return {
-                ...state,
-                isLoggedIn: true,
-                adminInfo: action.adminInfo
+                ...state
             }
-        case actionTypes.ADMIN_LOGIN_FAIL:
+        case actionTypes.FETCH_GENDER_SUCCESS:
+            console.log("check admin redux state",action);
+            let copyState = {...initialState};
+            copyState.genders = action.data;
             return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
+                ...copyState
             }
-        case actionTypes.PROCESS_LOGOUT:
+        case actionTypes.FETCH_GENDER_FAIL:
+            console.log("check admin redux state",action);
             return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
+                ...state
             }
-        default:
+        default :
             return state;
     }
 }

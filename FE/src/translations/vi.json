@@ -48,7 +48,22 @@
             "specialty" : "Chuyên khoa",
             "manage-specialty" : "Quản lý chuyên khoa",
             "handbook" :"Cẩm nang",
-            "handbook-manage" :"Quản lý cẩm nang"
+            "handbook-manage" :"Quản lý cẩm nang",
+            "redux-handle" : "Quản lý người dùng redux",
+            "password" : "Mật khẩu",
+            "first-name" : "Họ",
+            "last-name" :"Tên",
+            "gender" : "Giới tính",
+            "address" :"Địa chỉ",
+            "phonenumber" :"Số điện thoại",
+            "rank" : "Chức vụ",
+            "role" :"Vai trò",
+            "choose":"Lựa chọn...",
+            "check-me-out" : "Nhớ thông tin",
+            "image":"User image",
+            "Create" : "Tạo mới"
+
+
         }
     }
 }
