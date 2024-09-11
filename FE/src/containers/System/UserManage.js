@@ -21,7 +21,6 @@ class UserManage extends Component {
 
     async componentDidMount() {
      await this.getAllUsersFromReact();
-
     }
 
     getAllUsersFromReact = async () =>{
@@ -115,8 +114,9 @@ class UserManage extends Component {
     }
 
     render() {
-        console.log('this', this.state.arrUsers);
+        console.log('this 1', this.props.isLoggedIn);
         let arrUsers = this.state.arrUsers;
+    
         return (
             <div className="user-container">
                 <ModalUser
@@ -183,6 +183,7 @@ class UserManage extends Component {
 
 const mapStateToProps = state => {
     return {
+        isLoggedIn : state.user.isLoggedIn
     };
 };
 
