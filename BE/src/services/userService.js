@@ -13,7 +13,7 @@ let handleUserLogin = (email, password) => {
             if (isExit) {
                 let user = await db.User.findOne({
 
-                    attributes: ['email', 'roleId','firstName','lastName', "password"],
+                    attributes: ['email', 'roleId', 'firstName', 'lastName', "password"],
                     where: { email: email, },
                     raw: true,
                 })
@@ -143,7 +143,7 @@ let deleteUser = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
 
-      
+
             let user = await db.User.findOne({
                 where: { id: userId }
             });
@@ -184,7 +184,7 @@ let editUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let user = await db.User.findOne({
-                raw : false,
+                raw: false,
                 where: { id: data.id },
             })
             if (!user) {
@@ -193,15 +193,15 @@ let editUser = (data) => {
                     errMessage: "User not found!"
                 })
             }
-           
+
             user.firstName = data.firstName;
             user.lastName = data.lastName;
             user.address = data.address;
 
             await user.save();
             resolve({
-                errCode : 0,
-                errMessage:"Done!"
+                errCode: 0,
+                errMessage: "Done!"
             })
         }
         catch (e) {
@@ -210,25 +210,34 @@ let editUser = (data) => {
     })
 }
 
-let getAllCodeService = (type) =>{
-    return new Promise(async (resolve,reject) =>{
-        try{
+let getAllCodeService = (type) => {
+    return new Promise(async (resolve, reject) => {
+        try {
             let res = {};
-          
-            let allCode = await db.Allcode.findAll(
-                {where : {type:type}}
-            );
-            if(allCode){
-            res.errCode = 0;
-            res.errMessage = allCode;
+            let allCode = {};
+            if (type === 'ALL') {
+                 allCode = await db.Allcode.findAll();
+                
             }
-            else{
+            else {
+                 allCode = await db.Allcode.findAll(
+                    { where: { type: type } }
+                );
+                
+            }
+            
+            if (allCode) {
+                res.errCode = 0;
+                res.errMessage = 'done';
+                res.data = allCode;
+            }
+            else {
                 res.errCode = 1;
                 res.errMessage = "Missing object!"
             }
             resolve(res);
         }
-        catch(e){
+        catch (e) {
             reject(e);
         }
     })
@@ -241,5 +250,5 @@ module.exports = {
     createNewUser: createNewUser,
     deleteUser: deleteUser,
     editUser: editUser,
-    getAllCodeService : getAllCodeService
+    getAllCodeService: getAllCodeService
 }

@@ -1,30 +1,34 @@
-import actionTypes from './actionTypes';
-import { getAllCodeService } from '../../services/userService';
-export const fetchGenderStart = () =>{
-    return async (dispatch,getState) => {
-    try{
-        let res = await getAllCodeService('GENDER');
-        if(res &&res.data.errCode === 0){
-            dispatch(fetchGenderSuccess(res.data.errMessage));
+import actionTypes from "./actionTypes";
+import { getAllCodeService } from "../../services/userService";
+export const fetchAllCodeStart = () =>{
+    return async (dispatch,getState) =>{
+        try{
+           let res = await getAllCodeService('ALL'); 
+    
+           if(res && res.errCode === 0){
+            dispatch(fetchAllCodeSuccess(res.data));
+           }
+           else{
+            dispatch(fetchAllCodeFail())
+           }
         }
-        else{
-            dispatch(fetchGenderFail());
+        catch(e){
+            console.log(e);
         }
-    }
-    catch(e){
-        console.log(e);
-    }
     }
 }
 
-export const fetchGenderSuccess = (genderData) =>({
-   
-        type : actionTypes.FETCH_GENDER_SUCCESS,
-        data : genderData
-})
+export const fetchAllCodeSuccess = (allcode) =>{
+    return {
+        type:actionTypes.FETCH_ALLCODE_SUCCESS,
+        data:allcode
+    }
+}
 
-export const fetchGenderFail = () =>({
-  
-        type : actionTypes.FETCH_GENDER_FAIL
-    
-})
+export const fetchAllCodeFail = () =>{
+    return {
+        type:actionTypes.FETCH_ALLCODE_FAIL,
+        
+    }
+}
+

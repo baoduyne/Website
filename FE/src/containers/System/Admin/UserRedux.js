@@ -10,13 +10,17 @@ class UserRedux extends Component {
     constructor (props) {
         super(props);
         this.state = {
+            arrAllCode : {},
             arrGender : []
         }
     }
 
     componentDidMount = async () => {
         this.props.getAllCode();
-
+       this.setState({
+        arrAllCode : this.props.allCodeData
+       })
+       console.log('check state 1',this.props.allCodeData)
         // try{
         //     let res = await getAllCodeService('GENDER');
         //     console.log("res",res);
@@ -31,17 +35,18 @@ class UserRedux extends Component {
         // }
     }
 
-    componentDidUpdate (prevProps,presState) {
-        if(prevProps.genderData !== this.state.arrGender){
-            this.setState({
-                arrGender : this.props.genderData
-            })
-        }
-    }
+    // componentDidUpdate (prevProps,presState) {
+    //     if(prevProps !== this.state){
+    //         this.setState({
+    //             arrGender : this.props.genderData
+    //         })
+    //     }
+    // }
 
     render() {
             let genders = this.state.arrGender;
             let language = this.props.language;
+            
         return (
             
             <div className="user-redux-container">
@@ -147,14 +152,14 @@ class UserRedux extends Component {
 let mapStateToProps = state => {
     return {
         language : state.app.language,
-        genderData : state.admin.genders
+        allCodeData : state.admin
     };
     
 }
 
 let mapDispathToProps = dispatch => {
     return {
-        getAllCode :() => dispatch(actions.fetchGenderStart())
+        getAllCode : () => dispatch(actions.fetchAllCodeStart())
     }
 }
 

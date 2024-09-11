@@ -84,12 +84,12 @@ let handleEditUser = async (req,res) =>{
 let getAllCode = async (req,res) =>{
     try{
         let type = req.query.type;
-     
+        
         if(type){
         let data = await userService.getAllCodeService(type);
         
         return res.status(200).json({
-            data
+            ...data
         })
         }
         else{
