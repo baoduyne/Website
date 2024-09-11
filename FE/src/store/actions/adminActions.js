@@ -4,9 +4,34 @@ export const fetchAllCodeStart = () =>{
     return async (dispatch,getState) =>{
         try{
            let res = await getAllCodeService('ALL'); 
-    
+           let AllCode = res.data;
+           let arrAllCode = {
+            genders: [],
+            roles: [],
+            positions: [],
+            times: [],
+            status: []
+           };
            if(res && res.errCode === 0){
-            dispatch(fetchAllCodeSuccess(res.data));
+            AllCode.map((item,index) =>{
+                if(item.type === 'ROLE'){
+                    arrAllCode.roles.push(item);
+                }
+                if(item.type === 'GENDER'){
+                    arrAllCode.genders.push(item);
+                }
+                if(item.type === 'POSITION'){
+                    arrAllCode.positions.push(item);
+                }
+                if(item.type === 'TIME'){
+                    arrAllCode.times.push(item);
+                }
+                if(item.type === 'STATUS'){
+                    arrAllCode.status.push(item);
+                }
+            })
+          //  console.log('test data arr allcode',arrAllCode);
+            dispatch(fetchAllCodeSuccess(arrAllCode));
            }
            else{
             dispatch(fetchAllCodeFail())

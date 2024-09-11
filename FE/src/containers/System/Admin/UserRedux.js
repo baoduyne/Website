@@ -17,10 +17,6 @@ class UserRedux extends Component {
 
     componentDidMount = async () => {
         this.props.getAllCode();
-       this.setState({
-        arrAllCode : this.props.allCodeData
-       })
-       console.log('check state 1',this.props.allCodeData)
         // try{
         //     let res = await getAllCodeService('GENDER');
         //     console.log("res",res);
@@ -35,18 +31,20 @@ class UserRedux extends Component {
         // }
     }
 
-    // componentDidUpdate (prevProps,presState) {
-    //     if(prevProps !== this.state){
-    //         this.setState({
-    //             arrGender : this.props.genderData
-    //         })
-    //     }
-    // }
+    componentDidUpdate (prevProps,prevState) {
+        if(prevProps.allCodeData !== this.state.arrAllCode){
+            this.setState({
+                arrAllCode : this.props.allCodeData
+            })
+         
+        }
+    }
 
     render() {
             let genders = this.state.arrGender;
             let language = this.props.language;
-            
+            let allCode = this.state.arrAllCode;
+            console.log('check props 2',this.state.arrAllCode);
         return (
             
             <div className="user-redux-container">
@@ -90,9 +88,8 @@ class UserRedux extends Component {
                                 <label for="inputAddress"><FormattedMessage id="menu.admin.gender"></FormattedMessage></label>
                                 <select id="inputState" class="form-control">
                                    
-                                    {genders && genders.map((item,index) => {
+                                    {allCode.genders &&allCode.genders.map((item,index) => {
                                         return (
-                                          
                                             <option key = {index}>
                                                 {language ===LANGUAGES.VI? item.valueVi : item.valueEn}
                                             </option>
@@ -154,7 +151,6 @@ let mapStateToProps = state => {
         language : state.app.language,
         allCodeData : state.admin
     };
-    
 }
 
 let mapDispathToProps = dispatch => {
