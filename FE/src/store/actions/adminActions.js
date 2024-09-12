@@ -3,6 +3,7 @@ import { getAllCodeService } from "../../services/userService";
 export const fetchAllCodeStart = () =>{
     return async (dispatch,getState) =>{
         try{
+            dispatch({type:actionTypes.FETCH_ALLCODE_START});
            let res = await getAllCodeService('ALL'); 
            let AllCode = res.data;
            let arrAllCode = {
@@ -39,6 +40,7 @@ export const fetchAllCodeStart = () =>{
         }
         catch(e){
             console.log(e);
+            dispatch(fetchAllCodeFail());
         }
     }
 }

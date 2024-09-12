@@ -9,14 +9,16 @@ let handleLogin = async (req, res) => {
             errMessage: 'Missing inputs parameter!'
         });
     }
+    setTimeout(async() => {
+        let userData = await userService.handleUserLogin(email, password);
 
-    let userData = await userService.handleUserLogin(email, password);
+        return res.status(200).json({
+            errCode: userData.errCode,
+            errMessage: userData.errMessage,
+            user: userData ? userData : {},
+        });
+    }, 5000);
 
-    return res.status(200).json({
-        errCode: userData.errCode,
-        errMessage: userData.errMessage,
-        user: userData ? userData : {},
-    });
 }
 
 let handleGetAllUsers = async (req, res) => {
@@ -86,11 +88,15 @@ let getAllCode = async (req,res) =>{
         let type = req.query.type;
         
         if(type){
-        let data = await userService.getAllCodeService(type);
+            setTimeout( async() => {
+                let data = await userService.getAllCodeService(type);
+                return res.status(200).json({
+                    ...data
+                })
+            }, 500);
+       
         
-        return res.status(200).json({
-            ...data
-        })
+        
         }
         else{
             return res.status(200).json({

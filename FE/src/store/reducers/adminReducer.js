@@ -1,7 +1,7 @@
 import actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    isLoadingGender : false,
+    isLoading : true,
     genders: [],
     roles: [],
     positions: [],
@@ -10,24 +10,31 @@ const initialState = {
 }
 
 const appReducer = (state = initialState, action) => {
+    let copyState = {...state};
     switch (action.type) {
         case actionTypes.FETCH_ALLCODE_START:
+            console.log('test admin action',action);
+            copyState.isLoading = true;
+            console.log('test admin props',copyState);
             return {
-                ...state
+                ...copyState
             }
         case actionTypes.FETCH_ALLCODE_SUCCESS:
-            let copyState = {
+            console.log('test admin action',action);
+             copyState = {
                 ...action.data
             }
-          
+            copyState.isLoading = false;
             return {
                 ...copyState,
 
             }
         case actionTypes.FETCH_ALLCODE_FAIL:
+            console.log('test admin action',action);
+            copyState = {...state};
+            copyState.isLoading = false;
             return {
-                ...state,
-
+                ...copyState,
             }
         default:
             return { state }
