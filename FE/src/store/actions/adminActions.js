@@ -1,5 +1,5 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService } from "../../services/userService";
+import { getAllCodeService ,createNewUserService } from "../../services/userService";
 export const fetchAllCodeStart = () =>{
     return async (dispatch,getState) =>{
         try{
@@ -59,3 +59,33 @@ export const fetchAllCodeFail = () =>{
     }
 }
 
+
+
+export const saveUserAction = (data) => {
+    return async (dispatch,getState) =>{
+        try{
+            let res = await createNewUserService(data);
+            if(res && res.errCode === 0){
+                dispatch(saveUserSuccess())
+            }
+        }
+
+        catch(e){
+            dispatch(saveUserFail())
+            console.log(e);
+        }
+    }
+}
+
+
+export const saveUserSuccess = () =>{
+    return {
+        type : actionTypes.SAVE_USER_SUCCESS
+    }
+}
+
+export const saveUserFail= () =>{
+    return {
+        type : actionTypes.SAVE_USER_FAIL
+    }
+}

@@ -36,6 +36,17 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...copyState,
             }
+        case actionTypes.SAVE_USER_SUCCESS : 
+            console.log('check action',action);
+            return {
+                ...state
+            }
+        case actionTypes.SAVE_USER_FAIL :
+            console.log('check action',action);
+            return {
+                
+                ...state
+            }
         default:
             return { state }
 

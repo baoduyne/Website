@@ -49,7 +49,7 @@ module.exports = {
       positionid:{
         type: Sequelize.STRING
       },
-      image:{
+      avatar:{
         type: Sequelize.STRING
       },
       createdAt: {

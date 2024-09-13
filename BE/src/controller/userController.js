@@ -94,7 +94,7 @@ let getAllCode = async (req,res) =>{
                 return res.status(200).json({
                     ...data
                 })
-            }, 500);
+            }, 1000);
        
         
         

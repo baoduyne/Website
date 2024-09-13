@@ -20,13 +20,14 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     address:DataTypes.STRING,
     phoneNumber:DataTypes.STRING,
-    gender:DataTypes.BOOLEAN,
-    image: DataTypes.STRING,
+    gender:DataTypes.STRING,
+    avatar: DataTypes.STRING,
     roleId: DataTypes.STRING,
     positionId: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'User',
   });
+  User.sync();
   return User;
 };
