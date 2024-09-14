@@ -1,5 +1,10 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService ,createNewUserService } from "../../services/userService";
+import { getAllCodeService ,createNewUserService,getAllUsers,deleteUserService} from "../../services/userService";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 export const fetchAllCodeStart = () =>{
     return async (dispatch,getState) =>{
         try{
@@ -32,7 +37,9 @@ export const fetchAllCodeStart = () =>{
                 }
             })
           //  console.log('test data arr allcode',arrAllCode);
+           
             dispatch(fetchAllCodeSuccess(arrAllCode));
+            
            }
            else{
             dispatch(fetchAllCodeFail())
@@ -67,6 +74,18 @@ export const saveUserAction = (data) => {
             let res = await createNewUserService(data);
             if(res && res.errCode === 0){
                 dispatch(saveUserSuccess())
+                dispatch(fetchUsersStart());
+                toast.success('Done!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    });
             }
         }
 
@@ -89,3 +108,58 @@ export const saveUserFail= () =>{
         type : actionTypes.SAVE_USER_FAIL
     }
 }
+
+export const fetchUsersStart = () =>{
+    return async (dispatch,getState) => {
+        try{
+          
+            dispatch({type:actionTypes.FETCH_ALLCODE_START})
+            let res = await getAllUsers('ALL');
+            if(res && res.errCode === 0){
+                dispatch(fetchUsersSuccess(res.users.reverse()))
+              
+            }
+        }
+
+        catch(e){
+            dispatch(fetchUsersFail())
+            console.log(e);
+        }
+    }
+
+}
+
+export const fetchUsersSuccess = (data) =>{
+    return {
+        type : actionTypes.FETCH_USERS_SUCCESS,
+        data : data
+    }
+}
+
+
+export const fetchUsersFail = () =>{
+    return {
+        type : actionTypes.FETCH_USERS_FAIL
+    }
+}
+
+
+export const deleteUserStart = (id) =>{
+    return async (dispatch,getState) => {
+        try{
+            console.log('step 1');
+            dispatch({type:actionTypes.DELETE_USER_START})
+            let res = await deleteUserService(id);
+            if(res && res.errCode === 0){
+                dispatch(fetchUsersStart())
+            }
+        }
+
+        catch(e){
+            dispatch(fetchUsersFail())
+            console.log(e);
+        }
+    }
+
+}
+

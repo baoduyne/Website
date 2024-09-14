@@ -31,7 +31,7 @@ const appPersistConfig = {
 const adminPersistConfig = {
     ...persistCommonConfig,
     key:'admin',
-    whitelist:['genders','roles','positions','times','status',]
+    whitelist:[]
 }
 
 

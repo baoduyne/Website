@@ -9,6 +9,7 @@ import LoadingPage from './LoadingPage';
 import './UserRedux.scss'
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import ManageUserTable from "./ManageUserTable";
 class UserRedux extends Component {
 
     constructor(props) {
@@ -27,7 +28,9 @@ class UserRedux extends Component {
             gender: '',
             position: '',
             role: '',
-            avatar: ''
+            avatar: '',
+
+        
 
         }
     }
@@ -37,27 +40,48 @@ class UserRedux extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if (prevProps.allCodeData.users !== this.props.allCodeData.users) {
+            this.setState({
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                address: '',
+                phoneNumber: '',
+                gender: '',
+                position: '',
+                role: '',
+                avatar: '',
+                objectUrl: ''
+            })
+        }
+
+
         if (prevProps.allCodeData !== this.props.allCodeData) {
+
             let genders = this.props.allCodeData.genders;
             let positions = this.props.allCodeData.positions;
             let roles = this.props.allCodeData.roles;
             this.setState({
                 arrAllCode: this.props.allCodeData,
-                gender: genders && genders.length> 0 && genders[0].key,
-                position: positions&& genders.length> 0 && positions[0].key,
-                role: roles &&roles.length> 0 && roles[0].key
+                gender: genders && genders.length > 0 && genders[0].key,
+                position: positions && genders.length > 0 && positions[0].key,
+                role: roles && roles.length > 0 && roles[0].key
             })
+
         }
+
+
     }
     handlePreviewImage = (event) => {
 
         let data = event.target.files;
         let file = data[0];
         if (file) {
-            this.setState({avatar : file})
+            this.setState({ avatar: file })
             let objectUrl = URL.createObjectURL(file);
             this.setState({ objectUrl: objectUrl })
-          
+
         }
 
     }
@@ -70,21 +94,20 @@ class UserRedux extends Component {
             ...copyState
         })
 
-        console.log('check copy state', copyState);
     }
     checkValidate = () => {
         let isValid = true;
         let arrValid = ['email', 'password', 'firstName', 'lastName', 'address'
-        , 'phoneNumber', 'gender', 'position', 'role', 'avatar'];
+            , 'phoneNumber', 'gender', 'position', 'role', 'avatar'];
         let validKey = '';
-        for(let i = 0 ; i < arrValid.length ; i++){
-            if(!this.state[arrValid[i]]){
+        for (let i = 0; i < arrValid.length; i++) {
+            if (!this.state[arrValid[i]]) {
                 isValid = false;
                 validKey = arrValid[i];
                 break;
             }
         }
-        if(isValid === false){
+        if (isValid === false) {
             alert('Missing parameter : ' + validKey);
             return isValid;
         }
@@ -92,10 +115,10 @@ class UserRedux extends Component {
     }
 
     handleSubmitUser = (event) => {
-        
+
         let isValid = this.checkValidate();
 
-        if(isValid === true){
+        if (isValid === true) {
             let data = {
                 email: this.state.email,
                 password: this.state.password,
@@ -103,12 +126,15 @@ class UserRedux extends Component {
                 lastName: this.state.lastName,
                 address: this.state.address,
                 phoneNumber: this.state.phoneNumber,
-                gender:this.state.gender ,
-                position:this.state.position ,
-                role:this.state.role ,
-                avatar:this.state.avatar
+                gender: this.state.gender,
+                position: this.state.position,
+                role: this.state.role,
+                avatar: this.state.avatar
             }
-            this.props.saveUserAction(data);
+            setTimeout(async () => {
+                await this.props.saveUserAction(data);
+            }, 1000)
+
         }
     }
 
@@ -117,13 +143,13 @@ class UserRedux extends Component {
         let language = this.props.language;
         let imagePreview = this.state.objectUrl;
 
-
         let { email, password, firstName, lastName, address
             , phoneNumber, gender, position, role, avatar }
             = this.state;
 
         return (
             <React.Fragment>
+
                 {isLoading ? <LoadingPage></LoadingPage> :
                     <div className="user-redux-container">
                         <div className="title">
@@ -215,9 +241,8 @@ class UserRedux extends Component {
                                             {this.state.arrAllCode.genders && this.state.arrAllCode.genders.map((item, index) => {
                                                 return (
                                                     <option key={index} value={item.key}>
-                                                        {this.state.language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                                     </option>
-
                                                 );
                                             }
                                             )}
@@ -236,7 +261,7 @@ class UserRedux extends Component {
                                             {this.state.arrAllCode.positions && this.state.arrAllCode.positions.map((item, index) => {
                                                 return (
                                                     <option key={index} value={item.key}>
-                                                        {this.state.language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                                     </option>
 
                                                 );
@@ -255,7 +280,7 @@ class UserRedux extends Component {
                                             {this.state.arrAllCode.roles && this.state.arrAllCode.roles.map((item, index) => {
                                                 return (
                                                     <option key={index} value={item.key}>
-                                                        {this.state.language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                                     </option>
 
                                                 );
@@ -284,7 +309,7 @@ class UserRedux extends Component {
                                     <button
                                         type="submit"
                                         class="btn btn-primary ml-3"
-                                        onClick={(event)=> this.handleSubmitUser(event)}
+                                        onClick={(event) => this.handleSubmitUser(event)}
                                     ><FormattedMessage id="menu.admin.Create"></FormattedMessage></button>
                                 </div>
 
@@ -296,11 +321,13 @@ class UserRedux extends Component {
                                 mainSrc={imagePreview}
                                 onCloseRequest={() => this.setState({ isOpen: false })}
                             />}
+
                     </div>}
+                <ManageUserTable></ManageUserTable>
+                
             </React.Fragment>
         );
     }
-
 
 }
 
@@ -315,7 +342,7 @@ let mapStateToProps = state => {
 let mapDispathToProps = dispatch => {
     return {
         fetchAllCodeStart: () => dispatch(actions.fetchAllCodeStart()),
-        saveUserAction : (data) => dispatch(actions.saveUserAction(data))
+        saveUserAction: (data) => dispatch(actions.saveUserAction(data))
     }
 }
 
