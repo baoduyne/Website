@@ -63,7 +63,8 @@
             "role" :"Role",
             "check-me-out" : "Check me out",
             "image" : "Ảnh đại diện",
-            "Create" : "Create"
+            "Create" : "Create",
+            "Edit" : "Edit"
 
         }
     }

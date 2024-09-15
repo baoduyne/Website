@@ -1,5 +1,5 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService ,createNewUserService,getAllUsers,deleteUserService} from "../../services/userService";
+import { getAllCodeService ,createNewUserService,getAllUsers,deleteUserService,editUserService} from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -147,19 +147,78 @@ export const fetchUsersFail = () =>{
 export const deleteUserStart = (id) =>{
     return async (dispatch,getState) => {
         try{
-            console.log('step 1');
+         
             dispatch({type:actionTypes.DELETE_USER_START})
             let res = await deleteUserService(id);
             if(res && res.errCode === 0){
                 dispatch(fetchUsersStart())
+                dispatch(deleteUsersSuccess())
             }
         }
 
         catch(e){
-            dispatch(fetchUsersFail())
+            dispatch(deleteUsersFail())
             console.log(e);
         }
     }
 
 }
+export const deleteUsersSuccess = (data) =>{
+    return {
+        type : actionTypes.FETCH_USERS_SUCCESS,
+        data : data
+    }
+}
 
+
+export const deleteUsersFail = () =>{
+    return {
+        type : actionTypes.FETCH_USERS_FAIL
+    }
+}
+
+
+
+export const editUserStart = (user) =>{
+    return async (dispatch,getState) => {
+        try{
+          
+            dispatch({type:actionTypes.EDIT_USER_START})
+            let res = await editUserService(user);
+            if(res && res.errCode === 0){
+                dispatch(fetchUsersStart())
+                dispatch(editUsersSuccess())
+                toast.success('Done!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    });
+            }
+        }
+
+        catch(e){
+            dispatch(editUsersFail())
+            console.log(e);
+        }
+    }
+
+}
+export const editUsersSuccess = (data) =>{
+    return {
+        type : actionTypes.EDIT_USER_SUCCESS,
+        data : data
+    }
+}
+
+
+export const editUsersFail = () =>{
+    return {
+        type : actionTypes.EDIT_USER_FAIL
+    }
+}

@@ -69,7 +69,7 @@ let handleDeleteUser = async (req,res) =>{
 
 let handleEditUser = async (req,res) =>{
     let data = req.body;
-    console.log("Check user node",data.id);
+    console.log("Check user node1",data);
     if(!data.id){
         res.status(200).json({
             errCode:1,

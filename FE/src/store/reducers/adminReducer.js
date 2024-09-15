@@ -83,6 +83,23 @@ const appReducer = (state = initialState, action) => {
                 ...copyState
             }
 
+            case actionTypes.EDIT_USER_START:
+                return {
+                    ...state
+                }
+            case actionTypes.EDIT_USER_SUCCESS:
+                copyState = { ...state };
+                copyState.isLoading = false;
+                return {
+                    ...copyState
+                }
+            case actionTypes.EDIT_USER_FAIL:
+                copyState = { ...state }
+                copyState.isLoading = false;
+                return {
+                    ...copyState
+                }
+
         default:
             return { state }
 

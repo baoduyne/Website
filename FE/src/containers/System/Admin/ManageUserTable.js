@@ -30,9 +30,11 @@ class ManageUserTable extends Component {
     }
 
     handleDeleteUser = (item) => {
-        console.log("run service");
+        
         this.props.deleteUserStart(item.id);
     }
+
+    
 
     render() {
         let arrUsers = this.state.arrUsers;
@@ -58,7 +60,7 @@ class ManageUserTable extends Component {
                                         <td>{item.lastName}</td>
                                         <td>{item.address}</td>
                                         <td>
-                                            <button className="btn-edit" onClick={() => this.handleEditUser(item)}><i className="far fa-edit"></i></button>
+                                            <button className="btn-edit" onClick={() => this.props.handleEditUser(item)}><i className="far fa-edit"></i></button>
                                             <button className="btn-delete" onClick={() => this.handleDeleteUser(item)}><i className="fas fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
