@@ -180,11 +180,13 @@ export const deleteUsersFail = () =>{
 
 
 export const editUserStart = (user) =>{
+   
     return async (dispatch,getState) => {
         try{
-          
+            alert("tset");
             dispatch({type:actionTypes.EDIT_USER_START})
             let res = await editUserService(user);
+            
             if(res && res.errCode === 0){
                 dispatch(fetchUsersStart())
                 dispatch(editUsersSuccess())

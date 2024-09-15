@@ -118,7 +118,7 @@ class UserRedux extends Component {
     }
 
     handleSubmitUser = (event) => {
-
+       
         let { action } = this.state;
         let data = {
             email: this.state.email,
@@ -133,7 +133,7 @@ class UserRedux extends Component {
             avatar: this.state.avatar,
             id : this.state.id
         }
-        console.log('check data',data);
+       
         if (action === ACTIONS.CREATE) {
             let isValid = this.checkValidate();
             if (isValid === true) {
@@ -143,8 +143,9 @@ class UserRedux extends Component {
 
             }
         }
-
+      
         if (action === ACTIONS.EDIT) {
+          
             setTimeout(async () => {
                 await this.props.editUserStart(data);
             }, 1000)
