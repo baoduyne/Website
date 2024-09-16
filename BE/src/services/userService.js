@@ -195,7 +195,7 @@ let editUser = (data) => {
                     errMessage: "User not found!"
                 })
             }
-            user.email = data.email;
+            
             user.firstName = data.firstName;
             user.lastName = data.lastName;
             user.address = data.address;

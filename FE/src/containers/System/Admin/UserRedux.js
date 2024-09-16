@@ -117,7 +117,7 @@ class UserRedux extends Component {
         return isValid;
     }
 
-    handleSubmitUser = (event) => {
+    handleSubmitUser = async (event) => {
        
         let { action } = this.state;
         let data = {
@@ -133,22 +133,23 @@ class UserRedux extends Component {
             avatar: this.state.avatar,
             id : this.state.id
         }
-       
+        
         if (action === ACTIONS.CREATE) {
             let isValid = this.checkValidate();
             if (isValid === true) {
-                setTimeout(async () => {
-                    await this.props.saveUserAction(data);
-                }, 1000)
-
+               
+                await this.props.saveUserAction(data);
             }
         }
       
         if (action === ACTIONS.EDIT) {
-          
-            setTimeout(async () => {
-                await this.props.editUserStart(data);
-            }, 1000)
+
+               await this.props.editUserStart(data);
+           
+             
+            // setTimeout(async () => {
+            //   //  await this.props.editUserStart(data);
+            // }, 1000)
         }
     }
 
@@ -183,7 +184,7 @@ class UserRedux extends Component {
         return (
             <React.Fragment>
 
-                {isLoading ? <LoadingPage></LoadingPage> :
+                 {isLoading ? <LoadingPage></LoadingPage> :
                     <div className="user-redux-container">
                         <div className="title">
                             <FormattedMessage id="menu.admin.redux-handle"></FormattedMessage>
