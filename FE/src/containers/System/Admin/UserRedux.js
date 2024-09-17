@@ -10,7 +10,8 @@ import './UserRedux.scss'
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import ManageUserTable from "./ManageUserTable";
-import { ACTIONS } from '../../../utils/constant'
+import { ACTIONS } from '../../../utils/constant';
+import CommonUtils from "../../../utils/CommonUtils";
 class UserRedux extends Component {
 
     constructor(props) {
@@ -37,7 +38,10 @@ class UserRedux extends Component {
     }
 
     componentDidMount = async () => {
-        await this.props.fetchAllCodeStart();
+        setTimeout(async() => {
+            await this.props.fetchAllCodeStart();
+        },1000);
+       
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -76,15 +80,17 @@ class UserRedux extends Component {
 
 
     }
-    handlePreviewImage = (event) => {
+    handlePreviewImage = async (event) => {
 
         let data = event.target.files;
         let file = data[0];
         if (file) {
-            this.setState({ avatar: file })
+            
             let objectUrl = URL.createObjectURL(file);
-            this.setState({ objectUrl: objectUrl })
-
+            let avtBase64 = await CommonUtils.getBase64(file);
+            this.setState({ 
+                avatar : avtBase64,
+                objectUrl: objectUrl });
         }
 
     }
@@ -118,8 +124,8 @@ class UserRedux extends Component {
     }
 
     handleSubmitUser = async (event) => {
-       
-        let { action } = this.state;
+    
+        
         let data = {
             email: this.state.email,
             password: this.state.password,
@@ -133,8 +139,8 @@ class UserRedux extends Component {
             avatar: this.state.avatar,
             id : this.state.id
         }
-        
-        if (action === ACTIONS.CREATE) {
+       
+        if (this.state.action === ACTIONS.CREATE) {
             let isValid = this.checkValidate();
             if (isValid === true) {
                
@@ -142,11 +148,10 @@ class UserRedux extends Component {
             }
         }
       
-        if (action === ACTIONS.EDIT) {
+        if (this.state.action === ACTIONS.EDIT) {
 
                await this.props.editUserStart(data);
-           
-             
+               this.setState({action:ACTIONS.CREATE})
             // setTimeout(async () => {
             //   //  await this.props.editUserStart(data);
             // }, 1000)
@@ -154,6 +159,10 @@ class UserRedux extends Component {
     }
 
     handleEditUser = (user) => {
+        let imageBase64 = '';
+        if(user.avatar){
+            imageBase64 = new Buffer(user.avatar,'base64').toString('binary');
+        }
 
         this.setState({
             email: user.email,
@@ -168,6 +177,8 @@ class UserRedux extends Component {
             avatar: user.avatar,
             action: ACTIONS.EDIT,
             id:user.id,
+
+            objectUrl : imageBase64,
         })
 
     }

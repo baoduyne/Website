@@ -42,7 +42,18 @@ let handleGetAllUsers = async (req, res) => {
     
 }
 
+function getBase64ImageSize(base64String) {
+    // Remove the data URL prefix if it exists
+    const base64WithoutPrefix = base64String.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+    
+    // Calculate the size
+    const sizeInBytes = (base64WithoutPrefix.length * 3) / 4;
+    return sizeInBytes;
+}
+
 let handleCreateNewUser = async (req, res) => {
+    let size = getBase64ImageSize(req.body.avatar);
+    console.log(size);
     let message = await userService.createNewUser(req.body);
 
     return res.status(200).json({

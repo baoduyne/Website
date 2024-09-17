@@ -107,6 +107,7 @@ let getAllUsers = async (userId) => {
     })
 }
 
+
 let createNewUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -118,6 +119,7 @@ let createNewUser = (data) => {
                 })
             }
             let hashPasswordFromBcrypt = await hashUserPassword(data.password);
+            const avatarBuffer = data.avatar instanceof Buffer ? data.avatar : Buffer.from(data.avatar, 'base64');
             await db.User.create({
                 email: data.email,
                 password: hashPasswordFromBcrypt,
@@ -125,18 +127,22 @@ let createNewUser = (data) => {
                 lastName: data.lastName,
                 address: data.address,
                 phoneNumber: data.phoneNumber,
-                
+                avatar : data.avatar,
                 gender: data.gender,
                 roleId: data.role,
                 positionId : data.position
             })
+            
+     
             resolve({
                 errCode: 0,
                 errMessage: "OK",
             });
         }
         catch (e) {
-            reject(e);
+            console.log('start');
+            console.log(e);
+            //reject(e);
         }
     })
 }
@@ -202,8 +208,8 @@ let editUser = (data) => {
             user.roleId = data.roleId;
             user.positionId = data.positionId;
             user.gender = data.gender;
-            user.phoneNumber = data.phoneNumber
-
+            user.phoneNumber = data.phoneNumber;
+            user.avatar = data.avatar;
 
             await user.save();
             resolve({

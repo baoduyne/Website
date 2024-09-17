@@ -13,10 +13,11 @@ class ManageUserTable extends Component {
         }
     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.props.fetchUsersStart();
-        }, 2000);
+    componentDidMount = async () => {
+        setTimeout(async() => {
+            await this.props.fetchUsersStart();
+        },2000);
+       
        
 
     }
