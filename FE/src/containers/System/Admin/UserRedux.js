@@ -71,9 +71,9 @@ class UserRedux extends Component {
             
             this.setState({
                 arrAllCode: this.props.allCodeData,
-                gender: genders && genders.length > 0 && genders[0].key,
-                position: positions && genders.length > 0 && positions[0].key,
-                role: roles && roles.length > 0 && roles[0].key
+                gender: genders && genders.length > 0 && genders[0].keyMap,
+                position: positions && genders.length > 0 && positions[0].keyMap,
+                role: roles && roles.length > 0 && roles[0].keyMap
             })
 
         }
@@ -288,7 +288,7 @@ class UserRedux extends Component {
 
                                             {this.state.arrAllCode.genders && this.state.arrAllCode.genders.map((item, index) => {
                                                 return (
-                                                    <option key={index} value={item.key}>
+                                                    <option key={index} value={item.keyMap}>
                                                         {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                                     </option>
                                                 );
@@ -309,7 +309,7 @@ class UserRedux extends Component {
                                         >
                                             {this.state.arrAllCode.positions && this.state.arrAllCode.positions.map((item, index) => {
                                                 return (
-                                                    <option key={index} value={item.key}>
+                                                    <option key={index} value={item.keyMap}>
                                                         {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                                     </option>
 
@@ -328,7 +328,7 @@ class UserRedux extends Component {
                                         >
                                             {this.state.arrAllCode.roles && this.state.arrAllCode.roles.map((item, index) => {
                                                 return (
-                                                    <option key={index} value={item.key}>
+                                                    <option key={index} value={item.keyMap}>
                                                         {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                                     </option>
 
