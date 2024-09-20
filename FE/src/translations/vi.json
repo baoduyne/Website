@@ -21,6 +21,23 @@
         "health-psy": "Sức khỏe tinh thần",
         "tooth-test": "Khám nha khoa"
     },
+    "section" : {
+        "pupularSpecialty" : "Chuyên khoa phổ biến",
+        "more" : "Xem thêm",
+        "medicalFacility" : "Cơ sở",
+        "outStandingDoctors":"Bác sĩ nổi bật tuần qua",
+        "handBook" : "Cẩm nang",
+        "neccessaryInformation" : "Thông tin cần thiết",
+        "footer-1":"Website này được phát triển bởi Bao Duy với mục đích học hỏi và cải thiện kỹ năng",
+        "footer-2":"© Dự án cá nhân. Toàn bộ bản quyền được bảo vệ",
+        "footer-link1":"Điều Khoản",
+        "footer-link2":"Giới Thiệu",
+        "footer-link3":"Thông Tin",
+        "footer-link4":"Chính Sách",
+        "footer-link5":"Đăng Nhập",
+        "footer-link6":"Email"
+
+    },
     "menu": {
         "system": {
             "header": "Quản lý",

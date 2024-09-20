@@ -10,8 +10,13 @@ let getTopDoctorHome = (limit) => {
                 where : {roleId : 'R2'},
                 attributes: {
                     exclude: ['password']
-                }
-
+                },
+                include:[
+                    {model : db.Allcode,as:'positionData',attributes:['valueEn','valueVi']},
+                    {model : db.Allcode,as:"genderData",attributes:['valueEn','valueVi']}
+                ],
+                raw : true,
+                nest:true
             })
 
             if (users) {

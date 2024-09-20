@@ -201,7 +201,7 @@ let editUser = (data) => {
                     errMessage: "User not found!"
                 })
             }
-            
+            const avatarBuffer = data.avatar instanceof Buffer ? data.avatar : Buffer.from(data.avatar, 'base64');
             user.firstName = data.firstName;
             user.lastName = data.lastName;
             user.address = data.address;
@@ -209,7 +209,7 @@ let editUser = (data) => {
             user.positionId = data.positionId;
             user.gender = data.gender;
             user.phoneNumber = data.phoneNumber;
-            user.avatar = data.avatar;
+            user.avatar = avatarBuffer;
 
             await user.save();
             resolve({

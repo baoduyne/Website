@@ -115,7 +115,7 @@ export const fetchUsersStart = () => {
         try {
 
             dispatch({ type: actionTypes.FETCH_ALLCODE_START })
-
+            
             let res = await getAllUsers('ALL');
 
 
@@ -187,7 +187,7 @@ export const editUserStart = (user) => {
 
     return async (dispatch, getState) => {
         try {
-
+            
             dispatch({ type: actionTypes.EDIT_USER_START })
             let res = await editUserService(user);
             if (res && res.errCode === 0) {

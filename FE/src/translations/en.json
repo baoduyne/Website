@@ -23,6 +23,24 @@
 
     },
 
+    "section" : {
+        "pupularSpecialty" : "Popular specialties",
+        "more" : "More",
+        "medicalFacility" : "Facilities",
+        "outStandingDoctors":"Out standing doctor last week",
+        "handBook" : "Hand book",
+        "neccessaryInformation" : "Neccessary informations",
+        "footer-1":"This website was developed by Bao Duy with purposes acquire knownledge and improve skills",
+        "footer-2":"© Indipendent Project. All Rights Reserved",
+        "footer-link1":"Privacy & Terms of Use",
+        "footer-link2":"About Me",
+        "footer-link3":"Why Trust Me",
+        "footer-link4":"Editorial Policy",
+        "footer-link5":"Login",
+        "footer-link6":"Email Me"
+
+    },
+
     "menu": {
         "system": {
             "header": "System",
@@ -68,5 +86,7 @@
 
         }
     }
+
+
 
 }

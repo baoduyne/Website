@@ -38,13 +38,16 @@ class UserRedux extends Component {
     }
 
     componentDidMount = async () => {
-        setTimeout(async() => {
+       // setTimeout(async() => {
             await this.props.fetchAllCodeStart();
-        },1000);
+       // }, 1000);
+            
+        
        
     }
 
     componentDidUpdate(prevProps, prevState) {
+      
         if (prevProps.allCodeData.users !== this.props.allCodeData.users) {
             this.setState({
                 email: '',
@@ -149,9 +152,9 @@ class UserRedux extends Component {
         }
       
         if (this.state.action === ACTIONS.EDIT) {
-
+          
                await this.props.editUserStart(data);
-               this.setState({action:ACTIONS.CREATE})
+          
             // setTimeout(async () => {
             //   //  await this.props.editUserStart(data);
             // }, 1000)
@@ -191,10 +194,10 @@ class UserRedux extends Component {
         let { email, password, firstName, lastName, address
             , phoneNumber, gender, position, role, avatar,action }
             = this.state;
-
+         
+        
         return (
             <React.Fragment>
-
                  {isLoading ? <LoadingPage></LoadingPage> :
                     <div className="user-redux-container">
                         <div className="title">
@@ -403,3 +406,21 @@ let mapDispathToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(UserRedux);
+
+
+
+/*Net work :
+- packet + IP = IP datagram
+- IP + MAC = ARP 
+
+
+
+
+
+
+*/
+//0 - 126   16 mili
+//128 - 191 64 thousand
+//192 - 224  254 
+//224 - 239
+//240 - 255

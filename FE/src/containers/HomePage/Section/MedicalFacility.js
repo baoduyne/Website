@@ -13,8 +13,8 @@ class MedicalFacility extends Component {
             
            
                 <div className="section-detail">
-                    <span>Cơ sở</span>
-                    <button>Xem thêm</button>
+                    <span><FormattedMessage id ='section.medicalFacility'></FormattedMessage></span>
+                    <button><FormattedMessage id = "section.more"></FormattedMessage></button>
                 </div>
                   <Carousel
                    swipeable={false}

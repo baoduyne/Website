@@ -31,8 +31,8 @@ class Specialty extends Component {
                     </div>
                 </div> */}
                     <div className="section-detail">
-                        <span>Chuyên khoa phổ biến</span>
-                        <button>Xem thêm</button>
+                        <span><FormattedMessage id = "section.pupularSpecialty"></FormattedMessage></span>
+                        <button><FormattedMessage id = 'section.more'></FormattedMessage></button>
                     </div>
                       <Carousel
                        swipeable={false}
