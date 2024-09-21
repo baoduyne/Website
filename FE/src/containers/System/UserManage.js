@@ -117,87 +117,92 @@ class UserManage extends Component {
             console.log(e);
         }
     }
-   
-render() {
-    const mdStr = `# This is a H1  \n## This is a H2  \n###### This is a H6`;
-    console.log('this 1', this.props.isLoggedIn);
-    let arrUsers = this.state.arrUsers;
-    const mdParser = new MarkdownIt(/* Markdown-it options */);
 
-    // Finish!
-    function handleEditorChange({ html, text }) {
-        console.log('handleEditorChange', html, text);
-    }
 
-    return (
-        <div className="user-container">
-            <ModalUser
-                toggleFromParent={this.toggleUserModal}
-                isOpen={this.state.isOpenModalUser}
-                createNewUser={this.createNewUser}
-            >
-            </ModalUser>
-            {
-                this.state.isOpenModalEditUser &&
-                <ModalEditUser
-                    toggleFromParent={this.toggleEditUserModal}
-                    isOpen={this.state.isOpenModalEditUser}
-                    editUser={this.editUser}
-                    currentUser={this.state.userEdit}
+
+    render() {
+        const mdStr = `# This is a H1  \n## This is a H2  \n###### This is a H6`;
+        console.log('this 1', this.props.isLoggedIn);
+        let arrUsers = this.state.arrUsers;
+        const mdParser = new MarkdownIt(/* Markdown-it options */);
+
+        // Finish!
+        function handleEditorChange({ html, text }) {
+            console.log('handleEditorChange', html, text);
+        }
+
+        return (
+            <div className="user-container">
+                <ModalUser
+                    toggleFromParent={this.toggleUserModal}
+                    isOpen={this.state.isOpenModalUser}
+                    createNewUser={this.createNewUser}
                 >
+                </ModalUser>
+                {
+                    this.state.isOpenModalEditUser &&
+                    <ModalEditUser
+                        toggleFromParent={this.toggleEditUserModal}
+                        isOpen={this.state.isOpenModalEditUser}
+                        editUser={this.editUser}
+                        currentUser={this.state.userEdit}
+                    >
 
-                </ModalEditUser>
-            }
-            <div className='title text-center'>Manage</div>
-            <div className="mx-1">
-                <button
-                    onClick={(event) => this.handleAddNewUser(event)}
-                    className="btn btn-primary px-3"><i className="fas fa-plus pe-3"></i>Add new users</button>
+                    </ModalEditUser>
+                }
+                <div className='title text-center'>Manage</div>
+                <div className="mx-1">
+                    <button
+                        onClick={(event) => this.handleAddNewUser(event)}
+                        className="btn btn-primary px-3"><i className="fas fa-plus pe-3"></i>Add new users</button>
+                </div>
+                <div className="user-table mt-4 mx-1">
+
+                    <table id="customers">
+                        <tbody>
+                            <tr>
+                                <th>Email</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>Address</th>
+                                <th>Actions</th>
+                            </tr>
+
+                            {arrUsers && arrUsers.map((item, index) => {
+                                return (
+                                    <tr>
+
+                                        <td>{item.email}</td>
+                                        <td>{item.firstName}</td>
+                                        <td>{item.lastName}</td>
+                                        <td>{item.address}</td>
+                                        <td>
+                                            <button className="btn-edit" onClick={() => this.handleEditUser(item)}><i className="far fa-edit"></i></button>
+                                            <button className="btn-delete" onClick={() => this.handleDeleteUser(item)}><i className="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <MdEditor
+                    style={{ height: '500px' }}
+                    renderHTML={text => mdParser.render(text)}
+                    onChange={(event) => handleEditorChange(event)} />
             </div>
-            <div className="user-table mt-4 mx-1">
 
-                <table id="customers">
-                    <tbody>
-                        <tr>
-                            <th>Email</th>
-                            <th>FirstName</th>
-                            <th>LastName</th>
-                            <th>Address</th>
-                            <th>Actions</th>
-                        </tr>
-
-                        {arrUsers && arrUsers.map((item, index) => {
-                            return (
-                                <tr>
-
-                                    <td>{item.email}</td>
-                                    <td>{item.firstName}</td>
-                                    <td>{item.lastName}</td>
-                                    <td>{item.address}</td>
-                                    <td>
-                                        <button className="btn-edit" onClick={() => this.handleEditUser(item)}><i className="far fa-edit"></i></button>
-                                        <button className="btn-delete" onClick={() => this.handleDeleteUser(item)}><i className="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                            )
-                        })
-
-                        }
-                    </tbody>
-                </table>
-
-            </div>
-
-            <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={handleEditorChange} />
-        </div>
-
-    );
+        );
 
 
 
 
 
-}
+    }
 
 }
 
