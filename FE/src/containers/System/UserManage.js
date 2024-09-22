@@ -7,11 +7,6 @@ import ModalUser from './ModalUser';
 import ModalEditUser from './ModalEditUser';
 import { Modal } from 'reactstrap';
 import { emitter } from '../../utils/emitter';
-import * as ReactDOM from 'react-dom';
-import MarkdownIt from 'markdown-it';
-import MdEditor from 'react-markdown-editor-lite';
-// import style manually
-import 'react-markdown-editor-lite/lib/index.css';
 class UserManage extends Component {
 
     constructor(props) {
@@ -124,13 +119,6 @@ class UserManage extends Component {
         const mdStr = `# This is a H1  \n## This is a H2  \n###### This is a H6`;
         console.log('this 1', this.props.isLoggedIn);
         let arrUsers = this.state.arrUsers;
-        const mdParser = new MarkdownIt(/* Markdown-it options */);
-
-        // Finish!
-        function handleEditorChange({ html, text }) {
-            console.log('handleEditorChange', html, text);
-        }
-
         return (
             <div className="user-container">
                 <ModalUser
@@ -190,10 +178,7 @@ class UserManage extends Component {
 
                 </div>
 
-                <MdEditor
-                    style={{ height: '500px' }}
-                    renderHTML={text => mdParser.render(text)}
-                    onChange={(event) => handleEditorChange(event)} />
+        
             </div>
 
         );
