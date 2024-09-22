@@ -117,7 +117,6 @@ class UserManage extends Component {
 
     render() {
         const mdStr = `# This is a H1  \n## This is a H2  \n###### This is a H6`;
-        console.log('this 1', this.props.isLoggedIn);
         let arrUsers = this.state.arrUsers;
         return (
             <div className="user-container">

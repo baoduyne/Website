@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 class Home extends Component {
+
     constructor(props){
         super(props);
         this.state = {
-            isLoggedIn : false
+            isLoggedIn : false,
         }
     }
-    componentDidMount(){
 
+    componentDidUpdate(prevProps,prevState){
+        if(prevProps.data!= this.props.data){
+            this.setState({isLoggedIn : this.props.isLoggedIn})
+        }
     }
 
-
     render() {
-        
-        console.log("check redux",this.props.data);
-        this.setState({
-            isLoggedIn : this.props.isLoggedIn
-        })
+       
+        console.log('check redux',this.state);  
         let linkToRedirect = this.state.isLoggedIn ? '/home' : '/system/user-manage';
         return (
             <Redirect to={linkToRedirect}/>
@@ -30,8 +30,9 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
+        systemMenuPath: state.app.systemMenuPath,
         isLoggedIn: state.user.isLoggedIn,
-        data:state    
+        data:state.user,   
     };
 };
 
