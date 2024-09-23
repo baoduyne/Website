@@ -8,7 +8,8 @@ const initialState = {
     times: [],
     status: [],
     users: [],
-    topDoctors: []
+    topDoctors: [],
+    allDoctors : []
 }
 
 const appReducer = (state = initialState, action) => {
@@ -105,15 +106,32 @@ const appReducer = (state = initialState, action) => {
                 ...state
             }
         case actionTypes.FETCH_TOP_DOCTORS_SUCCESS:
-          
+
             copyState = { ...state }
             copyState.topDoctors = action.data;
-           
+
             copyState.isLoading = false;
             return {
                 ...copyState
             }
         case actionTypes.FETCH_TOP_DOCTORS_FAIL:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+        case actionTypes.GET_ALL_DOCTORS_START:
+            return {
+                ...state
+            }
+        case actionTypes.GET_ALL_DOCTORS_SUCCESS:
+            copyState = { ...state }
+            copyState.allDoctors = action.data;
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+        case actionTypes.GET_ALL_DOCTORS_FAIL:
             copyState = { ...state }
             copyState.isLoading = false;
             return {

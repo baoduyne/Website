@@ -1,5 +1,7 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService, createNewUserService, getAllUsers, deleteUserService, editUserService, getTopDoctorHomeService } from "../../services/userService";
+import { getAllCodeService, createNewUserService, getAllUsers, 
+deleteUserService, editUserService, 
+getTopDoctorHomeService,getAllDoctorsService } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -258,5 +260,38 @@ export const fetchDoctorSuccess = (data) => {
 export const fetchDoctorFail = () => {
     return {
         type: actionTypes.FETCH_TOP_DOCTORS_FAIL
+    }
+}
+
+
+export const getAllDoctorsStart = () =>{
+    return async (dispatch,getState) =>{
+        try{
+          
+            dispatch({type : actionTypes.GET_ALL_DOCTORS_START})
+            let res = await getAllDoctorsService();
+            
+            if(res && res.errCode === 0){
+                dispatch(getAllDoctorsSuccess(res.data));
+            }
+        }
+        catch(e){
+            console.log(e);
+            dispatch(getAllDoctorsFail());
+        }
+    }
+
+}
+
+export const getAllDoctorsSuccess = (data) =>{
+    return {
+        type : actionTypes.GET_ALL_DOCTORS_SUCCESS,
+        data : data
+    }
+}
+
+export const getAllDoctorsFail = () =>{
+    return {
+        type : actionTypes.GET_ALL_DOCTORS_FAIL
     }
 }

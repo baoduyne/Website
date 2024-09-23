@@ -34,7 +34,28 @@ let getTopDoctorHome = (limit) => {
     })
 }
 
+ let getAllDoctors = () =>{
+    return new Promise( async (resolve,reject) =>{
+        try{
+            let doctors = await db.User.findAll({
+                where : {roleId : 'R2'},
+                attributes: {
+                    exclude: ['password','avatar']
+                },
+            })
+          
+            resolve({
+                doctors
+            })
+        }
+        catch(e){
+            reject(e);
+        }
+    }) 
+ }
+
 
 module.exports = {
-    getTopDoctorHome: getTopDoctorHome
+    getTopDoctorHome: getTopDoctorHome,
+    getAllDoctors : getAllDoctors
 }

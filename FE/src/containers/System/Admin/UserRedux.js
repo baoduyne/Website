@@ -66,7 +66,7 @@ class UserRedux extends Component {
         }
 
 
-        if (prevProps & (prevProps.allCodeData !== this.props.allCodeData)) {
+        if ((prevProps.allCodeData !== this.props.allCodeData)) {
 
             let genders = this.props.allCodeData.genders;
             let positions = this.props.allCodeData.positions;
