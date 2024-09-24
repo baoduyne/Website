@@ -1,6 +1,7 @@
 .manage-doctor-container {
     width: 100%;
     height: 1000px;
+
     .manage-doctor-title {
         margin: 40px 0;
         text-align: center;
@@ -13,40 +14,112 @@
     }
 
     .manage-doctor-content {
-        height:80% ;
+        height: 80%;
         width: 100%;
         padding: 0 40px;
         display: flex;
         flex-direction: column;
-        gap:50px;
+        gap: 100px;
+
         .section1 {
             width: 100%;
-            height:30%;
+            height: 100%;
             display: flex;
             flex-direction: row;
-            gap: 30px;
-            .content-left{
-                width: 30%;
+            gap: 40px;
+
+            .content-left {
+                width: 50%;
+                height: 100%;
                 display: flex;
                 flex-direction: column;
                 gap: 30px;
-              
+                .form-control{
+                    height: 95px;
+                }
             }
 
-            .content-right{
-                width: 70%;
-                border: 1px solid red;
+            .content-right {
+                width: 50%;
+                height: 90%;
+                .preview-description {
+                    // border: 1px solid #d9d9d9;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    gap:0px;
+                    margin-top: 20px;
+                    .section1 {
+                        width: 28%;
+                        height: 100%;
+                      
+
+                        .avatar {
+                            width: 80%;
+                            height: 80%;
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            border-radius: 150px;
+                            
+                            
+                        }
+
+                    }
+
+                    .section2 {
+                        width: 70%;
+                        height: 100%;
+                     
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+
+                        .name-doctor {
+                            font-weight: 700;
+                            font-size: 120%;
+                        }
+
+                        .description {
+                            
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+
+                            .text-description{
+                                    opacity: 0.7;
+                                    font-size: 105%;
+                            }
+                            .address-description {
+                                display: flex;
+                                flex-direction: row;
+                                gap: 5px;
+                                opacity: 1 ; 
+
+                                i {
+                                    font-size: 150%;
+                                }
+
+                                p {}
+                            }
+                        }
+
+                    }
+
+                }
             }
         }
 
         .section2 {
+            height: 60%;
+
             .markdown {
                 .rc-md-editor .editor-container .sec-md .input {
-                    overflow:auto;
+                    overflow: auto;
                 }
 
                 .markdown-btn {
-                    margin-top:50px;
+                    margin-top: 50px;
                     width: 70px;
                 }
             }

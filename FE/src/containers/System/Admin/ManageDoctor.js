@@ -20,6 +20,7 @@ class ManageDoctor extends Component {
             contentMarkdown: '',
             contentHTML: '',
             allDoctors: '',
+            avatar: '',
         }
     }
     componentDidMount = async () => {
@@ -28,22 +29,30 @@ class ManageDoctor extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.allDoctors != this.props.allDoctors) {
+        if (prevProps.allDoctors !== this.props.allDoctors) {
             let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors);
-           
-            this.setState({allDoctors : dataInputSelect});
+            this.setState({
+                allDoctors: dataInputSelect,
+                selectedOption: dataInputSelect[0]
+            });
         }
+        if (prevProps.language !== this.props.language) {
+            let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors);
+            this.setState({ allDoctors: dataInputSelect });
+        }
+
+        // if(prevState)
     }
 
 
     builtDataInputSelect = (inputData) => {
         let result = [];
-        console.log('teeee',inputData)
+
         if (inputData) {
             inputData.map((item, index) => {
                 let object = {};
-                let valueVi = item.firstName + item.lastName;
-                let valueEn = item.lastName + item.firstName;
+                let valueVi = item.firstName + " " + item.lastName;
+                let valueEn = item.lastName + " " + item.firstName;
 
                 object.value = item.id;
                 object.label = this.props.language === LANGUAGES.VI ? valueVi : valueEn;
@@ -69,6 +78,7 @@ class ManageDoctor extends Component {
     handleChange = (selectedOption) => {
         let copyState = { ...this.state };
         copyState.selectedOption = selectedOption;
+
         this.setState({
             ...copyState
         })
@@ -76,7 +86,12 @@ class ManageDoctor extends Component {
     };
 
     handleOnclickMarkDown = (event) => {
-        console.log('test state', this.state);
+        this.props.saveSelectDoctorStart({
+            contentHTML: this.state.contentHTML,
+            contentMarkdown: this.state.contentMarkdown,
+            description: this.state.description,
+            doctorId: this.state.selectedOption.value,
+        })
     }
 
     handleDescriptionArea = (event) => {
@@ -88,11 +103,42 @@ class ManageDoctor extends Component {
 
     }
 
-    render() {
-        const { selectedOption } = this.state;
-        const mdParser = new MarkdownIt(/* Markdown-it options */);
-        return (
+    handlePreviewDescription = () => {
+        let object = {};
 
+        if (this.state.allDoctors && this.state.allDoctors.length > 0 && this.props.allDoctors) {
+            this.props.allDoctors.map((item, index) => {
+
+                if (item.id === this.state.selectedOption.value) {
+                    object = item;
+                }
+            })
+        }
+        let avtBase64 = '';
+        if (object.avatar) {
+            avtBase64 = new Buffer(object.avatar, 'base64').toString('binary');
+        }
+        if (avtBase64 !== '' && avtBase64 !== this.state.avatar) {
+            this.setState({
+                avatar: avtBase64
+            })
+        }
+
+        return object;
+    }
+
+    render() {
+        const { selectedOption, avatar } = this.state;
+        const mdParser = new MarkdownIt(/* Markdown-it options */);
+        let object = this.handlePreviewDescription();
+        let valueVi = '';
+        let valueEn = '';
+        if (object.positionData) { valueVi = object.positionData.valueVi; }
+        if (object.positionData) { valueEn = object.positionData.valueEn; }
+
+        console.log('ttttt', object);
+        console.log('ttttt1111', object.positionData);
+        return (
             <div className='manage-doctor-container'>
                 <div className='manage-doctor-title'>MANAGE DOCTORS FROM ADMIN</div>
                 <div className='manage-doctor-content'>
@@ -111,15 +157,42 @@ class ManageDoctor extends Component {
                                 <textarea
                                     onChange={(event) => this.handleDescriptionArea(event)}
                                     id='description'
-                                    className="form-control"
+                                    className="form-control "
                                     value={this.state.description}
+                                    
                                 ></textarea>
                             </div>
 
 
                         </div>
                         <div className='content-right'>
+                            <div className='preview-description'>
+                                <div className='section1'>
+                                    <div
+                                        className='avatar'
+                                        style={{ backgroundImage: `url(${this.state.avatar})` }}
+                                    >
+                                    </div>
 
+                                </div>
+                                <div className='section2'>
+                                    <div className='name-doctor'>
+                                        {this.props.language === LANGUAGES.VI ?
+                                            valueVi + ' ' + object.firstName + ' ' + object.lastName :
+                                            valueEn + ' ' + object.lastName + ' ' + object.firstName}
+                                    </div>
+                                    <div className='description'>
+                                        <div className='text-description'>
+                                        {this.state.description}
+                                        </div>
+                                        <div className='address-description'>
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <p>{object.address}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className='section2'>
@@ -150,7 +223,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getAllDoctorsStart: () => dispatch(actions.getAllDoctorsStart())
+        getAllDoctorsStart: () => dispatch(actions.getAllDoctorsStart()),
+        saveSelectDoctorStart: (inforDoctor) => dispatch(actions.saveSelectDoctorStart(inforDoctor))
     };
 };
 

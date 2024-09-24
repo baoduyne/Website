@@ -1,7 +1,10 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService, createNewUserService, getAllUsers, 
-deleteUserService, editUserService, 
-getTopDoctorHomeService,getAllDoctorsService } from "../../services/userService";
+import {
+    getAllCodeService, createNewUserService, getAllUsers,
+    deleteUserService, editUserService,
+    getTopDoctorHomeService, getAllDoctorsService,
+    saveSelectDoctorService
+} from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -117,7 +120,7 @@ export const fetchUsersStart = () => {
         try {
 
             dispatch({ type: actionTypes.FETCH_ALLCODE_START })
-            
+
             let res = await getAllUsers('ALL');
 
 
@@ -189,7 +192,7 @@ export const editUserStart = (user) => {
 
     return async (dispatch, getState) => {
         try {
-            
+
             dispatch({ type: actionTypes.EDIT_USER_START })
             let res = await editUserService(user);
             if (res && res.errCode === 0) {
@@ -264,18 +267,18 @@ export const fetchDoctorFail = () => {
 }
 
 
-export const getAllDoctorsStart = () =>{
-    return async (dispatch,getState) =>{
-        try{
-          
-            dispatch({type : actionTypes.GET_ALL_DOCTORS_START})
+export const getAllDoctorsStart = () => {
+    return async (dispatch, getState) => {
+        try {
+
+            dispatch({ type: actionTypes.GET_ALL_DOCTORS_START })
             let res = await getAllDoctorsService();
-            
-            if(res && res.errCode === 0){
+
+            if (res && res.errCode === 0) {
                 dispatch(getAllDoctorsSuccess(res.data));
             }
         }
-        catch(e){
+        catch (e) {
             console.log(e);
             dispatch(getAllDoctorsFail());
         }
@@ -283,15 +286,83 @@ export const getAllDoctorsStart = () =>{
 
 }
 
-export const getAllDoctorsSuccess = (data) =>{
+export const getAllDoctorsSuccess = (data) => {
     return {
-        type : actionTypes.GET_ALL_DOCTORS_SUCCESS,
-        data : data
+        type: actionTypes.GET_ALL_DOCTORS_SUCCESS,
+        data: data
     }
 }
 
-export const getAllDoctorsFail = () =>{
+export const getAllDoctorsFail = () => {
     return {
-        type : actionTypes.GET_ALL_DOCTORS_FAIL
+        type: actionTypes.GET_ALL_DOCTORS_FAIL
+    }
+}
+
+export const saveSelectDoctorStart = (inforDoctor) => {
+    return async (dispatch, getState) => {
+        try {
+            
+            dispatch({ type: actionTypes.SAVE_SELECT_DOCTOR_START })
+            let res = await saveSelectDoctorService(inforDoctor);
+
+            if (res && res.errCode === 0) {
+                dispatch(saveSelectDoctorSuccess());
+                toast.success('Save doctor information completed!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                })
+            }
+
+            else {
+                toast.fail('Save doctor failed!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                })
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(saveSelectDoctorFail());
+            toast.fail('Save doctor failed!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            })
+        }
+    }
+
+}
+
+export const saveSelectDoctorSuccess = () => {
+    return {
+        type: actionTypes.SAVE_SELECT_DOCTOR_SUCCESS,
+       
+    }
+}
+
+export const saveSelectDoctorFail = () => {
+    return {
+        type: actionTypes.SAVE_SELECT_DOCTOR_FAIL
     }
 }

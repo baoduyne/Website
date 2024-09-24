@@ -129,5 +129,6 @@ module.exports = {
     handleCreateNewUser: handleCreateNewUser,
     handleEditUser : handleEditUser,
     handleDeleteUser : handleDeleteUser,
-    getAllCode : getAllCode
+    getAllCode : getAllCode,
+    
 }

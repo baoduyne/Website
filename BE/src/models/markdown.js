@@ -14,15 +14,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Markdown.init({
-    contentHTML : DataTypes.TEXT('long'),
-    contentMarkdown : DataTypes.TEXT('long'),
-    description : DataTypes.TEXT,
-    doctorId : DataTypes.INTEGER,
-    specialtyId : DataTypes.INTEGER,
-    clinicId:DataTypes.INTEGER
+    contentHTML: DataTypes.TEXT('long'),
+    contentMarkdown: DataTypes.TEXT('long'),
+    description: DataTypes.TEXT,
+    doctorId: DataTypes.INTEGER,
+    specialtyId: DataTypes.INTEGER,
+    clinicId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Markdown',
   });
+  Markdown.sync({ alter: true });
   return Markdown;
 };
