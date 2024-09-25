@@ -81,8 +81,31 @@ let saveSelectDoctor = (inforDoctor) => {
     })
 }
 
+let getDoctorMarkdown = (id) =>{
+    return new Promise( async (resolve,reject) =>{
+        try{
+            let data = await db.User.findOne({
+                where : {id:id},
+                attributes : {
+                    exclude : ['password','avatar']
+                },
+                include : [{model:db.Markdown}]
+            })
+
+           if(data){
+            resolve(data); 
+           }
+        }
+        catch(e){
+            console.log(e);
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getTopDoctorHome: getTopDoctorHome,
     getAllDoctors: getAllDoctors,
-    saveSelectDoctor: saveSelectDoctor
+    saveSelectDoctor: saveSelectDoctor,
+    getDoctorMarkdown : getDoctorMarkdown
 }

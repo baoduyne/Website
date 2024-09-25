@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { FOREIGNKEYS } = require('sequelize/lib/query-types');
 module.exports = (sequelize, DataTypes) => {
   class Markdown extends Model {
     /**
@@ -10,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Markdown.belongsTo(models.User,{foreignKey:'doctorId'})
     }
   }
   Markdown.init({
