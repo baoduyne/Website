@@ -5,6 +5,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils/constant';
+import { Redirect, withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 class OutStandingDoctor extends Component {
 
     constructor(props) {
@@ -24,6 +25,11 @@ class OutStandingDoctor extends Component {
         if (prevProps.topDoctors != this.props.topDoctors) {
             this.setState({ arrDoctor: this.props.topDoctors });
         }
+    }
+
+    handleDetailDoctor = (doctor) =>{
+        this.props.history.push(`/detail-doctor/${doctor.id}`)
+       //<Redirect to = {`/detail-doctor/${doctor.id}`}></Redirect>
     }
     render() {
         let language = this.props.language;
@@ -65,7 +71,10 @@ class OutStandingDoctor extends Component {
                                 let nameVi = `${item.positionData.valueVi} ${item.firstName} ${item.lastName}`;
                                 let nameEn = `${item.positionData.valueEn} ${item.firstName} ${item.lastName}`;
                                 return (
-                                    <div className='section-items'>
+                                    <div 
+                                    className='section-items'
+                                    onClick={() =>this.handleDetailDoctor(item)}
+                                    >
                                         <div style={{ backgroundImage: `url(${avatarUrl})` }} className='section-image section-outstanding-doctor'></div>
                                         <div className='section-text section-outstanding-doctor'>
                                            {language === LANGUAGES.VI ? nameVi : nameEn}
@@ -99,4 +108,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor));

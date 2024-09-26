@@ -47,7 +47,7 @@ class HomePage extends Component {
         };
         return (
             <div>
-                <HomeHeader></HomeHeader>
+                <HomeHeader isShowBanner = {true}></HomeHeader>
                 <Specialty responsive = {responsive}></Specialty>
                 <MedicalFacility responsive = {responsive}></MedicalFacility>
                 <OutStandingDoctor responsive = {responsive}></OutStandingDoctor>
