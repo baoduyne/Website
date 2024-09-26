@@ -3,8 +3,8 @@ import {
     getAllCodeService, createNewUserService, getAllUsers,
     deleteUserService, editUserService,
     getTopDoctorHomeService, getAllDoctorsService,
-    saveSelectDoctorService
-} from "../../services/userService";
+    saveSelectDoctorService,getSelectDoctorService
+ } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -299,12 +299,12 @@ export const getAllDoctorsFail = () => {
     }
 }
 
-export const saveSelectDoctorStart = (inforDoctor) => {
+export const saveSelectDoctorStart = (id) => {
     return async (dispatch, getState) => {
         try {
             
             dispatch({ type: actionTypes.SAVE_SELECT_DOCTOR_START })
-            let res = await saveSelectDoctorService(inforDoctor);
+            let res = await saveSelectDoctorService(id);
 
             if (res && res.errCode === 0) {
                 dispatch(saveSelectDoctorSuccess());
@@ -364,5 +364,63 @@ export const saveSelectDoctorSuccess = () => {
 export const saveSelectDoctorFail = () => {
     return {
         type: actionTypes.SAVE_SELECT_DOCTOR_FAIL
+    }
+}
+
+
+export const getSelectDoctorStart = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            
+            dispatch({ type: actionTypes.SAVE_SELECT_DOCTOR_START })
+            let res = await getSelectDoctorService(id);
+
+            if (res && res.errCode === 0) {
+                dispatch(getSelectDoctorSuccess(res.data));
+            }
+
+            else {
+                toast.fail('Get doctor failed!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                })
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(getSelectDoctorFail());
+            toast.fail('Get doctor failed!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            })
+        }
+    }
+
+}
+
+export const getSelectDoctorSuccess = (data) => {
+    return {
+        type: actionTypes.GET_SELECT_DOCTOR_SUCCESS,
+        data : data
+    }
+}
+
+export const getSelectDoctorFail = () => {
+    return {
+        type: actionTypes.GET_SELECT_DOCTOR_FAIL
     }
 }

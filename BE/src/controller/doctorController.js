@@ -75,7 +75,6 @@ let saveSelectDoctor = async (req, res) => {
 let getDoctorMarkdown = async (req,res) =>{
     try{
         let id = req.query.id;
-        console.log(id);
         let data = await doctorService.getDoctorMarkdown(id);
         if(data){
             return res.status(200).json({

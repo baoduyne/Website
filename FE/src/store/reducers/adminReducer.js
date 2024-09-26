@@ -9,7 +9,8 @@ const initialState = {
     status: [],
     users: [],
     topDoctors: [],
-    allDoctors : []
+    allDoctors: [],
+    selectDoctor: {},
 }
 
 const appReducer = (state = initialState, action) => {
@@ -138,22 +139,40 @@ const appReducer = (state = initialState, action) => {
                 ...copyState
             }
 
-            case actionTypes.SAVE_SELECT_DOCTOR_START:
-                return {
-                    ...state
-                }
-            case actionTypes.SAVE_SELECT_DOCTOR_SUCCESS:
-                copyState = { ...state }
-                copyState.isLoading = false;
-                return {
-                    ...copyState
-                }
-            case actionTypes.SAVE_SELECT_DOCTOR_FAIL:
-                copyState = { ...state }
-                copyState.isLoading = false;
-                return {
-                    ...copyState
-                }
+        case actionTypes.SAVE_SELECT_DOCTOR_START:
+            return {
+                ...state
+            }
+        case actionTypes.SAVE_SELECT_DOCTOR_SUCCESS:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+        case actionTypes.SAVE_SELECT_DOCTOR_FAIL:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+
+        case actionTypes.GET_SELECT_DOCTOR_START:
+            return {
+                ...state
+            }
+        case actionTypes.GET_SELECT_DOCTOR_SUCCESS:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            copyState.selectDoctor = action.data;
+            return {
+                ...copyState
+            }
+        case actionTypes.GET_SELECT_DOCTOR_FAIL:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
         default:
             return { state }
 

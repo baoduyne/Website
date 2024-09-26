@@ -41,6 +41,10 @@ const saveSelectDoctorService = (inforDoctor) =>{
     return axios.post(`/api/save-select-doctor`,inforDoctor);
 }
 
+const getSelectDoctorService = (id) =>{
+    return axios.get(`/api/get-doctor-markdown?id=${id}`);
+}
+
 export {
     handleLoginApi,
     getAllUsers,
@@ -50,5 +54,6 @@ export {
     getAllCodeService,
     getTopDoctorHomeService,
     getAllDoctorsService,
-    saveSelectDoctorService
+    saveSelectDoctorService,
+    getSelectDoctorService
 }

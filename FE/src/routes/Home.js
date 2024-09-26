@@ -8,12 +8,17 @@ class Home extends Component {
         super(props);
         this.state = {
             isLoggedIn : false,
+            data : {},
         }
     }
 
-
+    componentDidUpdate(prevProps,prevState){
+        if(prevProps.data !== this.props.data){
+            this.setState({data : this.props.data})
+        }
+    }
     render() {
-       
+        
         console.log('check redux',this.state);  
         let linkToRedirect = this.state.isLoggedIn ? '/system/user-manage' : '/home';
         return (

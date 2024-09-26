@@ -87,7 +87,7 @@ let getDoctorMarkdown = (id) =>{
             let data = await db.User.findOne({
                 where : {id:id},
                 attributes : {
-                    exclude : ['password','avatar']
+                    exclude : ['password']
                 },
                 include : [{model:db.Markdown}]
             })

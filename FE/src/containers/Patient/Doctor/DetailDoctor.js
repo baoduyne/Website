@@ -10,25 +10,48 @@ class OutStandingDoctor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            selectDoctor: {}
         }
     }
 
     componentDidMount() {
-
+        this.props.getSelectDoctorStart(this.props.match.params.id);
 
     }
 
     componentDidUpdate(prevProps, prevState) {
-       
+        if (prevProps.selectDoctor !== this.props.selectDoctor) {
+            this.setState({ selectDoctor: this.props.selectDoctor })
+        }
     }
 
     render() {
         let id = this.props.match.params.id;
+        console.log("test selected doctor",this.state.selectDoctor)
+
         return (
             <>
-                <HomeHeader isShowBanner = {false}/>
-                
+                <HomeHeader isShowBanner={false} />
+                <div className='doctor-detail-container'>
+                    <div className='doctor-detail-content'>
+
+                        <div className='doctor-detail-description'>
+
+                            <div className='content-left'>
+                                <div className='avatar'></div>
+                            </div>
+
+                            <div className='content-right'>
+                                <div className='title'></div>
+                                <div className='description'></div>
+                                <div className='address'></div>
+                            </div>
+
+                        </div>
+
+                        <div className='doctor-detail-markdown'></div>
+                    </div>
+                </div>
             </>
         );
     }
@@ -37,13 +60,14 @@ class OutStandingDoctor extends Component {
 
 const mapStateToProps = state => {
     return {
-        language : state.app.language,       
+        language: state.app.language,
+        selectDoctor: state.admin.selectDoctor
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchTopDoctorStart: (limit) => dispatch(actions.fetchTopDoctorStart(limit))
+        getSelectDoctorStart: (id) => dispatch(actions.getSelectDoctorStart(id))
     };
 };
 
