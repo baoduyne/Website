@@ -3,8 +3,8 @@ import {
     getAllCodeService, createNewUserService, getAllUsers,
     deleteUserService, editUserService,
     getTopDoctorHomeService, getAllDoctorsService,
-    saveSelectDoctorService,getSelectDoctorService
- } from "../../services/userService";
+    saveSelectDoctorService, getSelectDoctorService
+} from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -299,12 +299,12 @@ export const getAllDoctorsFail = () => {
     }
 }
 
-export const saveSelectDoctorStart = (id) => {
+export const saveSelectDoctorStart = (data) => {
     return async (dispatch, getState) => {
         try {
-            
+
             dispatch({ type: actionTypes.SAVE_SELECT_DOCTOR_START })
-            let res = await saveSelectDoctorService(id);
+            let res = await saveSelectDoctorService(data);
 
             if (res && res.errCode === 0) {
                 dispatch(saveSelectDoctorSuccess());
@@ -357,7 +357,6 @@ export const saveSelectDoctorStart = (id) => {
 export const saveSelectDoctorSuccess = () => {
     return {
         type: actionTypes.SAVE_SELECT_DOCTOR_SUCCESS,
-       
     }
 }
 
@@ -371,12 +370,13 @@ export const saveSelectDoctorFail = () => {
 export const getSelectDoctorStart = (id) => {
     return async (dispatch, getState) => {
         try {
-            
+
             dispatch({ type: actionTypes.SAVE_SELECT_DOCTOR_START })
             let res = await getSelectDoctorService(id);
 
             if (res && res.errCode === 0) {
                 dispatch(getSelectDoctorSuccess(res.data));
+
             }
 
             else {
@@ -415,7 +415,7 @@ export const getSelectDoctorStart = (id) => {
 export const getSelectDoctorSuccess = (data) => {
     return {
         type: actionTypes.GET_SELECT_DOCTOR_SUCCESS,
-        data : data
+        data: data
     }
 }
 

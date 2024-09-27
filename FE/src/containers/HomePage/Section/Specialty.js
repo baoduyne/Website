@@ -10,7 +10,7 @@ class Specialty extends Component {
 
             <div className='section-container section-specialty'>
                 <div className='section-content'>
-                {/*  <div className="section-content">
+                    {/*  <div className="section-content">
                     <div className='switch-button'>
                         <button className='left-button'>{"<"}</button>
                     </div>
@@ -31,27 +31,27 @@ class Specialty extends Component {
                     </div>
                 </div> */}
                     <div className="section-detail">
-                        <span><FormattedMessage id = "section.pupularSpecialty"></FormattedMessage></span>
-                        <button><FormattedMessage id = 'section.more'></FormattedMessage></button>
+                        <span><FormattedMessage id="section.pupularSpecialty"></FormattedMessage></span>
+                        <button><FormattedMessage id='section.more'></FormattedMessage></button>
                     </div>
-                      <Carousel
-                       swipeable={false}
-                       draggable={false}
-                       showDots={false}
-                       responsive={this.props.responsive}
-                       ssr = {true} // means to render carousel on server-side.   
-                       infinite={false}
-                       autoPlay={false}
-                       autoPlaySpeed={1000}
-                       keyBoardControl={true}
-                       customTransition="all .5"
-                       transitionDuration={500}
-                       containerClass="carousel-container"
-                       removeArrowOnDeviceType={[]}
-                       deviceType={this.props.deviceType}
-                       dotListClass="custom-dot-list-style"
-                       itemClass="carousel-item-padding-40-px"
-                        >
+                    <Carousel
+                        swipeable={false}
+                        draggable={false}
+                        showDots={false}
+                        responsive={this.props.responsive}
+                        ssr={true} // means to render carousel on server-side.   
+                        infinite={false}
+                        autoPlay={false}
+                        autoPlaySpeed={1000}
+                        keyBoardControl={true}
+                        customTransition="all .5"
+                        transitionDuration={500}
+                        containerClass="carousel-container"
+                        removeArrowOnDeviceType={[]}
+                        deviceType={this.props.deviceType}
+                        dotListClass="custom-dot-list-style"
+                        itemClass="carousel-item-padding-40-px"
+                    >
                         <div className='section-items'><div className='section-image section-specialty'></div><div className='section-text'>Khoa xương khớp1</div></div>
                         <div className='section-items'><div className='section-image section-specialty'></div><div className='section-text'>Khoa xương khớp2</div></div>
                         <div className='section-items'><div className='section-image section-specialty'></div><div className='section-text'>Khoa xương khớp3</div></div>
@@ -62,9 +62,9 @@ class Specialty extends Component {
                         <div className='section-items'><div className='section-image section-specialty'></div><div className='section-text'>Khoa xương khớp8</div></div>
                         <div className='section-items'><div className='section-image section-specialty'></div><div className='section-text'>Khoa xương khớp9</div></div>
                         <div className='section-items'><div className='section-image section-specialty'></div><div className='section-text'>Khoa xương khớp10</div></div>
-                      </Carousel>;
-                      </div>
-         </div>
+                    </Carousel>
+                </div>
+            </div>
         );
     }
 

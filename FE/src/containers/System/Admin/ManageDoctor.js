@@ -7,7 +7,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import './ManageDoctor.scss';
 import Select from 'react-select';
 import * as actions from '../../../store/actions';
-import { LANGUAGES } from '../../../utils/constant';
+import { ACTIONS, LANGUAGES } from '../../../utils/constant';
 
 
 class ManageDoctor extends Component {
@@ -21,6 +21,9 @@ class ManageDoctor extends Component {
             contentHTML: '',
             allDoctors: '',
             avatar: '',
+            hasOldData: false,
+            action: ''
+
         }
     }
     componentDidMount = async () => {
@@ -30,7 +33,9 @@ class ManageDoctor extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.allDoctors !== this.props.allDoctors) {
+
             let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors);
+            this.handleChange(dataInputSelect[0]);
             this.setState({
                 allDoctors: dataInputSelect,
                 selectedOption: dataInputSelect[0]
@@ -75,13 +80,31 @@ class ManageDoctor extends Component {
     }
 
 
-    handleChange = (selectedOption) => {
-        let copyState = { ...this.state };
-        copyState.selectedOption = selectedOption;
+    handleChange = async (selectedOption) => {
 
-        this.setState({
-            ...copyState
-        })
+        await this.props.getSelectDoctorStart(selectedOption.value);
+        let selectDoctor = this.props.selectDoctor;
+        console.log('test', selectDoctor)
+        if (selectDoctor.Markdown) {
+            this.setState({
+                selectedOption: selectedOption,
+                description: selectDoctor.Markdown.description,
+                contentMarkdown: selectDoctor.Markdown.contentMarkdown,
+                contentHTML: selectDoctor.Markdown.contentHTML,
+                hasOldData: true,
+            })
+        } else {
+            let copyState = { ...this.state };
+            copyState.selectedOption = selectedOption;
+            this.setState({
+                selectedOption: selectedOption,
+                description: '',
+                contentMarkdown: '',
+                contentHTML: '',
+                hasOldData: false,
+            })
+        }
+
 
     };
 
@@ -91,6 +114,7 @@ class ManageDoctor extends Component {
             contentMarkdown: this.state.contentMarkdown,
             description: this.state.description,
             doctorId: this.state.selectedOption.value,
+            action: this.state.hasOldData ? ACTIONS.EDIT : ACTIONS.CREATE
         })
     }
 
@@ -112,6 +136,7 @@ class ManageDoctor extends Component {
                 if (item.id === this.state.selectedOption.value) {
                     object = item;
                 }
+
             })
         }
         let avtBase64 = '';
@@ -136,8 +161,6 @@ class ManageDoctor extends Component {
         if (object.positionData) { valueVi = object.positionData.valueVi; }
         if (object.positionData) { valueEn = object.positionData.valueEn; }
 
-        console.log('ttttt', object);
-        console.log('ttttt1111', object.positionData);
         return (
             <div className='manage-doctor-container'>
                 <div className='manage-doctor-title'>MANAGE DOCTORS FROM ADMIN</div>
@@ -159,7 +182,7 @@ class ManageDoctor extends Component {
                                     id='description'
                                     className="form-control "
                                     value={this.state.description}
-                                    
+
                                 ></textarea>
                             </div>
 
@@ -183,7 +206,7 @@ class ManageDoctor extends Component {
                                     </div>
                                     <div className='description'>
                                         <div className='text-description'>
-                                        {this.state.description}
+                                            {this.state.description}
                                         </div>
                                         <div className='address-description'>
                                             <i class="fas fa-map-marker-alt"></i>
@@ -200,8 +223,13 @@ class ManageDoctor extends Component {
                             <MdEditor
                                 style={{ height: '500px' }}
                                 renderHTML={text => mdParser.render(text)}
-                                onChange={this.handleEditorChange} />
-                            <button onClick={(event) => this.handleOnclickMarkDown(event)} className='markdown-btn btn btn-primary'>Save</button>
+                                onChange={this.handleEditorChange}
+                                value={this.state.contentMarkdown}
+                            />
+                            <button
+                                onClick={(event) => this.handleOnclickMarkDown(event)}
+                                className={this.state.hasOldData ? 'markdown-btn btn btn-info' : 'markdown-btn btn btn-primary'}
+                            >{this.state.hasOldData ? 'Change' : 'Save'}</button>
                         </div>
                     </div>
                 </div>
@@ -217,14 +245,16 @@ const mapStateToProps = state => {
         isLoggedIn: state.user.isLoggedIn,
         data: state.user,
         allDoctors: state.admin.allDoctors,
-        language: state.app.language
+        language: state.app.language,
+        selectDoctor: state.admin.selectDoctor
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getAllDoctorsStart: () => dispatch(actions.getAllDoctorsStart()),
-        saveSelectDoctorStart: (inforDoctor) => dispatch(actions.saveSelectDoctorStart(inforDoctor))
+        saveSelectDoctorStart: (inforDoctor) => dispatch(actions.saveSelectDoctorStart(inforDoctor)),
+        getSelectDoctorStart: (id) => dispatch(actions.getSelectDoctorStart(id))
     };
 };
 

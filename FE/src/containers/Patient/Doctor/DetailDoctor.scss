@@ -1,0 +1,27 @@
+.doctor-detail-container {
+    width  : 100%;
+    height : 100vh;
+    padding: 0 100px;
+    border : 1px solid red;
+
+    .doctor-detail-content {
+        width : 100%;
+        border: 1px solid green;
+
+        .doctor-detail-description {
+            .content-left {
+                .avatar {}
+            }
+
+            .content-right {
+                .title {}
+
+                .description {}
+
+                .address {}
+            }
+        }
+    }
+
+    .doctor-detail-markdown {}
+}

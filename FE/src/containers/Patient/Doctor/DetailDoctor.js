@@ -5,6 +5,7 @@ import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils/constant';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import HomeHeader from '../../HomePage/HomeHeader';
+import './DetailDoctor.scss'
 class OutStandingDoctor extends Component {
 
     constructor(props) {
@@ -27,7 +28,7 @@ class OutStandingDoctor extends Component {
 
     render() {
         let id = this.props.match.params.id;
-        console.log("test selected doctor",this.state.selectDoctor)
+        console.log("test selected doctor", this.state.selectDoctor)
 
         return (
             <>

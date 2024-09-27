@@ -1,6 +1,6 @@
 .section-container {
-    width: 100%;
-    height: 380px;
+    width     : 100%;
+    height    : 380px;
     margin-top: 50px;
 
 
@@ -15,7 +15,7 @@
 
     &.section-outstanding-doctor {
         background-image: url('../../assets/Out-Standing-Doctor-Background.png');
-        background-size: contain;
+        background-size : contain;
     }
 
     &.section-hand-book {
@@ -24,42 +24,44 @@
 
     &.section-about {
         background-color: rgba(242, 242, 242, 0.8);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 450px;
+        display         : flex;
+        flex-direction  : column;
+        align-items     : center;
+        justify-content : center;
+        height          : 450px;
 
         .about-detail {
-            font-size: x-large;
+            font-size  : x-large;
             font-weight: 700;
-            margin: 30px 0;
+            margin     : 30px 0;
 
         }
 
         .about-content {
-            width: 80%;
-            height: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            display: flex;
+            width         : 80%;
+            height        : 100%;
+            margin-left   : auto;
+            margin-right  : auto;
+            display       : flex;
             flex-direction: row;
-            gap: 30px;
+            gap           : 30px;
 
             .content-left {
-                width: 50%;
-                height: 85%;
+                width        : 50%;
+                height       : 85%;
                 border-radius: 10px;
             }
 
             .content-right {
-                width: 50%;
+                width : 50%;
                 height: 100%;
-                p{
+
+                p {
                     text-align: justify;
                     font-style: italic;
-                    font-size: 105%;
+                    font-size : 105%;
                 }
+
                 /*
                 width: 60%;
                 height: 100%;
@@ -100,92 +102,92 @@
     }
 
     &.section-home-footer {
-        height: 200px;
+        height          : 200px;
         background-color: #64b9e5;
-        margin-top: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        color: white;
+        margin-top      : 0;
+        display         : flex;
+        flex-direction  : column;
+        align-items     : center;
+        justify-content : center;
+        gap             : 20px;
+        color           : white;
 
         .footer-description {
             font-size: 105%;
         }
 
         .footer-term {
-            display: flex;
+            display       : flex;
             flex-direction: row;
-            gap: 20px;
+            gap           : 20px;
 
             .term-items {
-                cursor: pointer;
+                cursor         : pointer;
                 text-decoration: underline;
             }
         }
 
         .footer-social-link {
-            display: flex;
+            display       : flex;
             flex-direction: row;
-            gap: 50px;
+            gap           : 50px;
 
             .social-icon {
                 font-size: 130%;
-                color: white;
+                color    : white;
             }
         }
     }
 
     .section-content {
-        width: 80%;
-        height: 100%;
-        overflow: hidden;
-        margin-left: auto;
+        width       : 80%;
+        height      : 100%;
+        overflow    : hidden;
+        margin-left : auto;
         margin-right: auto;
 
         .section-detail {
-            width: 100%;
-            height: 18%;
-            margin-top: 30px;
+            width      : 100%;
+            height     : 18%;
+            margin-top : 30px;
             font-weight: 700;
-            font-size: large;
-            position: relative;
+            font-size  : large;
+            position   : relative;
 
             span {
-                position: absolute;
-                left: 55px;
-                font-size: 120%;
+                position   : absolute;
+                left       : 55px;
+                font-size  : 120%;
                 font-weight: 700;
             }
 
             button {
                 position: absolute;
-                right: 30px;
-                border: none;
-                padding: 5px 10px;
-                color: gray;
+                right   : 30px;
+                border  : none;
+                padding : 5px 10px;
+                color   : gray;
             }
 
         }
 
         .carousel-container {
             margin-left: 2% !important;
-            width: 95%;
-            height: 250px;
-            overflow: hidden;
+            width      : 95%;
+            height     : 250px;
+            overflow   : hidden;
 
             .react-multi-carousel-track {
-                list-style: none;
-                padding: 0;
-                margin-left: 2%;
-                display: flex;
-                flex-direction: row;
-                position: relative;
-                transform-style: preserve-3d;
+                list-style                 : none;
+                padding                    : 0;
+                margin-left                : 2%;
+                display                    : flex;
+                flex-direction             : row;
+                position                   : relative;
+                transform-style            : preserve-3d;
                 -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-                will-change: transform, transition;
+                backface-visibility        : hidden;
+                will-change                : transform, transition;
             }
 
             .react-multiple-carousel__arrow--left {
@@ -197,27 +199,27 @@
             }
 
             .section-items {
-                width: 245px;
-                height: 250px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
+                width          : 245px;
+                height         : 250px;
+                display        : flex;
+                flex-direction : column;
+                align-items    : center;
                 justify-content: center;
-                cursor: pointer;
+                cursor         : pointer;
 
                 &.section-hand-book {
-                    width: 480px;
-                    flex-direction: row;
-                    align-items: center;
+                    width          : 480px;
+                    flex-direction : row;
+                    align-items    : center;
                     justify-content: center;
-                    border: 1px solid rgba(0, 0, 0, 0.3);
+                    border         : 1px solid rgba(0, 0, 0, 0.3);
                 }
 
                 .section-image {
-                    width: 100%;
-                    height: 80%;
+                    width            : 100%;
+                    height           : 80%;
                     background-repeat: no-repeat;
-                    background-size: cover;
+                    background-size  : cover;
 
                     &.section-specialty {
                         background-image: url('../../assets/specialtyImg.jpg');
@@ -229,35 +231,35 @@
 
                     &.section-outstanding-doctor {
                         background-image: url('../../assets/Out-Standing-Doctor.jpg');
-                        border-radius: 579px;
-                        width: 85%;
+                        border-radius   : 579px;
+                        width           : 85%;
                     }
 
                     &.section-hand-book {
                         background-image: url('../../assets/Medical-facility-Img.jpg');
-                        width: 60%;
-                        height: 100%;
+                        width           : 60%;
+                        height          : 100%;
 
                     }
                 }
 
 
                 .section-text {
-                    width: 100%;
-                    height: 20%;
-                    text-align: left;
+                    width      : 100%;
+                    height     : 20%;
+                    text-align : left;
                     user-select: none;
                     padding-top: 10px;
                     font-weight: 600;
-                    font-size: 110%;
+                    font-size  : 110%;
 
                     &.section-outstanding-doctor {
                         text-align: center;
                     }
 
                     &.section-hand-book {
-                        width: 40%;
-                        height: 100%;
+                        width     : 40%;
+                        height    : 100%;
                         text-align: left;
                     }
                 }

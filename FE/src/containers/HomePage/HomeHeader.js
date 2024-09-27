@@ -25,19 +25,19 @@ class HomeHeader extends Component {
                         </div>
                         <div className='center-content'>
                             <div className='child-content'>
-                                <div><b><FormattedMessage id="home-header.speciality"></FormattedMessage></b></div>
+                                <div className='titles'><b><FormattedMessage id="home-header.speciality"></FormattedMessage></b></div>
                                 <div className='subs-title'><FormattedMessage id="home-header.searchdoctor"></FormattedMessage></div>
                             </div>
                             <div className='child-content'>
-                                <div><b><FormattedMessage id="home-header.health-facility"></FormattedMessage></b></div>
+                                <div className='titles'><b><FormattedMessage id="home-header.health-facility"></FormattedMessage></b></div>
                                 <div className='subs-title'><FormattedMessage id="home-header.select-room"></FormattedMessage></div>
                             </div>
                             <div className='child-content'>
-                                <div><b><FormattedMessage id="home-header.doctor"></FormattedMessage></b></div>
+                                <div className='titles'><b><FormattedMessage id="home-header.doctor"></FormattedMessage></b></div>
                                 <div className='subs-title'><FormattedMessage id="home-header.select-doctor"></FormattedMessage></div>
                             </div>
                             <div className='child-content'>
-                                <div><b><FormattedMessage id="home-header.fee"></FormattedMessage></b></div>
+                                <div className='titles'><b><FormattedMessage id="home-header.fee"></FormattedMessage></b></div>
                                 <div className='subs-title'><FormattedMessage id="home-header.overall-check"></FormattedMessage></div>
                             </div>
 
