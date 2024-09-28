@@ -104,7 +104,9 @@ let getDoctorMarkdown = (id) => {
                 attributes: {
                     exclude: ['password']
                 },
-                include: [{ model: db.Markdown }]
+                include: [{ model: db.Markdown },
+                { model: db.Allcode, as: 'positionData' }
+                ]
             })
 
             if (data) {
