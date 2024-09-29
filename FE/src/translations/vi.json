@@ -9,7 +9,7 @@
         "fee": "Gói khám",
         "overall-check": "Khám sức khỏe tổng quát",
         "support": "Hỗ trợ",
-        "welcome":"Chào mừng"
+        "welcome": "Chào mừng"
     },
     "banner": {
         "title1": "NỀN TẢNG Y TẾ",
@@ -21,22 +21,21 @@
         "health-psy": "Sức khỏe tinh thần",
         "tooth-test": "Khám nha khoa"
     },
-    "section" : {
-        "pupularSpecialty" : "Chuyên khoa phổ biến",
-        "more" : "Xem thêm",
-        "medicalFacility" : "Cơ sở",
-        "outStandingDoctors":"Bác sĩ nổi bật tuần qua",
-        "handBook" : "Cẩm nang",
-        "neccessaryInformation" : "Thông tin cần thiết",
-        "footer-1":"Website này được phát triển bởi Bao Duy với mục đích học hỏi và cải thiện kỹ năng",
-        "footer-2":"© Dự án cá nhân. Toàn bộ bản quyền được bảo vệ",
-        "footer-link1":"Điều Khoản",
-        "footer-link2":"Giới Thiệu",
-        "footer-link3":"Thông Tin",
-        "footer-link4":"Chính Sách",
-        "footer-link5":"Đăng Nhập",
-        "footer-link6":"Email"
-
+    "section": {
+        "pupularSpecialty": "Chuyên khoa phổ biến",
+        "more": "Xem thêm",
+        "medicalFacility": "Cơ sở",
+        "outStandingDoctors": "Bác sĩ nổi bật tuần qua",
+        "handBook": "Cẩm nang",
+        "neccessaryInformation": "Thông tin cần thiết",
+        "footer-1": "Website này được phát triển bởi Bao Duy với mục đích học hỏi và cải thiện kỹ năng",
+        "footer-2": "© Dự án cá nhân. Toàn bộ bản quyền được bảo vệ",
+        "footer-link1": "Điều Khoản",
+        "footer-link2": "Giới Thiệu",
+        "footer-link3": "Thông Tin",
+        "footer-link4": "Chính Sách",
+        "footer-link5": "Đăng Nhập",
+        "footer-link6": "Email"
     },
     "menu": {
         "system": {
@@ -50,38 +49,39 @@
                 "header": "Tham số hệ thống"
             }
         },
-
-        "admin" : {
-            "manage-user" : "Quản lý người dùng",
-            "manage-doctor" : "Bác sĩ",
-            "manage-admin" : "Admin",
-            "admin" :"Admin",
-            "user":"Người dùng",
-            "doctor" : "Bác sĩ",
-            "crud" :"CRUD",
-            "crud-redux" :"CRUD-Redux",
-            "clinic" : "Phòng khám",
-            "manage-clinic":"Quản lý phòng khám",
-            "specialty" : "Chuyên khoa",
-            "manage-specialty" : "Quản lý chuyên khoa",
-            "handbook" :"Cẩm nang",
-            "handbook-manage" :"Quản lý cẩm nang",
-            "redux-handle" : "Quản lý người dùng redux",
-            "password" : "Mật khẩu",
-            "first-name" : "Họ",
-            "last-name" :"Tên",
-            "gender" : "Giới tính",
-            "address" :"Địa chỉ",
-            "phonenumber" :"Số điện thoại",
-            "rank" : "Chức vụ",
-            "role" :"Vai trò",
-            "choose":"Lựa chọn...",
-            "check-me-out" : "Nhớ thông tin",
-            "image":"User image",
-            "Create" : "Tạo mới",
-            "Edit" : "Chỉnh sửa"
-
-
+        "admin": {
+            "manage-user": "Quản lý người dùng",
+            "manage-doctor": "Bác sĩ",
+            "manage-admin": "Admin",
+            "admin": "Admin",
+            "user": "Người dùng",
+            "doctor": "Bác sĩ",
+            "crud": "CRUD",
+            "crud-redux": "CRUD-Redux",
+            "clinic": "Phòng khám",
+            "manage-clinic": "Quản lý phòng khám",
+            "specialty": "Chuyên khoa",
+            "manage-specialty": "Quản lý chuyên khoa",
+            "handbook": "Cẩm nang",
+            "handbook-manage": "Quản lý cẩm nang",
+            "redux-handle": "Quản lý người dùng redux",
+            "password": "Mật khẩu",
+            "first-name": "Họ",
+            "last-name": "Tên",
+            "gender": "Giới tính",
+            "address": "Địa chỉ",
+            "phonenumber": "Số điện thoại",
+            "rank": "Chức vụ",
+            "role": "Vai trò",
+            "choose": "Lựa chọn...",
+            "check-me-out": "Nhớ thông tin",
+            "image": "User image",
+            "Create": "Tạo mới",
+            "Edit": "Chỉnh sửa"
+        },
+        "doctor": {
+            "manage-schedule": "Quản lý",
+            "schedule": "Kế hoạch khám"
         }
     }
 }

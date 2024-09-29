@@ -2,12 +2,40 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from "../../store/actions";
 import Navigator from '../../components/Navigator';
-import { adminMenu } from './menuApp';
+import { adminMenu, doctorMenu } from './menuApp';
 import './Header.scss';
-import { LANGUAGES } from "../../utils";
+import { LANGUAGES, ROLEID } from "../../utils";
 import { FormattedMessage } from 'react-intl';
 
 class Header extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            menuApp: []
+        }
+    }
+
+    componentDidMount() {
+
+        let menu = []
+        let { userInfo } = this.props;
+        if (userInfo) {
+
+            let role = userInfo.roleId;
+            menu = [];
+            if (role === ROLEID.ADMIN) {
+                menu = adminMenu;
+            }
+            else {
+                menu = doctorMenu
+            }
+        }
+
+        this.setState({
+            menuApp: menu
+        })
+    }
 
     handleChangeLanguage = (language) => {
         this.props.changeLanguageAppRedux(language);
@@ -20,7 +48,7 @@ class Header extends Component {
             <div className="header-container">
                 {/* thanh navigator */}
                 <div className="header-tabs-container">
-                    <Navigator menus={adminMenu} />
+                    <Navigator menus={this.state.menuApp} />
                 </div>
                 <div className='languages'>
                     <span className='welcome'><FormattedMessage id="home-header.welcome"></FormattedMessage>{this.props.userInfo && this.props.userInfo.lastName ? ' ' + this.props.userInfo.lastName : "null"} !

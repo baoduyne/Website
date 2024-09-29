@@ -27,9 +27,9 @@ class OutStandingDoctor extends Component {
         }
     }
 
-    handleDetailDoctor = (doctor) =>{
+    handleDetailDoctor = (doctor) => {
         this.props.history.push(`/detail-doctor/${doctor.id}`)
-       //<Redirect to = {`/detail-doctor/${doctor.id}`}></Redirect>
+        //<Redirect to = {`/detail-doctor/${doctor.id}`}></Redirect>
     }
     render() {
         let language = this.props.language;
@@ -38,7 +38,6 @@ class OutStandingDoctor extends Component {
             this.componentDidMount();
         }
         // arrDoctor = arrDoctor.concat(arrDoctor).concat(arrDoctor);
-        console.log('test', arrDoctor);
         return (
             <div className='section-container section-outstanding-doctor'>
                 <div className='section-content'>
@@ -71,14 +70,14 @@ class OutStandingDoctor extends Component {
                                 let nameVi = `${item.positionData.valueVi} ${item.firstName} ${item.lastName}`;
                                 let nameEn = `${item.positionData.valueEn} ${item.firstName} ${item.lastName}`;
                                 return (
-                                    <div 
-                                    className='section-items'
-                                    onClick={() =>this.handleDetailDoctor(item)}
+                                    <div
+                                        className='section-items'
+                                        onClick={() => this.handleDetailDoctor(item)}
                                     >
                                         <div style={{ backgroundImage: `url(${avatarUrl})` }} className='section-image section-outstanding-doctor'></div>
                                         <div className='section-text section-outstanding-doctor'>
-                                           {language === LANGUAGES.VI ? nameVi : nameEn}
-                                            
+                                            {language === LANGUAGES.VI ? nameVi : nameEn}
+
                                         </div>
                                     </div>
                                 );
@@ -96,7 +95,7 @@ class OutStandingDoctor extends Component {
 
 const mapStateToProps = state => {
     return {
-        language : state.app.language,
+        language: state.app.language,
         isLoggedIn: state.user.isLoggedIn,
         topDoctors: state.admin.topDoctors
     };

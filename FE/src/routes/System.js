@@ -8,8 +8,7 @@ import Header from '../containers/Header/Header';
 import UserRedux from '../containers/System/Admin/UserRedux'
 class System extends Component {
     render() {
-        const { systemMenuPath,isLoggedIn } = this.props;
-        console.log("check",this.props.data)
+        const { systemMenuPath, isLoggedIn } = this.props;
         return (
             <React.Fragment>
                 <div className="system-container">
@@ -17,7 +16,7 @@ class System extends Component {
                         {isLoggedIn && <Header />}
                         <Switch>
                             <Route path="/system/user-manage" component={UserManage} />
-                            <Route path="/system/product-manage" component={ProductManage}/>
+                            <Route path="/system/product-manage" component={ProductManage} />
                             <Route path="/system/manage-doctor" component={manageDoctor}></Route>
                             <Route path="/system/user-redux" component={UserRedux}></Route>
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
@@ -33,7 +32,7 @@ const mapStateToProps = state => {
     return {
         systemMenuPath: state.app.systemMenuPath,
         isLoggedIn: state.user.isLoggedIn,
-        data:state.user,
+        data: state.user,
     };
 };
 

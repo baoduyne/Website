@@ -1,46 +1,42 @@
 {
-    "home-header":{
-        "speciality":"Medical specialty",
-        "searchdoctor":"Find a doctor by specialty",
-        "health-facility":"Health facilities",
-        "select-room":"Chose hospital clinic",
-        "doctor":"Doctor",
-        "select-doctor":"Chose profestional doctor",
-        "fee" : "Packages health",
-        "overall-check":"Overall health check",
-        "support":"Support",
-        "welcome":"Welcome"
+    "home-header": {
+        "speciality": "Medical specialty",
+        "searchdoctor": "Find a doctor by specialty",
+        "health-facility": "Health facilities",
+        "select-room": "Chose hospital clinic",
+        "doctor": "Doctor",
+        "select-doctor": "Chose profestional doctor",
+        "fee": "Packages health",
+        "overall-check": "Overall health check",
+        "support": "Support",
+        "welcome": "Welcome"
     },
-    "banner":{
-        "title1":"MEDICAL FOUNDATION",
-        "title2":"THE PRIMARY OF HEALTH",
-        "specialist-examination":"Specialist examination",
-        "examination-online":"Examination online",
-        "examination-overall":"Overall examination",
-        "health-test":"Medical test",
-        "health-psy":"Psychology health",
-        "tooth-test":"Check dentistry"
-
+    "banner": {
+        "title1": "MEDICAL FOUNDATION",
+        "title2": "THE PRIMARY OF HEALTH",
+        "specialist-examination": "Specialist examination",
+        "examination-online": "Examination online",
+        "examination-overall": "Overall examination",
+        "health-test": "Medical test",
+        "health-psy": "Psychology health",
+        "tooth-test": "Check dentistry"
     },
-
-    "section" : {
-        "pupularSpecialty" : "Popular specialties",
-        "more" : "More",
-        "medicalFacility" : "Facilities",
-        "outStandingDoctors":"Out standing doctor last week",
-        "handBook" : "Hand book",
-        "neccessaryInformation" : "Neccessary informations",
-        "footer-1":"This website was developed by Bao Duy with purposes acquire knownledge and improve skills",
-        "footer-2":"© Indipendent Project. All Rights Reserved",
-        "footer-link1":"Privacy & Terms of Use",
-        "footer-link2":"About Me",
-        "footer-link3":"Why Trust Me",
-        "footer-link4":"Editorial Policy",
-        "footer-link5":"Login",
-        "footer-link6":"Email Me"
-
+    "section": {
+        "pupularSpecialty": "Popular specialties",
+        "more": "More",
+        "medicalFacility": "Facilities",
+        "outStandingDoctors": "Out standing doctor last week",
+        "handBook": "Hand book",
+        "neccessaryInformation": "Neccessary informations",
+        "footer-1": "This website was developed by Bao Duy with purposes acquire knownledge and improve skills",
+        "footer-2": "© Indipendent Project. All Rights Reserved",
+        "footer-link1": "Privacy & Terms of Use",
+        "footer-link2": "About Me",
+        "footer-link3": "Why Trust Me",
+        "footer-link4": "Editorial Policy",
+        "footer-link5": "Login",
+        "footer-link6": "Email Me"
     },
-
     "menu": {
         "system": {
             "header": "System",
@@ -48,45 +44,44 @@
                 "header": "System Administrator",
                 "user-manage": "User manage",
                 "user-redux": "user redux manage"
-                
             },
             "system-parameter": {
                 "header": "System-parameter"
             }
         },
-        "admin" : {
-            "manage-user" : "Users",
-            "manage-admin":"Admin manage",
-            "manage-doctor" : "Doctor manage",
-            "admin" :"Admin",
-            "user":"Users",
-            "doctor" : "Doctor",
-            "crud" :"CRUD",
-            "crud-redux" :"CRUD-Redux",
-            "clinic" : "Clinic",
-            "manage-clinic":"Clinic manage",
-            "specialty" : "Specialty",
-            "manage-specialty" : "Specialty manage",
-            "handbook" :"Handbook",
-            "handbook-manage" :"Handbook manage",
-            "redux-handle" : "This is redux",
-            "password" : "Password",
-            "first-name" : "First Name",
-            "last-name" :"Last Name",
-            "address" :"Address",
-            "phonenumber" :"Phone Number",
-            "gender" : "Gender",
-            "choose":"Choose...",
-            "rank" : "Rank",
-            "role" :"Role",
-            "check-me-out" : "Check me out",
-            "image" : "Ảnh đại diện",
-            "Create" : "Create",
-            "Edit" : "Edit"
-
+        "admin": {
+            "manage-user": "Users",
+            "manage-admin": "Admin manage",
+            "manage-doctor": "Doctor manage",
+            "admin": "Admin",
+            "user": "Users",
+            "doctor": "Doctor",
+            "crud": "CRUD",
+            "crud-redux": "CRUD-Redux",
+            "clinic": "Clinic",
+            "manage-clinic": "Clinic manage",
+            "specialty": "Specialty",
+            "manage-specialty": "Specialty manage",
+            "handbook": "Handbook",
+            "handbook-manage": "Handbook manage",
+            "redux-handle": "This is redux",
+            "password": "Password",
+            "first-name": "First Name",
+            "last-name": "Last Name",
+            "address": "Address",
+            "phonenumber": "Phone Number",
+            "gender": "Gender",
+            "choose": "Choose...",
+            "rank": "Rank",
+            "role": "Role",
+            "check-me-out": "Check me out",
+            "image": "Avatar",
+            "Create": "Create",
+            "Edit": "Edit"
+        },
+        "doctor": {
+            "manage-schedule": "Manage",
+            "schedule": "Schedule"
         }
     }
-
-
-
 }

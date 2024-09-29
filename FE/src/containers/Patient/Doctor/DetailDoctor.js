@@ -32,17 +32,24 @@ class OutStandingDoctor extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if (prevProps.language != this.props.language) {
+            this.componentDidMount();
+        }
+
         if (prevProps.selectDoctor !== this.props.selectDoctor) {
             let copySelectDoctor = { ...this.props.selectDoctor };
             if (copySelectDoctor && copySelectDoctor.avatar) {
                 copySelectDoctor.avatar = new Buffer(copySelectDoctor.avatar, 'base64').toString('binary');
             }
             let copyState = { ...this.state };
-            copyState.firstName = copySelectDoctor.firstName;
-            copyState.lastName = copySelectDoctor.lastName;
-            copyState.address = copySelectDoctor.address;
-            copyState.avatar = copySelectDoctor.avatar;
-            copyState.phoneNumber = copySelectDoctor.phoneNumber;
+            copyState.selectDoctor = this.props.selectDoctor;
+            if (copySelectDoctor.firstName && copySelectDoctor.lastName) {
+                copyState.firstName = copySelectDoctor.firstName;
+                copyState.lastName = copySelectDoctor.lastName;
+                copyState.address = copySelectDoctor.address;
+                copyState.avatar = copySelectDoctor.avatar;
+                copyState.phoneNumber = copySelectDoctor.phoneNumber;
+            }
             if (copySelectDoctor.positionData) {
                 copyState.positionVi = copySelectDoctor.positionData.valueVi;
                 copyState.positionEn = copySelectDoctor.positionData.valueEn;
@@ -56,6 +63,7 @@ class OutStandingDoctor extends Component {
                 ...copyState
             })
         }
+
     }
 
     render() {
@@ -109,7 +117,11 @@ class OutStandingDoctor extends Component {
 
                 <div className='doctor-detail-markdown'>
                     <div className='doctor-detail-markdown-content'>
-                        <div contentEditable='false' dangerouslySetInnerHTML={{ __html: contentHTML }}></div>
+                        <div
+                            contentEditable='false'
+                            dangerouslySetInnerHTML={{ __html: contentHTML }}
+                            className='markdown-content-html'
+                        ></div>
                     </div>
                 </div>
             </>

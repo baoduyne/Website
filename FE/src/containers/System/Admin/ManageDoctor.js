@@ -16,22 +16,30 @@ class ManageDoctor extends Component {
         super(props);
         this.state = {
             selectedOption: null,
+
+            firstName: '',
+            lastName: '',
+            positionVi: '',
+            positionEn: '',
+
             description: '',
             contentMarkdown: '',
             contentHTML: '',
             allDoctors: '',
             avatar: '',
             hasOldData: false,
-            action: ''
+            action: '',
 
         }
     }
     componentDidMount = async () => {
         await this.props.getAllDoctorsStart();
-
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if (prevProps.language !== this.props.language) {
+            this.componentDidMount()
+        }
         if (prevProps.allDoctors !== this.props.allDoctors) {
 
             let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors);
@@ -41,12 +49,6 @@ class ManageDoctor extends Component {
                 selectedOption: dataInputSelect[0]
             });
         }
-        if (prevProps.language !== this.props.language) {
-            let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors);
-            this.setState({ allDoctors: dataInputSelect });
-        }
-
-        // if(prevState)
     }
 
 
@@ -81,30 +83,29 @@ class ManageDoctor extends Component {
 
 
     handleChange = async (selectedOption) => {
-
-        await this.props.getSelectDoctorStart(selectedOption.value);
-        let selectDoctor = this.props.selectDoctor;
-        console.log('test', selectDoctor)
-        if (selectDoctor.Markdown) {
-            this.setState({
-                selectedOption: selectedOption,
-                description: selectDoctor.Markdown.description,
-                contentMarkdown: selectDoctor.Markdown.contentMarkdown,
-                contentHTML: selectDoctor.Markdown.contentHTML,
-                hasOldData: true,
-            })
-        } else {
-            let copyState = { ...this.state };
-            copyState.selectedOption = selectedOption;
-            this.setState({
-                selectedOption: selectedOption,
-                description: '',
-                contentMarkdown: '',
-                contentHTML: '',
-                hasOldData: false,
-            })
+        if (selectedOption && selectedOption.value) {
+            await this.props.getSelectDoctorStart(selectedOption.value);
+            let selectDoctor = this.props.selectDoctor;
+            if (selectDoctor && selectDoctor.Markdown) {
+                this.setState({
+                    selectedOption: selectedOption,
+                    description: selectDoctor.Markdown.description,
+                    contentMarkdown: selectDoctor.Markdown.contentMarkdown,
+                    contentHTML: selectDoctor.Markdown.contentHTML,
+                    hasOldData: true,
+                })
+            } else {
+                let copyState = { ...this.state };
+                copyState.selectedOption = selectedOption;
+                this.setState({
+                    selectedOption: selectedOption,
+                    description: '',
+                    contentMarkdown: '',
+                    contentHTML: '',
+                    hasOldData: false,
+                })
+            }
         }
-
 
     };
 
@@ -153,13 +154,16 @@ class ManageDoctor extends Component {
     }
 
     render() {
-        const { selectedOption, avatar } = this.state;
+        let { selectedOption, avatar, positionEn, positionVi, firstName, lastName } = this.state;
         const mdParser = new MarkdownIt(/* Markdown-it options */);
         let object = this.handlePreviewDescription();
-        let valueVi = '';
-        let valueEn = '';
-        if (object.positionData) { valueVi = object.positionData.valueVi; }
-        if (object.positionData) { valueEn = object.positionData.valueEn; }
+
+        if (object && object.positionData && object.positionData.valueEn && object.positionData.valueVi) {
+            positionEn = object.positionData.valueEn;
+            positionVi = object.positionData.valueVi;
+            firstName = object.firstName;
+            lastName = object.lastName;
+        }
 
         return (
             <div className='manage-doctor-container'>
@@ -201,8 +205,8 @@ class ManageDoctor extends Component {
                                 <div className='section2'>
                                     <div className='name-doctor'>
                                         {this.props.language === LANGUAGES.VI ?
-                                            valueVi + ' ' + object.firstName + ' ' + object.lastName :
-                                            valueEn + ' ' + object.lastName + ' ' + object.firstName}
+                                            positionVi + ' ' + firstName + ' ' + lastName :
+                                            positionEn + ' ' + lastName + ' ' + firstName}
                                     </div>
                                     <div className='description'>
                                         <div className='text-description'>
