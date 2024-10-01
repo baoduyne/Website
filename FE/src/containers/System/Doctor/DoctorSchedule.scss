@@ -1,14 +1,15 @@
 .doctor-schedule-container {
-    width  : 100%;
-    padding: 20px 15%;
+    width     : 100%;
+    padding   : 20px 15%;
+    margin-top: 50px;
 
     .doctor-schedule-content {
         width         : 100%;
         display       : flex;
         flex-direction: column;
+        gap           : 50px;
 
         .content-up {
-            height        : 300px;
             width         : 100%;
             display       : flex;
             flex-direction: row;
@@ -25,7 +26,13 @@
         }
 
         .content-center {
-            width: 100%;
+            width         : 100%;
+            display       : flex;
+            flex-direction: row;
+            flex-wrap     : wrap;
+            gap           : 30px;
+
+            .date-button {}
         }
 
         .content-down {

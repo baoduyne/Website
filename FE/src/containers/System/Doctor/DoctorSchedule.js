@@ -6,7 +6,7 @@ import { ACTIONS, LANGUAGES } from '../../../utils/constant';
 import Select from 'react-select';
 import './DoctorSchedule.scss';
 import DatePicker from "../../../components/Input/DatePicker";
-import moment from 'moment';
+import moment, { lang } from 'moment';
 
 class Doctor extends Component {
 
@@ -104,15 +104,18 @@ class Doctor extends Component {
                             </div>
                         </div>
                         <div className='content-center'>
+
                             {allSchedules && allSchedules.length > 0 && allSchedules.map((item, index) => {
-                                <button>{language === LANGUAGES.VI ? item.valueVi : item.valueEn}</button>
+                                { console.log('tes', language) }
+                                return (
+                                    <button
+                                        className='btn btn-light date-button'
+                                    > {language === LANGUAGES.VI ? item.valueVi : item.valueEn}</button>)
                             })}
                         </div>
                         <div className='content-down'>
                             <button className='btn btn-primary'>Lưu thông tin</button>
-
                         </div>
-
                     </div>
                 </div>
             </React.Fragment>
