@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
+import UserManage from '../containers/System/UserManage';
+import ProductManage from '../containers/System/ProductManage';
+import manageDoctor from "../containers/System/Admin/ManageDoctor";
+import Header from '../containers/Header/Header';
+import UserRedux from '../containers/System/Admin/UserRedux'
 
 class Home extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            isLoggedIn : false,
-            data : {},
+            isLoggedIn: false,
+            data: '',
         }
     }
 
-    componentDidUpdate(prevProps,prevState){
-        if(prevProps.data !== this.props.data){
-            this.setState({data : this.props.data})
+    componentDidUpdate = (prevProps, prevState) => {
+        if (this.props.data && prevProps.data !== this.props.data) {
+            this.setState({ data: this.props.data })
         }
     }
+
+
     render() {
-        
-        console.log('check redux',this.state);  
+        console.log('check redux', this.state);
         let linkToRedirect = this.state.isLoggedIn ? '/system/user-manage' : '/home';
         return (
-            <Redirect to={linkToRedirect}/>
-        
+            <Redirect to={linkToRedirect} />
         );
     }
 
@@ -31,9 +36,9 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        systemMenuPath: state.app.systemMenuPath,
+        //   systemMenuPath: state.app.systemMenuPath,
         isLoggedIn: state.user.isLoggedIn,
-        data:state.user,   
+        data: state.user,
     };
 };
 
@@ -43,3 +48,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
+

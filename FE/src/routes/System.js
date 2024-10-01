@@ -9,6 +9,7 @@ import UserRedux from '../containers/System/Admin/UserRedux'
 class System extends Component {
     render() {
         const { systemMenuPath, isLoggedIn } = this.props;
+        console.log('check redux 123', this.props.data);
         return (
             <React.Fragment>
                 <div className="system-container">

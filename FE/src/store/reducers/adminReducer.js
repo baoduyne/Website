@@ -11,6 +11,7 @@ const initialState = {
     topDoctors: [],
     allDoctors: [],
     selectDoctor: {},
+    allSchedules: [],
 }
 
 const appReducer = (state = initialState, action) => {
@@ -168,6 +169,24 @@ const appReducer = (state = initialState, action) => {
                 ...copyState
             }
         case actionTypes.GET_SELECT_DOCTOR_FAIL:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+
+        case actionTypes.GET_SCHEDULE_START:
+            return {
+                ...state
+            }
+        case actionTypes.GET_SCHEDULE_SUCCESS:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            copyState.allSchedules = action.data;
+            return {
+                ...copyState
+            }
+        case actionTypes.GET_SCHEDULE_FAIL:
             copyState = { ...state }
             copyState.isLoading = false;
             return {

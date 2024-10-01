@@ -6,6 +6,8 @@ import { ACTIONS, LANGUAGES } from '../../../utils/constant';
 import Select from 'react-select';
 import './DoctorSchedule.scss';
 import DatePicker from "../../../components/Input/DatePicker";
+import moment from 'moment';
+
 class Doctor extends Component {
 
     constructor(props) {
@@ -13,11 +15,14 @@ class Doctor extends Component {
         this.state = {
             allDoctors: [''],
             selectedOption: null,
+            currentDate: new Date(),
+            allSchedules: [],
 
         }
     }
     componentDidMount() {
         this.props.getAllDoctorsStart();
+        this.props.getScheduleStart();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -27,11 +32,15 @@ class Doctor extends Component {
                 allDoctors: data
             })
         }
+        if (this.props.allSchedules && (prevProps.allSchedules !== this.props.allSchedules)) {
+            this.setState({
+                allSchedules: this.props.allSchedules
+            })
+        }
     }
 
     builtDataInputSelect(inputData) {
         let result = [];
-
         if (inputData) {
             inputData.map((item, index) => {
                 let object = {};
@@ -56,12 +65,17 @@ class Doctor extends Component {
             })
         }
     }
-    handleOnchangeDatePicker = () => {
-
+    handleOnchangeDatePicker = (date) => {
+        this.setState({
+            currentDate: date[0]
+        })
+        console.log('check state', this.state.currentDate)
     }
 
     render() {
-        let { selectedOption } = this.state;
+        let { selectedOption, allSchedules } = this.state;
+        let { language } = this.props;
+        console.log('check state', this.state.allSchedules)
         return (
             <React.Fragment>
 
@@ -69,7 +83,7 @@ class Doctor extends Component {
                     <div className='doctor-schedule-content'>
                         <div className='content-up'>
                             <div className='select-container'>
-                                <label for='select'>Chọn bác sĩ</label>
+                                <label for='select'>Chọn bác sĩ </label>
                                 <Select
                                     value={this.state.selectedOption}
                                     onChange={this.handleChange}
@@ -84,11 +98,21 @@ class Doctor extends Component {
                                     onChange={this.handleOnchangeDatePicker}
                                     className='form-control'
                                     id='datepicker'
+                                    value={this.state.currentDate[0]}
+                                    minDate={new Date()}
                                 ></DatePicker>
                             </div>
-
-                            <div className='content-down'></div>
                         </div>
+                        <div className='content-center'>
+                            {allSchedules && allSchedules.length > 0 && allSchedules.map((item, index) => {
+                                <button>{language === LANGUAGES.VI ? item.valueVi : item.valueEn}</button>
+                            })}
+                        </div>
+                        <div className='content-down'>
+                            <button className='btn btn-primary'>Lưu thông tin</button>
+
+                        </div>
+
                     </div>
                 </div>
             </React.Fragment>
@@ -98,16 +122,18 @@ class Doctor extends Component {
 
 const mapStateToProps = state => {
     return {
-
+        language: state.app.language,
         isLoggedIn: state.user.isLoggedIn,
         data: state.user,
-        allDoctors: state.admin.allDoctors
+        allDoctors: state.admin.allDoctors,
+        allSchedules: state.admin.allSchedules
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getAllDoctorsStart: () => dispatch(actions.getAllDoctorsStart())
+        getAllDoctorsStart: () => dispatch(actions.getAllDoctorsStart()),
+        getScheduleStart: () => dispatch(actions.getScheduleStart())
     };
 };
 

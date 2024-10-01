@@ -371,7 +371,7 @@ export const getSelectDoctorStart = (id) => {
     return async (dispatch, getState) => {
         try {
 
-            dispatch({ type: actionTypes.SAVE_SELECT_DOCTOR_START })
+            dispatch({ type: actionTypes.GET_SELECT_DOCTOR_START })
             let res = await getSelectDoctorService(id);
 
             if (res && res.errCode === 0) {
@@ -422,5 +422,64 @@ export const getSelectDoctorSuccess = (data) => {
 export const getSelectDoctorFail = () => {
     return {
         type: actionTypes.GET_SELECT_DOCTOR_FAIL
+    }
+}
+
+
+export const getScheduleStart = () => {
+    return async (dispatch, getState) => {
+        try {
+
+            dispatch({ type: actionTypes.GET_SCHEDULE_START })
+            let res = await getAllCodeService('TIME');
+
+            if (res && res.errCode === 0) {
+                dispatch(getScheduleSuccess(res.data));
+
+            }
+
+            else {
+                toast.fail('Get doctor failed!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                })
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(getScheduleFail());
+            toast.fail('Get doctor failed!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            })
+        }
+    }
+
+}
+
+export const getScheduleSuccess = (data) => {
+    return {
+        type: actionTypes.GET_SCHEDULE_SUCCESS,
+        data: data
+    }
+}
+
+export const getScheduleFail = () => {
+    return {
+        type: actionTypes.GET_SCHEDULE_FAIL
     }
 }
