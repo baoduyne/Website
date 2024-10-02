@@ -32,7 +32,9 @@
             flex-wrap     : wrap;
             gap           : 30px;
 
-            .date-button {}
+            .date-button {
+                &.active {}
+            }
         }
 
         .content-down {

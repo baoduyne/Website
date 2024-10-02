@@ -2,18 +2,23 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as actions from '../../../store/actions';
-import { ACTIONS, LANGUAGES } from '../../../utils/constant';
+import { ACTIONS, LANGUAGES, dateFormat } from '../../../utils/constant';
 import Select from 'react-select';
 import './DoctorSchedule.scss';
 import DatePicker from "../../../components/Input/DatePicker";
 import moment, { lang } from 'moment';
+import _ from 'lodash';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { FormattedDate } from 'react-intl';
+
 
 class Doctor extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            allDoctors: [''],
+            allDoctors: [],
             selectedOption: null,
             currentDate: new Date(),
             allSchedules: [],
@@ -33,8 +38,15 @@ class Doctor extends Component {
             })
         }
         if (this.props.allSchedules && (prevProps.allSchedules !== this.props.allSchedules)) {
+
+            // let { allSchedules } = this.props;
+            let data = this.props.allSchedules;
+            data = data.map((item, index) => {
+                item.isSelected = false;
+                return item;
+            })
             this.setState({
-                allSchedules: this.props.allSchedules
+                allSchedules: data
             })
         }
     }
@@ -69,13 +81,96 @@ class Doctor extends Component {
         this.setState({
             currentDate: date[0]
         })
-        console.log('check state', this.state.currentDate)
+
+    }
+
+    handleOnClickSchedule = (data) => {
+        let { allSchedules } = this.state;
+        if (allSchedules && allSchedules.length > 0) {
+
+            allSchedules = allSchedules.map(item => {
+                if (item.id === data.id) {
+                    item.isSelected = !item.isSelected
+                }
+                return item;
+            })
+        }
+
+        this.setState({
+            allSchedules: allSchedules
+        })
+
+
+    }
+
+    handleSaveInfomation = () => {
+        let { selectedOption, currentDate, allSchedules } = this.state;
+        if (!selectedOption) {
+            toast(' Invalid doctor!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+
+        }
+        else if (!currentDate) {
+            toast('Invalid date!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+
+        }
+        else {
+            let selectedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+            let saveDate = [];
+            if (allSchedules && allSchedules.length > 0) {
+                saveDate = allSchedules.filter(item => item.isSelected === true);
+            }
+            let result = []
+            if (saveDate && saveDate.length > 0) {
+                saveDate.map(item => {
+                    let object = {};
+                    object.keyMap = item.keyMap;
+                    object.doctorId = selectedOption.value;
+                    object.date = selectedDate;
+                    result.push(object)
+                })
+            }
+            toast.success('Saved complete!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
+            console.log('check result', result)
+        }
+
+
+
     }
 
     render() {
         let { selectedOption, allSchedules } = this.state;
         let { language } = this.props;
-        console.log('check state', this.state.allSchedules)
+
         return (
             <React.Fragment>
 
@@ -106,15 +201,17 @@ class Doctor extends Component {
                         <div className='content-center'>
 
                             {allSchedules && allSchedules.length > 0 && allSchedules.map((item, index) => {
-                                { console.log('tes', language) }
                                 return (
                                     <button
-                                        className='btn btn-light date-button'
+                                        className={item.isSelected === true ? 'btn btn-info date-button' : 'btn btn-light date-button'}
+                                        onClick={() => this.handleOnClickSchedule(item)}
                                     > {language === LANGUAGES.VI ? item.valueVi : item.valueEn}</button>)
                             })}
                         </div>
                         <div className='content-down'>
-                            <button className='btn btn-primary'>Lưu thông tin</button>
+                            <button
+                                onClick={() => this.handleSaveInfomation()}
+                                className='btn btn-primary'>Lưu thông tin</button>
                         </div>
                     </div>
                 </div>
