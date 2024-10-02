@@ -176,6 +176,10 @@ class Doctor extends Component {
 
                 <div className='doctor-schedule-container'>
                     <div className='doctor-schedule-content'>
+                        <div className='doctor-schedule-title'>
+                            <div className='schedule-logo'></div>
+                            <div className='schedule-title'>MANAGE DOCTOR'S SCHEDULE</div>
+                        </div>
                         <div className='content-up'>
                             <div className='select-container'>
                                 <label for='select'>Chọn bác sĩ </label>
