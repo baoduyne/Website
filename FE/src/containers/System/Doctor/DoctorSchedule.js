@@ -199,14 +199,16 @@ class Doctor extends Component {
                             </div>
                         </div>
                         <div className='content-center'>
-
-                            {allSchedules && allSchedules.length > 0 && allSchedules.map((item, index) => {
-                                return (
-                                    <button
-                                        className={item.isSelected === true ? 'btn btn-info date-button' : 'btn btn-light date-button'}
-                                        onClick={() => this.handleOnClickSchedule(item)}
-                                    > {language === LANGUAGES.VI ? item.valueVi : item.valueEn}</button>)
-                            })}
+                            <div className='content-title'>Chọn lịch hẹn</div>
+                            <div className='schedule-content'>
+                                {allSchedules && allSchedules.length > 0 && allSchedules.map((item, index) => {
+                                    return (
+                                        <button
+                                            className={item.isSelected === true ? 'btn btn-info date-button' : 'btn btn-light date-button'}
+                                            onClick={() => this.handleOnClickSchedule(item)}
+                                        > {language === LANGUAGES.VI ? item.valueVi : item.valueEn}</button>)
+                                })}
+                            </div>
                         </div>
                         <div className='content-down'>
                             <button
