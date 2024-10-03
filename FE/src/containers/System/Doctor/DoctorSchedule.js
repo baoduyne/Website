@@ -10,7 +10,7 @@ import moment, { lang } from 'moment';
 import _ from 'lodash';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 
 class Doctor extends Component {
