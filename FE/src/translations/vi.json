@@ -75,13 +75,19 @@
             "role": "Vai trò",
             "choose": "Lựa chọn...",
             "check-me-out": "Nhớ thông tin",
-            "image": "User image",
+            "image": "Ảnh đại diện",
             "Create": "Tạo mới",
             "Edit": "Chỉnh sửa"
         },
         "doctor": {
             "manage-schedule": "Quản lý",
-            "schedule": "Kế hoạch khám"
+            "schedule": "Kế hoạch khám",
+            "MANAGE-DOCTORS-SCHEDULE": "QUẢN LÝ LỊCH KHÁM BỆNH",
+            "Efficiently-organize medical staff calendars and patient visits": "Sắp xếp lịch làm việc của nhân viên y tế và lịch khám bệnh nhân",
+            "Choose-doctor": "Chọn bác sĩ",
+            "Choose-day": "Chọn ngày",
+            "Choose-schedule": "Chọn lịch khám",
+            "Save-informations": "Lưu thông tin"
         }
     }
 }

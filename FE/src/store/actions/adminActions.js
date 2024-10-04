@@ -3,7 +3,8 @@ import {
     getAllCodeService, createNewUserService, getAllUsers,
     deleteUserService, editUserService,
     getTopDoctorHomeService, getAllDoctorsService,
-    saveSelectDoctorService, getSelectDoctorService
+    saveSelectDoctorService, getSelectDoctorService,
+    saveDoctorSchedulesService
 } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -480,6 +481,73 @@ export const getScheduleSuccess = (data) => {
 
 export const getScheduleFail = () => {
     return {
-        type: actionTypes.GET_SCHEDULE_FAIL
+        type: actionTypes.SAVE_DOCTOR_SCHEDULES_FAIL
+    }
+}
+
+
+export const saveDoctorSchedulesStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+
+            dispatch({ type: actionTypes.SAVE_DOCTOR_SCHEDULES_START })
+            let res = await saveDoctorSchedulesService(data);
+
+            if (res && res.errCode === 0) {
+                dispatch(saveDoctorSchedulesSuccess(res.message));
+                toast.success('Saved complete!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                });
+            }
+            else {
+                toast('FAIL!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(saveDoctorSchedulesFail());
+            toast('FAIL!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
+    }
+
+}
+
+export const saveDoctorSchedulesSuccess = () => {
+    return {
+        type: actionTypes.SAVE_DOCTOR_SCHEDULES_SUCCESS,
+    }
+}
+
+export const saveDoctorSchedulesFail = () => {
+    return {
+        type: actionTypes.SAVE_DOCTOR_SCHEDULES_FAIL
     }
 }

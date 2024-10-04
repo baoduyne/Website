@@ -33,21 +33,21 @@ class UserRedux extends Component {
             avatar: '',
 
             action: '',
-            id :''
+            id: ''
         }
     }
 
     componentDidMount = async () => {
-       // setTimeout(async() => {
-            await this.props.fetchAllCodeStart();
-       // }, 1000);
-            
-        
-       
+        // setTimeout(async() => {
+        await this.props.fetchAllCodeStart();
+        // }, 1000);
+
+
+
     }
 
     componentDidUpdate(prevProps, prevState) {
-      
+
         if (prevProps.allCodeData.users !== this.props.allCodeData.users) {
             this.setState({
                 email: '',
@@ -66,12 +66,11 @@ class UserRedux extends Component {
         }
 
 
-        if ((prevProps.allCodeData !== this.props.allCodeData)) {
-
+        if (this.props.allCodeData && this.props.allCodeData.genders && (prevProps.allCodeData !== this.props.allCodeData)) {
             let genders = this.props.allCodeData.genders;
             let positions = this.props.allCodeData.positions;
             let roles = this.props.allCodeData.roles;
-            
+
             this.setState({
                 arrAllCode: this.props.allCodeData,
                 gender: genders && genders.length > 0 && genders[0].keyMap,
@@ -88,12 +87,13 @@ class UserRedux extends Component {
         let data = event.target.files;
         let file = data[0];
         if (file) {
-            
+
             let objectUrl = URL.createObjectURL(file);
             let avtBase64 = await CommonUtils.getBase64(file);
-            this.setState({ 
-                avatar : avtBase64,
-                objectUrl: objectUrl });
+            this.setState({
+                avatar: avtBase64,
+                objectUrl: objectUrl
+            });
         }
 
     }
@@ -127,8 +127,8 @@ class UserRedux extends Component {
     }
 
     handleSubmitUser = async (event) => {
-    
-        
+
+
         let data = {
             email: this.state.email,
             password: this.state.password,
@@ -140,21 +140,21 @@ class UserRedux extends Component {
             position: this.state.position,
             role: this.state.role,
             avatar: this.state.avatar,
-            id : this.state.id
+            id: this.state.id
         }
-       
+
         if (this.state.action === ACTIONS.CREATE) {
             let isValid = this.checkValidate();
             if (isValid === true) {
-               
+
                 await this.props.saveUserAction(data);
             }
         }
-      
+
         if (this.state.action === ACTIONS.EDIT) {
-          
-               await this.props.editUserStart(data);
-          
+
+            await this.props.editUserStart(data);
+
             // setTimeout(async () => {
             //   //  await this.props.editUserStart(data);
             // }, 1000)
@@ -163,10 +163,10 @@ class UserRedux extends Component {
 
     handleEditUser = (user) => {
         let imageBase64 = '';
-        if(user.avatar){
-            imageBase64 = new Buffer(user.avatar,'base64').toString('binary');
+        if (user.avatar) {
+            imageBase64 = new Buffer(user.avatar, 'base64').toString('binary');
         }
-      
+
         this.setState({
             email: user.email,
             password: '*******',
@@ -179,9 +179,9 @@ class UserRedux extends Component {
             role: user.roleId,
             avatar: user.avatar,
             action: ACTIONS.EDIT,
-            id:user.id,
+            id: user.id,
 
-            objectUrl : imageBase64,
+            objectUrl: imageBase64,
         })
 
     }
@@ -192,21 +192,27 @@ class UserRedux extends Component {
         let imagePreview = this.state.objectUrl;
 
         let { email, password, firstName, lastName, address
-            , phoneNumber, gender, position, role, avatar,action }
+            , phoneNumber, gender, position, role, avatar, action }
             = this.state;
-         
-        
         return (
             <React.Fragment>
-                 {isLoading ? <LoadingPage></LoadingPage> :
+                {isLoading ? <LoadingPage></LoadingPage> :
                     <div className="user-redux-container">
-                        <div className="title">
-                            <FormattedMessage id="menu.admin.redux-handle"></FormattedMessage>
-                        </div>
+
                         <div className="user-redux-body">
-                            <form>
+                            <div className="user-redux-content">
+                                <div className='schedule-logo'>
+                                    <div
+                                        className='logo'
+                                        onClick={() => this.handleOnClickLogo()}
+                                    ></div>
+                                </div>
+                                <div className="title-container">
+                                    <div className="redux-title"><FormattedMessage id="menu.admin.redux-handle"></FormattedMessage></div>
+                                </div>
+
                                 <div class="form-group d-flex gap-3 justify-content-center">
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-6">
                                         <label for="inputEmail4">Email</label>
                                         <input
                                             type="email"
@@ -215,10 +221,10 @@ class UserRedux extends Component {
                                             placeholder="Email"
                                             value={email}
                                             onChange={(event) => this.handleOnchangeInput(event, 'email')}
-                                            disabled = {action === ACTIONS.EDIT ? true : false}
+                                            disabled={action === ACTIONS.EDIT ? true : false}
                                         ></input>
                                     </div>
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-6">
                                         <label for="inputPassword4"><FormattedMessage id="menu.admin.password"></FormattedMessage></label>
                                         <input
                                             type="password"
@@ -227,12 +233,14 @@ class UserRedux extends Component {
                                             placeholder="Password"
                                             value={password}
                                             onChange={(event) => this.handleOnchangeInput(event, 'password')}
-                                           disabled = { action === ACTIONS.EDIT ? true : false}
+                                            disabled={action === ACTIONS.EDIT ? true : false}
                                         ></input>
                                     </div>
                                 </div>
+
+
                                 <div class="form-group d-flex gap-3 justify-content-center">
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-6">
                                         <label for="inputAddress"><FormattedMessage id="menu.admin.first-name"></FormattedMessage></label>
                                         <input
                                             type="text"
@@ -243,7 +251,7 @@ class UserRedux extends Component {
                                             onChange={(event) => this.handleOnchangeInput(event, 'firstName')}
                                         ></input>
                                     </div>
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-6">
                                         <label for="inputAddress"><FormattedMessage id="menu.admin.last-name"></FormattedMessage></label>
                                         <input
                                             type="text"
@@ -255,8 +263,10 @@ class UserRedux extends Component {
                                         ></input>
                                     </div>
                                 </div>
+
+
                                 <div class="form-group d-flex justify-content-center">
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-12">
                                         <label for="inputAddress"><FormattedMessage id="menu.admin.address"></FormattedMessage></label>
                                         <input
                                             type="text"
@@ -268,8 +278,10 @@ class UserRedux extends Component {
                                         ></input>
                                     </div>
                                 </div>
+
+
                                 <div class="form-group d-flex gap-3 justify-content-center">
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-6">
                                         <label for="inputAddress"><FormattedMessage id="menu.admin.phonenumber"></FormattedMessage></label>
                                         <input
                                             type="text"
@@ -280,7 +292,7 @@ class UserRedux extends Component {
                                             onChange={(event) => this.handleOnchangeInput(event, 'phoneNumber')}
                                         ></input>
                                     </div>
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-6">
                                         <label for="inputAddress"><FormattedMessage id="menu.admin.gender"></FormattedMessage></label>
                                         <select
                                             id="inputState"
@@ -300,8 +312,9 @@ class UserRedux extends Component {
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="form-group d-flex gap-3 justify-content-center">
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-6">
                                         <label for="inputAddress"><FormattedMessage id="menu.admin.rank"></FormattedMessage></label>
                                         <select
                                             id="inputState"
@@ -321,7 +334,7 @@ class UserRedux extends Component {
                                             )}
                                         </select>
                                     </div>
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-6">
                                         <label for="inputAddress"><FormattedMessage id="menu.admin.role"></FormattedMessage></label>
                                         <select
                                             id="inputState"
@@ -345,13 +358,23 @@ class UserRedux extends Component {
 
                                 <div class="form-group d-flex justify-content-center">
                                     <div class="form-group image-preview-container">
-                                        <label htmlFor="imagePreview"><FormattedMessage id="menu.admin.image"></FormattedMessage></label>
-                                        <input onChange={(event) => this.handlePreviewImage(event)} id='imagePreview' class="form-control " type='file' hidden></input>
-                                        <div className="preview-box" style={{ backgroundImage: `url(${imagePreview})` }} onClick={() => this.setState({ isOpen: true })}></div>
+                                        <label
+                                            htmlFor="imagePreview"><FormattedMessage id="menu.admin.image"></FormattedMessage></label>
+                                        <input
+                                            onChange={(event) => this.handlePreviewImage(event)}
+                                            id='imagePreview'
+                                            class="form-control "
+                                            type='file'
+                                            hidden
+                                        ></input>
+                                        <div
+                                            className="preview-box"
+                                            style={{ backgroundImage: `url(${imagePreview})` }}
+                                            onClick={() => this.setState({ isOpen: true })}></div>
                                     </div>
                                 </div>
 
-                                <div class="form-group d-flex gap-3 justify-content-center mt-3 align-items-center ">
+                                <div class="form-group d-flex gap-3 justify-content-center align-items-center ">
                                     {
                                         this.state.action === ACTIONS.CREATE ?
                                             <div class="form-check">
@@ -369,8 +392,8 @@ class UserRedux extends Component {
                                         id={this.state.action === ACTIONS.CREATE ? "menu.admin.Create" : 'menu.admin.Edit'}></FormattedMessage></button>
                                 </div>
 
-                            </form>
 
+                            </div>
                         </div>
                         {this.state.isOpen === true &&
                             <Lightbox
@@ -379,11 +402,12 @@ class UserRedux extends Component {
                             />}
 
                     </div>}
+
                 <ManageUserTable
                     handleEditUser={this.handleEditUser}
                 ></ManageUserTable>
 
-            </React.Fragment>
+            </React.Fragment >
         );
     }
 
@@ -401,7 +425,7 @@ let mapDispathToProps = dispatch => {
     return {
         fetchAllCodeStart: () => dispatch(actions.fetchAllCodeStart()),
         saveUserAction: (data) => dispatch(actions.saveUserAction(data)),
-        editUserStart : (user) => dispatch(actions.editUserStart(user))
+        editUserStart: (user) => dispatch(actions.editUserStart(user))
     }
 }
 
@@ -411,7 +435,7 @@ export default connect(mapStateToProps, mapDispathToProps)(UserRedux);
 
 /*Net work :
 - packet + IP = IP datagram
-- IP + MAC = ARP 
+- IP + MAC = ARP
 
 
 
@@ -421,6 +445,6 @@ export default connect(mapStateToProps, mapDispathToProps)(UserRedux);
 */
 //0 - 126   16 mili
 //128 - 191 64 thousand
-//192 - 224  254 
+//192 - 224  254
 //224 - 239
 //240 - 255

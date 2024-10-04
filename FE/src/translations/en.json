@@ -81,7 +81,13 @@
         },
         "doctor": {
             "manage-schedule": "Manage",
-            "schedule": "Schedule"
+            "schedule": "Schedule",
+            "MANAGE-DOCTORS-SCHEDULE": "MANAGE DOCTOR'S SCHEDULE",
+            "Efficiently-organize medical staff calendars and patient visits": "Efficiently organize medical staff calendars and patient visits",
+            "Choose-doctor": "Choose doctor",
+            "Choose-day": "Choose day",
+            "Choose-schedule": "Choose schedule",
+            "Save-informations": "Save informations"
         }
     }
 }

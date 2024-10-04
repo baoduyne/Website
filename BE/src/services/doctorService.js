@@ -1,5 +1,8 @@
 import { reject } from "bcrypt/promises";
 import db from "../models/index";
+require('dotenv').config();
+import _ from 'lodash';
+const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
 let getTopDoctorHome = (limit) => {
     return new Promise(async (resolve, reject) => {
@@ -120,9 +123,66 @@ let getDoctorMarkdown = (id) => {
     })
 }
 
+let saveDoctorSchedules = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let schedules = data;
+
+            if (!schedules || !schedules[0].date || !schedules[0].doctorId) {
+                resolve(
+                    {
+                        errCode: -1,
+                        errMessage: 'Missing parameter!',
+                    }
+                )
+            }
+
+            else {
+                schedules = schedules.map((item, index) => {
+                    item.maxNumber = MAX_NUMBER_SCHEDULE;
+                    return item;
+                })
+
+                let doctorId = schedules[0].doctorId;
+
+                let existing = await db.Schedule.findAll({
+                    where: { doctorId: doctorId },
+                    attributes: ['timeType', 'date', 'doctorId', 'maxNumber'],
+                    raw: true
+                })
+
+                if (existing && existing.length > 0) {
+                    existing = existing.map((item, index) => {
+                        item.date = new Date(item.date).getTime();
+                        return item;
+                    })
+                }
+                let toCreate = _.differenceWith(schedules, existing, (a, b) => {
+                    return a.timeType === b.timeType && a.date === b.date
+                });
+                if (toCreate && toCreate.length > 0) {
+                    await db.Schedule.bulkCreate(toCreate);
+                }
+
+                resolve(
+                    {
+                        errCode: 0,
+                        errMessage: 'save doctor schedules completed',
+                    }
+                )
+            }
+        }
+        catch (e) {
+            console.log(e);
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getTopDoctorHome: getTopDoctorHome,
     getAllDoctors: getAllDoctors,
     saveSelectDoctor: saveSelectDoctor,
-    getDoctorMarkdown: getDoctorMarkdown
+    getDoctorMarkdown: getDoctorMarkdown,
+    saveDoctorSchedules: saveDoctorSchedules
 }

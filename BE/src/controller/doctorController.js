@@ -46,7 +46,7 @@ let getAllDoctors = async (req, res) => {
 let saveSelectDoctor = async (req, res) => {
     try {
         let inforDoctor = req.body;
-     
+
         if (!inforDoctor) {
             res.status(200).json({
                 errCode: 1,
@@ -72,24 +72,43 @@ let saveSelectDoctor = async (req, res) => {
     }
 }
 
-let getDoctorMarkdown = async (req,res) =>{
-    try{
+let getDoctorMarkdown = async (req, res) => {
+    try {
         let id = req.query.id;
         let data = await doctorService.getDoctorMarkdown(id);
-        if(data){
+        if (data) {
             return res.status(200).json({
-                errCode : 0,
-                errMessage : 'get doctor markdown completed!',
+                errCode: 0,
+                errMessage: 'get doctor markdown completed!',
                 data: data
-            })}
+            })
+        }
 
     }
-    catch(e){
+    catch (e) {
         return res.status(200).json({
-            errCode:-1,
-            errMessage:'Err from sever'
+            errCode: -1,
+            errMessage: 'Err from sever'
         })
     }
+}
+
+let saveDoctorSchedules = async (req, res) => {
+    try {
+        let data = req.body;
+        let response = await doctorService.saveDoctorSchedules(data);
+        res.status(200).json({
+            errCode: response.errCode,
+            errMessage: response.errMessage
+        })
+    }
+    catch (e) {
+        res.status(200).json({
+            errCode: -1,
+            errMessage: 'err from sever...'
+        })
+    }
+
 }
 
 
@@ -97,5 +116,6 @@ module.exports = {
     getTopDoctorHome: getTopDoctorHome,
     getAllDoctors: getAllDoctors,
     saveSelectDoctor: saveSelectDoctor,
-    getDoctorMarkdown:getDoctorMarkdown
+    getDoctorMarkdown: getDoctorMarkdown,
+    saveDoctorSchedules: saveDoctorSchedules
 }

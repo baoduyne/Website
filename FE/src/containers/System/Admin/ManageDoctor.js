@@ -8,7 +8,7 @@ import './ManageDoctor.scss';
 import Select from 'react-select';
 import * as actions from '../../../store/actions';
 import { ACTIONS, LANGUAGES } from '../../../utils/constant';
-
+import _ from 'lodash';
 
 class ManageDoctor extends Component {
 
@@ -37,11 +37,7 @@ class ManageDoctor extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.language !== this.props.language) {
-            this.componentDidMount()
-        }
-        if (prevProps.allDoctors !== this.props.allDoctors) {
-
+        if (this.props.allDoctors && prevProps.allDoctors !== this.props.allDoctors) {
             let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors);
             this.handleChange(dataInputSelect[0]);
             this.setState({

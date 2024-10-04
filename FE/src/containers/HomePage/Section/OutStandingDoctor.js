@@ -66,6 +66,7 @@ class OutStandingDoctor extends Component {
                         >
                             {arrDoctor && arrDoctor.length > 0 && arrDoctor.map((item, index) => {
                                 let avatarUrl = '';
+
                                 if (item.avatar) { avatarUrl = new Buffer(item.avatar, 'base64').toString('binary'); }
                                 let nameVi = `${item.positionData.valueVi} ${item.firstName} ${item.lastName}`;
                                 let nameEn = `${item.positionData.valueEn} ${item.firstName} ${item.lastName}`;

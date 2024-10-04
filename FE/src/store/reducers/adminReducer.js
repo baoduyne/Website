@@ -192,6 +192,23 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...copyState
             }
+
+        case actionTypes.SAVE_DOCTOR_SCHEDULES_START:
+            return {
+                ...state
+            }
+        case actionTypes.SAVE_DOCTOR_SCHEDULES_SUCCESS:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+        case actionTypes.SAVE_DOCTOR_SCHEDULES_FAIL:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
         default:
             return { state }
 

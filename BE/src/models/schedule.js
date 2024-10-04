@@ -17,12 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     currentNumber: DataTypes.INTEGER,
     maxNumber: DataTypes.INTEGER,
     date: DataTypes.DATE,
-    timeType:DataTypes.STRING,
-    doctorId:DataTypes.INTEGER,
+    timeType: DataTypes.STRING,
+    doctorId: DataTypes.INTEGER,
     roleid: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Schedule',
   });
+  Schedule.sync({ alter: true });
   return Schedule;
 };

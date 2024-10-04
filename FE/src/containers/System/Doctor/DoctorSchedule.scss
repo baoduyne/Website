@@ -16,13 +16,20 @@
         padding        : 20px;
 
         .schedule-logo {
-            background-image     : url('../../../assets/logo.png');
-            width                : 100%;
-            height               : 5%;
-            background-size      : contain;
-            background-repeat    : no-repeat;
-            background-position-x: center;
+            width : 100%;
+            height: 5%;
 
+            .logo {
+                width                : 28%;
+                height               : 100%;
+                background-image     : url('../../../assets/logo.png');
+                background-size      : contain;
+                background-repeat    : no-repeat;
+                background-position-x: center;
+                cursor               : pointer;
+                margin-left          : auto;
+                margin-right         : auto;
+            }
         }
 
         .doctor-schedule-title {

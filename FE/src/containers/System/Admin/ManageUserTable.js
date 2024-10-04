@@ -14,16 +14,11 @@ class ManageUserTable extends Component {
     }
 
     componentDidMount = async () => {
-        setTimeout(async() => {
-            await this.props.fetchUsersStart();
-        },2000);
-       
-       
-
+        await this.props.fetchUsersStart();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.userRedux !== this.props.userRedux) {
+        if (this.props.userRedux && (prevProps.userRedux !== this.props.userRedux)) {
             this.setState({
                 arrUsers: this.props.userRedux
             })
@@ -31,11 +26,10 @@ class ManageUserTable extends Component {
     }
 
     handleDeleteUser = (item) => {
-        
         this.props.deleteUserStart(item.id);
     }
 
-    
+
 
     render() {
         let arrUsers = this.state.arrUsers;
