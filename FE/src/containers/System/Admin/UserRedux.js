@@ -198,7 +198,6 @@ class UserRedux extends Component {
             <React.Fragment>
                 {isLoading ? <LoadingPage></LoadingPage> :
                     <div className="user-redux-container">
-
                         <div className="user-redux-body">
                             <div className="user-redux-content">
                                 <div className='schedule-logo'>
@@ -209,190 +208,258 @@ class UserRedux extends Component {
                                 </div>
                                 <div className="title-container">
                                     <div className="redux-title"><FormattedMessage id="menu.admin.redux-handle"></FormattedMessage></div>
-                                </div>
-
-                                <div class="form-group d-flex gap-3 justify-content-center">
-                                    <div class="form-group col-6">
-                                        <label for="inputEmail4">Email</label>
-                                        <input
-                                            type="email"
-                                            class="form-control"
-                                            id="inputEmail4"
-                                            placeholder="Email"
-                                            value={email}
-                                            onChange={(event) => this.handleOnchangeInput(event, 'email')}
-                                            disabled={action === ACTIONS.EDIT ? true : false}
-                                        ></input>
-                                    </div>
-                                    <div class="form-group col-6">
-                                        <label for="inputPassword4"><FormattedMessage id="menu.admin.password"></FormattedMessage></label>
-                                        <input
-                                            type="password"
-                                            class="form-control"
-                                            id="inputPassword4"
-                                            placeholder="Password"
-                                            value={password}
-                                            onChange={(event) => this.handleOnchangeInput(event, 'password')}
-                                            disabled={action === ACTIONS.EDIT ? true : false}
-                                        ></input>
-                                    </div>
+                                    <div className="redux-description">Thêm sửa xóa người dùng và chỉnh sửa thông tin</div>
                                 </div>
 
 
-                                <div class="form-group d-flex gap-3 justify-content-center">
-                                    <div class="form-group col-6">
-                                        <label for="inputAddress"><FormattedMessage id="menu.admin.first-name"></FormattedMessage></label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="inputAddress"
-                                            placeholder="First Name"
-                                            value={firstName}
-                                            onChange={(event) => this.handleOnchangeInput(event, 'firstName')}
-                                        ></input>
+                                <div className="doctor-form">
+
+                                    <div className="doctor-section-container">
+                                        <div className='horizon-line'></div>
+                                        <div className="section-content">
+                                            <div className="content-left">Tài khoản</div>
+                                            <div className="content-right">
+                                                <div class="form-group d-flex gap-3 justify-content-center flex-column">
+                                                    <div class="form-group col-12">
+                                                        <label for="inputEmail4">Email</label>
+                                                        <input
+                                                            type="email"
+                                                            class="form-control"
+                                                            id="inputEmail4"
+                                                            placeholder="Email"
+                                                            value={email}
+                                                            onChange={(event) => this.handleOnchangeInput(event, 'email')}
+                                                            disabled={action === ACTIONS.EDIT ? true : false}
+                                                        ></input>
+                                                    </div>
+                                                    <div class="form-group col-12">
+                                                        <label for="inputPassword4"><FormattedMessage id="menu.admin.password"></FormattedMessage></label>
+                                                        <input
+                                                            type="password"
+                                                            class="form-control"
+                                                            id="inputPassword4"
+                                                            placeholder="Password"
+                                                            value={password}
+                                                            onChange={(event) => this.handleOnchangeInput(event, 'password')}
+                                                            disabled={action === ACTIONS.EDIT ? true : false}
+                                                        ></input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-6">
-                                        <label for="inputAddress"><FormattedMessage id="menu.admin.last-name"></FormattedMessage></label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="inputAddress"
-                                            placeholder="Last Name"
-                                            value={lastName}
-                                            onChange={(event) => this.handleOnchangeInput(event, 'lastName')}
-                                        ></input>
+
+
+
+                                    <div className="doctor-section-container">
+                                        <div className='horizon-line'></div>
+                                        <div className="section-content">
+                                            <div className="content-left">Tên đầy đủ</div>
+                                            <div className="content-right">
+                                                <div class="form-group d-flex gap-3 justify-content-center">
+                                                    <div class="form-group col-6">
+                                                        <label for="inputAddress"><FormattedMessage id="menu.admin.first-name"></FormattedMessage></label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="inputAddress"
+                                                            placeholder="First Name"
+                                                            value={firstName}
+                                                            onChange={(event) => this.handleOnchangeInput(event, 'firstName')}
+                                                        ></input>
+                                                    </div>
+                                                    <div class="form-group col-6">
+                                                        <label for="inputAddress"><FormattedMessage id="menu.admin.last-name"></FormattedMessage></label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="inputAddress"
+                                                            placeholder="Last Name"
+                                                            value={lastName}
+                                                            onChange={(event) => this.handleOnchangeInput(event, 'lastName')}
+                                                        ></input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+
+
+
+                                    <div className="doctor-section-container">
+                                        <div className='horizon-line'></div>
+                                        <div className="section-content">
+                                            <div className="content-left">Vị trí</div>
+                                            <div className="content-right">
+                                                <div class="form-group d-flex justify-content-center">
+                                                    <div class="form-group col-12">
+                                                        <label for="inputAddress"><FormattedMessage id="menu.admin.address"></FormattedMessage></label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="inputAddress"
+                                                            placeholder="1234 Main St"
+                                                            value={address}
+                                                            onChange={(event) => this.handleOnchangeInput(event, 'address')}
+                                                        ></input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div className="doctor-section-container">
+                                        <div className='horizon-line'></div>
+                                        <div className="section-content">
+                                            <div className="content-left">Thông tin bổ sung</div>
+                                            <div className="content-right">
+                                                <div class="form-group d-flex gap-3 justify-content-center">
+                                                    <div class="form-group col-6">
+                                                        <label for="inputAddress"><FormattedMessage id="menu.admin.phonenumber"></FormattedMessage></label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="inputAddress"
+                                                            placeholder="0123456789"
+                                                            value={phoneNumber}
+                                                            onChange={(event) => this.handleOnchangeInput(event, 'phoneNumber')}
+                                                        ></input>
+                                                    </div>
+                                                    <div class="form-group col-6">
+                                                        <label for="inputAddress"><FormattedMessage id="menu.admin.gender"></FormattedMessage></label>
+                                                        <select
+                                                            id="inputState"
+                                                            class="form-control"
+                                                            onChange={(event) => this.handleOnchangeInput(event, 'gender')}
+                                                            value={gender}
+                                                        >
+
+                                                            {this.state.arrAllCode.genders && this.state.arrAllCode.genders.map((item, index) => {
+                                                                return (
+                                                                    <option key={index} value={item.keyMap}>
+                                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                                                    </option>
+                                                                );
+                                                            }
+                                                            )}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div className="doctor-section-container">
+                                        <div className='horizon-line'></div>
+                                        <div className="section-content">
+                                            <div className="content-left">Vai trò</div>
+                                            <div className="content-right">
+                                                <div class="form-group d-flex gap-3 justify-content-center">
+                                                    <div class="form-group col-6">
+                                                        <label for="inputAddress"><FormattedMessage id="menu.admin.rank"></FormattedMessage></label>
+                                                        <select
+                                                            id="inputState"
+                                                            class="form-control"
+                                                            onChange={(event) => this.handleOnchangeInput(event, 'position')}
+                                                            value={position}
+
+                                                        >
+                                                            {this.state.arrAllCode.positions && this.state.arrAllCode.positions.map((item, index) => {
+                                                                return (
+                                                                    <option key={index} value={item.keyMap}>
+                                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                                                    </option>
+
+                                                                );
+                                                            }
+                                                            )}
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-6">
+                                                        <label for="inputAddress"><FormattedMessage id="menu.admin.role"></FormattedMessage></label>
+                                                        <select
+                                                            id="inputState"
+                                                            class="form-control"
+                                                            onChange={(event) => this.handleOnchangeInput(event, 'role')}
+                                                            value={role}
+                                                        >
+                                                            {this.state.arrAllCode.roles && this.state.arrAllCode.roles.map((item, index) => {
+                                                                return (
+                                                                    <option key={index} value={item.keyMap}>
+                                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                                                    </option>
+
+                                                                );
+                                                            }
+                                                            )}
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div className="doctor-section-container">
+                                        <div className='horizon-line'></div>
+                                        <div className="section-content">
+                                            <div className="content-left">Tài khoản</div>
+                                            <div className="content-right">
+                                                <div class="form-group d-flex justify-content-center">
+                                                    <div class="form-group image-preview-container">
+                                                        <label
+                                                            htmlFor="imagePreview"><FormattedMessage id="menu.admin.image"></FormattedMessage></label>
+                                                        <input
+                                                            onChange={(event) => this.handlePreviewImage(event)}
+                                                            id='imagePreview'
+                                                            class="form-control "
+                                                            type='file'
+                                                            hidden
+                                                        ></input>
+                                                        <div
+                                                            className="preview-box"
+                                                            style={{ backgroundImage: `url(${imagePreview})` }}
+                                                            onClick={() => this.setState({ isOpen: true })}></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div className="doctor-section-container">
+                                        <div className='horizon-line'></div>
+                                        <div className="section-content">
+                                            <div class="form-group d-flex gap-3 align-items-center w-100 d-flex flex-row-reverse mt-5 ">
+                                                <div>
+                                                    <button
+                                                        type="submit"
+                                                        class={this.state.action === ACTIONS.CREATE ? "btn btn-primary ml-3" : "btn btn-success ml-3"}
+                                                        onClick={(event) => this.handleSubmitUser(event)}
+                                                    ><FormattedMessage
+                                                        id={this.state.action === ACTIONS.CREATE ? "menu.admin.Create" : 'menu.admin.Edit'}></FormattedMessage></button>
+                                                </div>
+                                                {
+                                                    this.state.action === ACTIONS.CREATE ?
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="gridCheck" ></input>
+                                                            <label class="form-check-label" for="gridCheck">
+                                                                <FormattedMessage id="menu.admin.check-me-out"></FormattedMessage>
+                                                            </label>
+                                                        </div> : ""
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-
-
-                                <div class="form-group d-flex justify-content-center">
-                                    <div class="form-group col-12">
-                                        <label for="inputAddress"><FormattedMessage id="menu.admin.address"></FormattedMessage></label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="inputAddress"
-                                            placeholder="1234 Main St"
-                                            value={address}
-                                            onChange={(event) => this.handleOnchangeInput(event, 'address')}
-                                        ></input>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group d-flex gap-3 justify-content-center">
-                                    <div class="form-group col-6">
-                                        <label for="inputAddress"><FormattedMessage id="menu.admin.phonenumber"></FormattedMessage></label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="inputAddress"
-                                            placeholder="0123456789"
-                                            value={phoneNumber}
-                                            onChange={(event) => this.handleOnchangeInput(event, 'phoneNumber')}
-                                        ></input>
-                                    </div>
-                                    <div class="form-group col-6">
-                                        <label for="inputAddress"><FormattedMessage id="menu.admin.gender"></FormattedMessage></label>
-                                        <select
-                                            id="inputState"
-                                            class="form-control"
-                                            onChange={(event) => this.handleOnchangeInput(event, 'gender')}
-                                            value={gender}
-                                        >
-
-                                            {this.state.arrAllCode.genders && this.state.arrAllCode.genders.map((item, index) => {
-                                                return (
-                                                    <option key={index} value={item.keyMap}>
-                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                                                    </option>
-                                                );
-                                            }
-                                            )}
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group d-flex gap-3 justify-content-center">
-                                    <div class="form-group col-6">
-                                        <label for="inputAddress"><FormattedMessage id="menu.admin.rank"></FormattedMessage></label>
-                                        <select
-                                            id="inputState"
-                                            class="form-control"
-                                            onChange={(event) => this.handleOnchangeInput(event, 'position')}
-                                            value={position}
-
-                                        >
-                                            {this.state.arrAllCode.positions && this.state.arrAllCode.positions.map((item, index) => {
-                                                return (
-                                                    <option key={index} value={item.keyMap}>
-                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                                                    </option>
-
-                                                );
-                                            }
-                                            )}
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-6">
-                                        <label for="inputAddress"><FormattedMessage id="menu.admin.role"></FormattedMessage></label>
-                                        <select
-                                            id="inputState"
-                                            class="form-control"
-                                            onChange={(event) => this.handleOnchangeInput(event, 'role')}
-                                            value={role}
-                                        >
-                                            {this.state.arrAllCode.roles && this.state.arrAllCode.roles.map((item, index) => {
-                                                return (
-                                                    <option key={index} value={item.keyMap}>
-                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                                                    </option>
-
-                                                );
-                                            }
-                                            )}
-                                        </select>
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group d-flex justify-content-center">
-                                    <div class="form-group image-preview-container">
-                                        <label
-                                            htmlFor="imagePreview"><FormattedMessage id="menu.admin.image"></FormattedMessage></label>
-                                        <input
-                                            onChange={(event) => this.handlePreviewImage(event)}
-                                            id='imagePreview'
-                                            class="form-control "
-                                            type='file'
-                                            hidden
-                                        ></input>
-                                        <div
-                                            className="preview-box"
-                                            style={{ backgroundImage: `url(${imagePreview})` }}
-                                            onClick={() => this.setState({ isOpen: true })}></div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group d-flex gap-3 justify-content-center align-items-center ">
-                                    {
-                                        this.state.action === ACTIONS.CREATE ?
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="gridCheck" ></input>
-                                                <label class="form-check-label" for="gridCheck">
-                                                    <FormattedMessage id="menu.admin.check-me-out"></FormattedMessage>
-                                                </label>
-                                            </div> : ""
-                                    }
-                                    <button
-                                        type="submit"
-                                        class={this.state.action === ACTIONS.CREATE ? "btn btn-primary ml-3" : "btn btn-success ml-3"}
-                                        onClick={(event) => this.handleSubmitUser(event)}
-                                    ><FormattedMessage
-                                        id={this.state.action === ACTIONS.CREATE ? "menu.admin.Create" : 'menu.admin.Edit'}></FormattedMessage></button>
-                                </div>
-
-
                             </div>
                         </div>
                         {this.state.isOpen === true &&

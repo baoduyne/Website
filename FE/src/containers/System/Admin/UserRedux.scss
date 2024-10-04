@@ -1,23 +1,21 @@
 .user-redux-body {
     width        : 100%;
-    border       : 1px solid green;
     padding      : 0 20%;
     margin-top   : 2%;
     margin-bottom: 10%;
-    height       : 1000px;
-
-
+    height       : 1250px;
 
     .user-redux-content {
-        border        : 1px solid red;
+        border        : 1px solid rgba(0, 0, 0, 0.2);
         width         : 100%;
         height        : 100%;
         display       : flex;
         flex-direction: column;
 
         .schedule-logo {
-            width : 100%;
-            height: 5%;
+            width     : 100%;
+            height    : 3%;
+            margin-top: 20px;
 
             .logo {
                 width                : 28%;
@@ -33,14 +31,64 @@
         }
 
         .title-container {
-            width : 100%;
-            height: 5%;
+            width         : 100%;
+            height        : 5%;
+            display       : flex;
+            flex-direction: column;
+            align-items   : center;
+            margin        : 19px 0;
 
             .redux-title {
-                font-size   : 120%;
-                font-weight : 600;
-                margin-left : auto;
-                margin-right: auto;
+                height     : 50%;
+                font-size  : 120%;
+                font-weight: 600;
+            }
+
+            .redux-description {
+                height    : 50%;
+                opacity   : 0.6;
+                margin-top: 10px;
+            }
+        }
+
+        .horizon-line {
+            width           : 100%;
+            height          : 3px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius   : 3px;
+        }
+
+        .doctor-form {
+            width         : 100%;
+            height        : 80%;
+            display       : flex;
+            flex-direction: column;
+            gap           : 25px;
+            padding       : 0 35px;
+
+            .doctor-section-container {
+                width: 100%;
+
+                .section-content {
+                    display        : flex;
+                    flex-direction : row;
+                    width          : 100%;
+                    margin-top     : 10px;
+                    justify-content: center;
+
+                    .content-left {
+                        width : 30%;
+                        height: 100%;
+
+                        font-weight: 600;
+                    }
+
+                    .content-right {
+                        width : 70%;
+                        height: 100%;
+
+                    }
+                }
             }
         }
     }
@@ -71,7 +119,7 @@
 
     .preview-box {
         width              : 100%;
-        height             : 180px;
+        height             : 80px;
         background-repeat  : no-repeat;
         background-size    : contain;
         background-position: center;
