@@ -6,7 +6,7 @@ import { LANGUAGES } from '../../../utils/constant';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailDoctor.scss';
-
+import DoctorSchedule from './DoctorSchedule';
 class OutStandingDoctor extends Component {
 
     constructor(props) {
@@ -67,7 +67,7 @@ class OutStandingDoctor extends Component {
     }
 
     render() {
-        console.log("test selected doctor", this.state.selectDoctor)
+
 
         let { firstName,
             lastName,
@@ -112,6 +112,13 @@ class OutStandingDoctor extends Component {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div className='schedule-container'>
+                    <div className='schedule-content'>
+                        <div className='content-left'><DoctorSchedule></DoctorSchedule></div>
+                        <div className='content-right'></div>
                     </div>
                 </div>
 

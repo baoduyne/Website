@@ -6,12 +6,12 @@ const { sequelize } = require('../models');
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('allcodes', {
-    //     currentNumber: DataTypes.INTEGER,
-    // maxNumber: DataTypes.INTEGER,
-    // date: DataTypes.DATE,
-    // timeType:DataTypes.STRING,
-    // doctorId:DataTypes.INTEGER,
-    // roleid: DataTypes.STRING
+      //     currentNumber: DataTypes.INTEGER,
+      // maxNumber: DataTypes.INTEGER,
+      // date: DataTypes.DATE,
+      // timeType:DataTypes.STRING,
+      // doctorId:DataTypes.INTEGER,
+      // roleid: DataTypes.STRING
 
       id: {
         allowNull: false,
@@ -26,16 +26,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       date: {
-        type: Sequelize.DATE
+        type: Sequelize.STRING
       },
-      timeType:{
-        type : Sequelize.STRING
+      timeType: {
+        type: Sequelize.STRING
       },
-      doctorId:{
-        type : Sequelize.INTEGER
+      doctorId: {
+        type: Sequelize.INTEGER
       },
-      roleid:{
-        type : Sequelize.STRING
+      roleid: {
+        type: Sequelize.STRING
       },
 
 
