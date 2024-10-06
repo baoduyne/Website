@@ -100,8 +100,19 @@ class DoctorSchedule extends Component {
 
     }
 
-    handleChooseSchedule = (item) => {
-        console.log('item', item)
+    handleChooseSchedule = (data) => {
+        let { allDoctorSchedules } = this.state;
+
+        allDoctorSchedules = allDoctorSchedules.map((item, index) => {
+            if (item.id === data.id) {
+                item.isSelected = !item.isSelected;
+            }
+            return (item);
+        })
+
+        this.setState({
+            allDoctorSchedules: allDoctorSchedules
+        })
     }
     render() {
         let { arrDate, allDoctorSchedules, allCode } = this.state;
@@ -142,7 +153,7 @@ class DoctorSchedule extends Component {
                                         return (
                                             <button
                                                 onClick={() => this.handleChooseSchedule(item)}
-                                                className='btn btn-light schedule-list-date'>
+                                                className={item.isSelected === true ? 'btn btn-info schedule-list-date' : 'btn btn-light schedule-list-date'}>
 
                                                 {language === LANGUAGES.VI ? result[0].valueVi : result[0].valueEn}</button>
                                         )
