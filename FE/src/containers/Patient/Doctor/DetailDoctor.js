@@ -12,6 +12,7 @@ class OutStandingDoctor extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             firstName: '',
             lastName: '',
             address: '',
@@ -27,7 +28,12 @@ class OutStandingDoctor extends Component {
     }
 
     componentDidMount() {
-        this.props.getSelectDoctorStart(this.props.match.params.id);
+        if (this.props.match && this.props.match.params && this.props.match.params.id) {
+            this.props.getSelectDoctorStart(this.props.match.params.id);
+            this.setState({
+                id: this.props.match.params.id
+            })
+        }
 
     }
 
@@ -44,6 +50,7 @@ class OutStandingDoctor extends Component {
             let copyState = { ...this.state };
             copyState.selectDoctor = this.props.selectDoctor;
             if (copySelectDoctor.firstName && copySelectDoctor.lastName) {
+                copyState.id = copySelectDoctor.id;
                 copyState.firstName = copySelectDoctor.firstName;
                 copyState.lastName = copySelectDoctor.lastName;
                 copyState.address = copySelectDoctor.address;
@@ -62,6 +69,7 @@ class OutStandingDoctor extends Component {
             this.setState({
                 ...copyState
             })
+
         }
 
     }
@@ -69,7 +77,9 @@ class OutStandingDoctor extends Component {
     render() {
 
 
-        let { firstName,
+        let {
+            id,
+            firstName,
             lastName,
             address,
             avatar,
@@ -83,6 +93,7 @@ class OutStandingDoctor extends Component {
         let language = this.props.language;
         return (
             <>
+
                 <HomeHeader isShowBanner={false} />
                 <div className='doctor-detail-container'>
                     <div className='doctor-detail-content'>
@@ -117,7 +128,9 @@ class OutStandingDoctor extends Component {
 
                 <div className='schedule-container'>
                     <div className='schedule-content'>
-                        <div className='content-left'><DoctorSchedule></DoctorSchedule></div>
+                        <div className='content-left'><DoctorSchedule
+                            doctorId={this.state.id}
+                        ></DoctorSchedule></div>
                         <div className='content-right'></div>
                     </div>
                 </div>

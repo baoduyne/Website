@@ -4,7 +4,7 @@ import {
     deleteUserService, editUserService,
     getTopDoctorHomeService, getAllDoctorsService,
     saveSelectDoctorService, getSelectDoctorService,
-    saveDoctorSchedulesService
+    saveDoctorSchedulesService, getDoctorSchedulesService
 } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -43,9 +43,8 @@ export const fetchAllCodeStart = () => {
                         arrAllCode.status.push(item);
                     }
                 })
-                //  console.log('test data arr allcode',arrAllCode);
-
                 dispatch(fetchAllCodeSuccess(arrAllCode));
+
 
             }
             else {
@@ -549,5 +548,42 @@ export const saveDoctorSchedulesSuccess = () => {
 export const saveDoctorSchedulesFail = () => {
     return {
         type: actionTypes.SAVE_DOCTOR_SCHEDULES_FAIL
+    }
+}
+
+
+export const getDoctorSchedulesStart = (doctorId, date) => {
+    return async (dispatch, getState) => {
+        try {
+
+            dispatch({ type: actionTypes.GET_DOCTOR_SCHEDULES_START })
+            let res = await getDoctorSchedulesService(doctorId, date);
+
+            if (res && res.errCode === 0) {
+
+                dispatch(getDoctorSchedulesSuccess(res.data));
+            }
+            else {
+
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(getDoctorSchedulesFail());
+        }
+    }
+
+}
+
+export const getDoctorSchedulesSuccess = (data) => {
+    return {
+        type: actionTypes.GET_DOCTOR_SCHEDULES_SUCCESS,
+        data: data
+    }
+}
+
+export const getDoctorSchedulesFail = () => {
+    return {
+        type: actionTypes.GET_DOCTOR_SCHEDULES_FAIL
     }
 }

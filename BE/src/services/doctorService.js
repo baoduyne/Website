@@ -151,12 +151,7 @@ let saveDoctorSchedules = (data) => {
                     raw: true
                 })
 
-                if (existing && existing.length > 0) {
-                    existing = existing.map((item, index) => {
-                        item.date = new Date(item.date).getTime();
-                        return item;
-                    })
-                }
+
                 let toCreate = _.differenceWith(schedules, existing, (a, b) => {
                     return a.timeType === b.timeType && a.date === b.date
                 });
@@ -179,10 +174,48 @@ let saveDoctorSchedules = (data) => {
     })
 }
 
+let getDoctorSchedules = (doctorId, date) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!doctorId || !date) {
+                resolve(
+                    {
+                        errCode: -2,
+                        errMessage: 'Missing parameter...'
+                    })
+            }
+
+            else {
+                let data = await db.Schedule.findAll({
+                    where: {
+                        doctorId: doctorId,
+                        date: date
+                    }
+                })
+
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Get doctor schedule completed!',
+                    data: data
+                })
+            }
+        }
+
+
+        catch (e) {
+            console.log(e);
+            reject(e);
+        }
+
+    })
+
+}
+
 module.exports = {
     getTopDoctorHome: getTopDoctorHome,
     getAllDoctors: getAllDoctors,
     saveSelectDoctor: saveSelectDoctor,
     getDoctorMarkdown: getDoctorMarkdown,
-    saveDoctorSchedules: saveDoctorSchedules
+    saveDoctorSchedules: saveDoctorSchedules,
+    getDoctorSchedules: getDoctorSchedules
 }

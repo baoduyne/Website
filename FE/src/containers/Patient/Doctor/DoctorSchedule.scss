@@ -1,0 +1,65 @@
+.doctor-schedule-client-container {
+    width : 100%;
+    height: 100%;
+
+    .doctor-schedule-client-content {
+        width : 100%;
+        height: 100%;
+
+        .schedule-select {
+            width : 100%;
+            height: 15%;
+
+            select {
+                width        : 150px;
+                height       : 80%;
+                border       : none;
+                border-bottom: 1px solid black;
+                font-size    : 14px;
+                font-weight  : 700;
+                color        : rgb(51, 122, 183/ 1);
+                outline      : none;
+
+
+                option {
+                    color: black
+                }
+            }
+
+
+        }
+
+        .schedule-header {
+            width    : 100%;
+            height   : 15%;
+            padding  : 5px 0;
+            font-size: 110%;
+            opacity  : 0.8;
+
+        }
+
+        .schedule-list {
+            width         : 100%;
+            height        : 55%;
+            display       : flex;
+            flex-direction: row;
+            flex-wrap     : wrap;
+            padding       : 18px 0;
+            gap           : 14px;
+
+            .schedule-list-date {
+                width       : 150px;
+                height      : 50px;
+                margin-right: 3%;
+
+            }
+        }
+
+        .schedule-description {
+            width  : 100%;
+            height : 15%;
+            opacity: 0.8;
+            padding: 20px 0;
+        }
+    }
+}

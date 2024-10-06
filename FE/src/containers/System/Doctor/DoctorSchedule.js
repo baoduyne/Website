@@ -56,8 +56,8 @@ class Doctor extends Component {
         if (inputData) {
             inputData.map((item, index) => {
                 let object = {};
-                let valueVi = item.firstName + " " + item.lastName;
-                let valueEn = item.lastName + " " + item.firstName;
+                let valueVi = item.id + " - " + item.firstName + " " + item.lastName;
+                let valueEn = item.id + " - " + item.lastName + " " + item.firstName;
 
                 object.value = item.id;
                 object.label = this.props.language === LANGUAGES.VI ? valueVi : valueEn;
@@ -149,7 +149,7 @@ class Doctor extends Component {
                     let object = {};
                     object.timeType = item.keyMap;
                     object.doctorId = selectedOption.value;
-                    object.date = selectedDate;
+                    object.date = '' + selectedDate;
                     result.push(object)
                 })
             }
@@ -205,7 +205,7 @@ class Doctor extends Component {
                                     className='form-control'
                                     id='datepicker'
                                     value={this.state.currentDate[0]}
-                                    minDate={new Date()}
+                                    minDate={new Date(Date.now() - 86400000)}
                                 ></DatePicker>
                             </div>
                         </div>

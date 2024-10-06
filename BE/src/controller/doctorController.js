@@ -111,11 +111,34 @@ let saveDoctorSchedules = async (req, res) => {
 
 }
 
+let getDoctorSchedules = async (req, res) => {
+    try {
+        let doctorId = req.query.doctorId;
+        let date = req.query.date;
+        console.log(req.query);
+        let response = await doctorService.getDoctorSchedules(doctorId, date);
+
+        return res.status(200).json({
+            errCode: response.errCode,
+            errMessage: response.errMessage,
+            data: response.data
+        })
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'err from sever...'
+        })
+    }
+}
+
 
 module.exports = {
     getTopDoctorHome: getTopDoctorHome,
     getAllDoctors: getAllDoctors,
     saveSelectDoctor: saveSelectDoctor,
     getDoctorMarkdown: getDoctorMarkdown,
-    saveDoctorSchedules: saveDoctorSchedules
+    saveDoctorSchedules: saveDoctorSchedules,
+    getDoctorSchedules: getDoctorSchedules
 }
