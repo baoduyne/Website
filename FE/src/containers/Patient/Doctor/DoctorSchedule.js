@@ -62,6 +62,21 @@ class DoctorSchedule extends Component {
 
         for (let i = 0; i < 7; i++) {
             let object = {};
+            if (i === 0) {
+                if (this.props.language === LANGUAGES.VI) {
+                    let string1 = "Hôm nay ";
+                    let string2 = moment(new Date()).format('- DD/MM');
+                    object.label = string1 + string2;
+                }
+                else {
+                    let string1 = "Today ";
+                    let string2 = moment(new Date()).locale('en').format('- DD/MM');
+                    object.label = string1 + string2;
+                }
+                object.value = moment(new Date()).add(i, 'days').startOf('day').valueOf();
+                arrDate.push(object);
+                continue;
+            }
             if (this.props.language === LANGUAGES.VI) {
                 let string = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
                 object.label = this.capitalize(string);
@@ -70,6 +85,7 @@ class DoctorSchedule extends Component {
                 object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM');
             }
             object.value = moment(new Date()).add(i, 'days').startOf('day').valueOf();
+
             arrDate.push(object);
         }
         this.setState({
@@ -156,7 +172,7 @@ class DoctorSchedule extends Component {
                                 })}
                             </select>
                         </div>
-                        <div className='schedule-header'><i class="fa-solid fa-calendar-day"></i> <FormattedMessage id='schedule.Schedule'></FormattedMessage></div>
+                        <div className='schedule-header'><i class="fa-solid fa-calendar-days"></i> <FormattedMessage id='patient.doctor-schedule.Schedule'></FormattedMessage></div>
                         <div className='schedule-list'>
                             {
 
@@ -176,13 +192,13 @@ class DoctorSchedule extends Component {
                                     }
                                 }) :
 
-                                    <div className='text-secondary'><FormattedMessage id='schedule.Missing-schedule'></FormattedMessage>...</div>
+                                    <div className='text-secondary'><FormattedMessage id='patient.doctor-schedule.Missing-schedule'></FormattedMessage>...</div>
 
                             }
 
                         </div>
 
-                        <div className='schedule-description'><FormattedMessage id='schedule.Choose-schedule'></FormattedMessage></div>
+                        <div className='schedule-description'><FormattedMessage id='patient.doctor-schedule.Choose-schedule'></FormattedMessage></div>
                     </div>
                 </div>
 

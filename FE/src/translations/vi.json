@@ -90,9 +90,11 @@
             "Save-informations": "Lưu thông tin"
         }
     },
-    "schedule": {
-        "Schedule": "Lịch khám",
-        "Missing-schedule": "Hiện bác sĩ chưa có lịch trống vào ngày này",
-        "Choose-schedule": "Chọn và đặt lịch (Phí đặt lịch 0đ)"
+    "patient": {
+        "doctor-schedule": {
+            "Schedule": "Lịch khám",
+            "Missing-schedule": "Hiện bác sĩ chưa có lịch trống vào ngày này",
+            "Choose-schedule": "Chọn và đặt lịch (Phí đặt lịch 0đ)"
+        }
     }
 }
