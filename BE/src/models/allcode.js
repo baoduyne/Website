@@ -10,19 +10,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Allcode.hasMany(models.User,{foreignKey : 'positionId' , as:'positionData'});
-      Allcode.hasMany(models.User,{foreignKey:'gender',as:'genderData'});
+      Allcode.hasMany(models.User, { foreignKey: 'positionId', as: 'positionData' });
+      Allcode.hasMany(models.User, { foreignKey: 'gender', as: 'genderData' });
+      // Allcode.hasMany(models.Schedule, { foreignKey: "timeType", as: 'timeTypeData' });
     }
   }
   Allcode.init({
-    keyMap:DataTypes.STRING,
-    type : DataTypes.STRING,
-    valueEn : DataTypes.STRING,
-    valueVi : DataTypes.STRING
-  },{
+    keyMap: DataTypes.STRING,
+    type: DataTypes.STRING,
+    valueEn: DataTypes.STRING,
+    valueVi: DataTypes.STRING
+  }, {
     sequelize,
-    modelName : 'Allcode'
+    modelName: 'Allcode'
   });
-  Allcode.sync({alter:true});
+  Allcode.sync({ alter: true });
   return Allcode;
 };  

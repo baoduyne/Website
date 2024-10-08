@@ -89,5 +89,10 @@
             "Choose-schedule": "Choose schedule",
             "Save-informations": "Save informations"
         }
+    },
+    "schedule": {
+        "Schedule": "Schedule",
+        "Missing-schedule": "Missing schedule on this day",
+        "Choose-schedule": "Choose to order doctor's schedule (Fee order 0$)"
     }
 }

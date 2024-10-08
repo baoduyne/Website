@@ -115,7 +115,6 @@ let getDoctorSchedules = async (req, res) => {
     try {
         let doctorId = req.query.doctorId;
         let date = req.query.date;
-        console.log(req.query);
         let response = await doctorService.getDoctorSchedules(doctorId, date);
 
         return res.status(200).json({

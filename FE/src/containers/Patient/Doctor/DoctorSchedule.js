@@ -26,6 +26,7 @@ class DoctorSchedule extends Component {
             doctorId: this.props.doctorId
         })
         await this.setArrDate();
+        await this.getDoctorSchedule();
         await this.props.fetchAllCodeStart();
     }
 
@@ -38,12 +39,21 @@ class DoctorSchedule extends Component {
                 doctorId: this.props.doctorId
             })
             this.setArrDate();
+            this.getDoctorSchedule();
         }
+
+        // if (this.state.arrDate && this.prevState.arrDate !== this.state.arrDate) {
+        //     this.getDoctorSchedule();
+        // }
         if (this.props.allCode && prevProps.allCode !== this.props.allCode) {
             this.setState({
                 allCode: this.props.allCode
             })
         }
+    }
+
+    capitalize(s) {
+        return s[0].toUpperCase() + s.slice(1);
     }
 
     setArrDate = async () => {
@@ -53,7 +63,8 @@ class DoctorSchedule extends Component {
         for (let i = 0; i < 7; i++) {
             let object = {};
             if (this.props.language === LANGUAGES.VI) {
-                object.label = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                let string = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                object.label = this.capitalize(string);
             }
             else {
                 object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM');
@@ -65,20 +76,25 @@ class DoctorSchedule extends Component {
             dateSelected: arrDate[0].value,
             arrDate: arrDate
         })
+    }
 
-        await this.props.getDoctorSchedulesStart(doctorId, arrDate[0].value);
-        if (this.props.allDoctorSchedules) {
-            let copyDoctorSchedules = this.props.allDoctorSchedules;
-            copyDoctorSchedules = copyDoctorSchedules.map((item, index) => {
-                item.isSelected = false;
-                return (item)
-            })
-            this.setState({
-                allDoctorSchedules: copyDoctorSchedules,
-            })
+    getDoctorSchedule = async () => {
+
+        let { doctorId, arrDate } = this.state;
+        if (arrDate[0] && arrDate[0].value) {
+
+            await this.props.getDoctorSchedulesStart(doctorId, arrDate[0].value);
+            if (this.props.allDoctorSchedules) {
+                let copyDoctorSchedules = this.props.allDoctorSchedules;
+                copyDoctorSchedules = copyDoctorSchedules.map((item, index) => {
+                    item.isSelected = false;
+                    return (item)
+                })
+                this.setState({
+                    allDoctorSchedules: copyDoctorSchedules,
+                })
+            }
         }
-
-
     }
 
     handleScheduleOption = async (event) => {
@@ -119,7 +135,6 @@ class DoctorSchedule extends Component {
         let language = this.props.language;
         // console.log('momentVi:', moment(new Date()).locale('en').format('ddd - DD/MM'));
         // console.log('momentEn:', moment(new Date()).valueOf());
-        console.log('check state', this.state);
         return (
             <React.Fragment>
                 <div className='doctor-schedule-client-container'>
@@ -141,10 +156,11 @@ class DoctorSchedule extends Component {
                                 })}
                             </select>
                         </div>
-                        <div className='schedule-header'><i class="fa-solid fa-calendar-day"></i> Lịch khám</div>
+                        <div className='schedule-header'><i class="fa-solid fa-calendar-day"></i> <FormattedMessage id='schedule.Schedule'></FormattedMessage></div>
                         <div className='schedule-list'>
                             {
-                                allDoctorSchedules.map((item, index) => {
+
+                                allDoctorSchedules && allDoctorSchedules.length > 0 ? allDoctorSchedules.map((item, index) => {
                                     let date = item.timeType;
                                     let result = allCode.filter(item =>
                                         item.keyMap === date
@@ -158,11 +174,15 @@ class DoctorSchedule extends Component {
                                                 {language === LANGUAGES.VI ? result[0].valueVi : result[0].valueEn}</button>
                                         )
                                     }
-                                })
+                                }) :
+
+                                    <div className='text-secondary'><FormattedMessage id='schedule.Missing-schedule'></FormattedMessage>...</div>
+
                             }
+
                         </div>
 
-                        <div className='schedule-description'>Chọn và đặt lịch (Phí đặt lịch 0đ)</div>
+                        <div className='schedule-description'><FormattedMessage id='schedule.Choose-schedule'></FormattedMessage></div>
                     </div>
                 </div>
 

@@ -190,7 +190,9 @@ let getDoctorSchedules = (doctorId, date) => {
                     where: {
                         doctorId: doctorId,
                         date: date
-                    }
+                    },
+
+                    // include: [{ models: Allcode, as: 'timeTypeData', attributes: ["valueEn", "valueVi"] }]
                 })
 
                 resolve({
