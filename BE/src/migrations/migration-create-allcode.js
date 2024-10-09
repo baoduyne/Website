@@ -22,14 +22,16 @@ module.exports = {
       valueEn: {
         type: Sequelize.STRING
       },
-      valueVi:{
-        type : Sequelize.STRING
+      valueVi: {
+        type: Sequelize.STRING
       },
       createdAt: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        // defaultValue: Sequelize.DATE
       },
       updatedAt: {
-        type: Sequelize.DATE  
+        type: Sequelize.DATE,
+        // defaultValue: Sequelize.DATE
       },
     });
   },
