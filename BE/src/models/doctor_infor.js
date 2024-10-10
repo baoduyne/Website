@@ -22,12 +22,12 @@ module.exports = (sequelize, DataTypes) => {
         paymentId: DataTypes.INTEGER,
         addressClinic: DataTypes.STRING,
         nameClinic: DataTypes.STRING,
-        note: DataTypes.TEXT,
+        note: DataTypes.STRING,
         count: DataTypes.INTEGER,
     }, {
         sequelize,
         modelName: 'Doctor_infor',
     });
-    Doctor_infor.sync({ alter: true });
+    //Doctor_infor.sync({ alter: true });
     return Doctor_infor;
 };

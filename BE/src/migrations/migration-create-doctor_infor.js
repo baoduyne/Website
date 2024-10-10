@@ -14,43 +14,41 @@ module.exports = {
             },
             doctorId: {
                 type: Sequelize.INTEGER,
-                allowNull: false
+                // allowNull: false
             },
             priceId: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
+                // allowNull: false,
             },
             provinceId: {
                 type: Sequelize.INTEGER,
-                allowNull: false
+                // allowNull: false
             },
             paymentId: {
                 type: Sequelize.INTEGER,
-                allowNull: false
+                // allowNull: false
             },
             addressClinic: {
                 type: Sequelize.STRING,
-                allowNull: false
+                // allowNull: false
             },
             nameClinic: {
                 type: Sequelize.STRING,
-                allowNull: false
+                // allowNull: false
             },
             note: {
-                type: Sequelize.TEXT
+                type: Sequelize.STRING
             },
             count: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
-                defaultValue: 0
+                // defaultValue: 0
             },
 
             createdAt: {
-                allowNull: false,
                 type: Sequelize.DATE
             },
             updatedAt: {
-                allowNull: false,
                 type: Sequelize.DATE
             }
         });
