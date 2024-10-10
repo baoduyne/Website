@@ -15,7 +15,11 @@ import System from '../routes/System';
 import Doctor from '../routes/Doctor.js'
 import HomePage from './HomePage/HomePage.js'
 import { CustomToastCloseButton } from '../components/CustomToast';
-import DetailDoctor from './Patient/Doctor/DetailDoctor.js'
+import DetailDoctor from './Patient/Doctor/DetailDoctor.js';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 class App extends Component {
 

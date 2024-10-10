@@ -587,3 +587,45 @@ export const getDoctorSchedulesFail = () => {
         type: actionTypes.GET_DOCTOR_SCHEDULES_FAIL
     }
 }
+
+
+
+export const getDoctorInformationAllCodeStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.GET_DOCTOR_INFROMATION_ALLCODE_START })
+
+            let dataAllCode = {
+                priceData: {},
+                provinceData: {},
+            }
+            dataAllCode.priceData = await getAllCodeService('PRICE');
+            dataAllCode.provinceData = await getAllCodeService('PROVINCE');
+
+            if (dataAllCode && dataAllCode.priceData && dataAllCode.priceData.errCode === 0) {
+                dispatch(getDoctorInformationAllCodeSuccess(dataAllCode));
+            }
+            else {
+
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(getDoctorInformationAllCodeFail());
+        }
+    }
+
+}
+
+export const getDoctorInformationAllCodeSuccess = (data) => {
+    return {
+        type: actionTypes.GET_DOCTOR_INFROMATION_ALLCODE_SUCCESS,
+        data: data
+    }
+}
+
+export const getDoctorInformationAllCodeFail = () => {
+    return {
+        type: actionTypes.GET_DOCTOR_INFROMATION_ALLCODE_FAIL
+    }
+}

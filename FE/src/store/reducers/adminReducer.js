@@ -12,7 +12,9 @@ const initialState = {
     allDoctors: [],
     selectDoctor: {},
     allSchedules: [],
-    allDoctorSchedules: []
+    allDoctorSchedules: [],
+    priceData: [],
+    provinceData: []
 }
 
 const appReducer = (state = initialState, action) => {
@@ -224,6 +226,27 @@ const appReducer = (state = initialState, action) => {
                 ...copyState
             }
         case actionTypes.GET_DOCTOR_SCHEDULES_FAIL:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+
+
+        case actionTypes.GET_DOCTOR_INFROMATION_ALLCODE_START:
+            return {
+                ...state
+            }
+        case actionTypes.GET_DOCTOR_INFROMATION_ALLCODE_SUCCESS:
+            copyState = { ...state }
+
+            copyState.priceData = action.data.priceData.data;
+            copyState.provinceData = action.data.provinceData.data;
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+        case actionTypes.GET_DOCTOR_INFROMATION_ALLCODE_FAIL:
             copyState = { ...state }
             copyState.isLoading = false;
             return {

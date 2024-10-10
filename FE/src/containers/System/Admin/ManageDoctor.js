@@ -9,6 +9,7 @@ import Select from 'react-select';
 import * as actions from '../../../store/actions';
 import { ACTIONS, LANGUAGES } from '../../../utils/constant';
 import _ from 'lodash';
+// import Button from '@mui/material/Button';
 
 class ManageDoctor extends Component {
 
@@ -30,10 +31,14 @@ class ManageDoctor extends Component {
             hasOldData: false,
             action: '',
 
+            priceData: '',
+            provinceData: ''
+
         }
     }
     componentDidMount = async () => {
         await this.props.getAllDoctorsStart();
+        await this.props.getDoctorInformationAllCodeStart();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -44,6 +49,13 @@ class ManageDoctor extends Component {
                 allDoctors: dataInputSelect,
                 selectedOption: dataInputSelect[0]
             });
+        }
+
+        if (this.props.priceData && prevProps.priceData !== this.props.priceData) {
+            this.setState({
+                priceData: this.props.priceData,
+                provinceData: this.props.provinceData
+            })
         }
     }
 
@@ -161,79 +173,184 @@ class ManageDoctor extends Component {
             lastName = object.lastName;
         }
 
+        console.log('check state', this.state)
+
         return (
             <div className='manage-doctor-container'>
-                <div className='manage-doctor-title'>MANAGE DOCTORS FROM ADMIN</div>
-                <div className='manage-doctor-content'>
-                    <div className='section1'>
-                        <div className='content-left'>
-                            <div className='chose-doctor'>
-                                <label>Chọn bác sĩ</label>
-                                <Select
-                                    value={selectedOption}
-                                    onChange={this.handleChange}
-                                    options={this.state.allDoctors}
-                                />
-                            </div>
-                            <div className='description'>
-                                <label for="description">Thông tin bác sĩ</label>
-                                <textarea
-                                    onChange={(event) => this.handleDescriptionArea(event)}
-                                    id='description'
-                                    className="form-control "
-                                    value={this.state.description}
+                <div className='manage-doctor-content-up'>
 
-                                ></textarea>
-                            </div>
-
-
-                        </div>
-                        <div className='content-right'>
-                            <div className='preview-description'>
-                                <div className='section1'>
-                                    <div
-                                        className='avatar'
-                                        style={{ backgroundImage: `url(${this.state.avatar})` }}
-                                    >
-                                    </div>
-
+                    <div className='content-down'>
+                        <div className='preview-description'>
+                            <div className='section1'>
+                                <div
+                                    className='avatar'
+                                    style={{ backgroundImage: `url(${this.state.avatar})` }}
+                                >
                                 </div>
-                                <div className='section2'>
-                                    <div className='name-doctor'>
-                                        {this.props.language === LANGUAGES.VI ?
-                                            positionVi + ' ' + firstName + ' ' + lastName :
-                                            positionEn + ' ' + lastName + ' ' + firstName}
-                                    </div>
-                                    <div className='description'>
-                                        <div className='text-description'>
-                                            {this.state.description}
-                                        </div>
-                                        <div className='address-description'>
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            <p>{object.address}</p>
-                                        </div>
-                                    </div>
 
+                            </div>
+                            <div className='section2'>
+                                <div className='name-doctor'>
+                                    {this.props.language === LANGUAGES.VI ?
+                                        positionVi + ' ' + firstName + ' ' + lastName :
+                                        positionEn + ' ' + lastName + ' ' + firstName}
                                 </div>
+                                <div className='description'>
+                                    <div className='text-description'>
+                                        {this.state.description}
+                                    </div>
+                                    <div className='address-description'>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <p>{object.address}</p>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <div className='section2'>
-                        <div className='markdown'>
-                            <MdEditor
-                                style={{ height: '500px' }}
-                                renderHTML={text => mdParser.render(text)}
-                                onChange={this.handleEditorChange}
-                                value={this.state.contentMarkdown}
-                            />
-                            <button
-                                onClick={(event) => this.handleOnclickMarkDown(event)}
-                                className={this.state.hasOldData ? 'markdown-btn btn btn-info' : 'markdown-btn btn btn-primary'}
-                            >{this.state.hasOldData ? 'Change' : 'Save'}</button>
+
+
+                    <div className='section1'>
+                        <div className='content-up'>
+
+
+                            <div className="doctor-section-container">
+                                <div className='horizon-line'></div>
+                                <div className="section-content">
+                                    <div className='content-left'>
+                                        Chọn bác sĩ
+                                    </div>
+                                    <div className='content-right'>
+
+                                        <div className='content-right-child'>
+                                            <label for='select'>Bác sĩ</label>
+                                            <Select
+                                                value={selectedOption}
+                                                onChange={this.handleChange}
+                                                options={this.state.allDoctors}
+                                                id='select'
+                                            />
+                                        </div>
+                                        <div className='content-right-child'>
+                                            <label for='textarea'>Thông tin bác sĩ</label>
+                                            <textarea
+                                                onChange={(event) => this.handleDescriptionArea(event)}
+                                                className="form-control "
+                                                value={this.state.description}
+                                                id='textarea'
+                                            ></textarea>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="doctor-section-container">
+                                <div className='horizon-line'></div>
+                                <div className="section-content">
+                                    <div className='content-left'>
+                                        <label for="description">Thông tin bác sĩ</label></div>
+                                    <div className='content-right'>
+                                        <div className='content-right-child'>
+                                            <label for='select'>Giá khám bệnh</label>
+                                            <Select
+                                                value={selectedOption}
+                                                onChange={this.handleChange}
+                                                options={this.state.allDoctors}
+                                                id='select'
+                                            />
+                                        </div>
+                                        <div className='content-right-child'>
+                                            <label for='select'>Phương thức thanh toán</label>
+                                            <Select
+                                                value={selectedOption}
+                                                onChange={this.handleChange}
+                                                options={this.state.allDoctors}
+                                                id='select'
+                                            />
+                                        </div>
+                                        <div className='content-right-child'>
+                                            <label for='select'>Tỉnh thành</label>
+                                            <Select
+                                                value={selectedOption}
+                                                onChange={this.handleChange}
+                                                options={this.state.allDoctors}
+                                                id='select'
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div className="doctor-section-container">
+                                <div className='horizon-line'></div>
+                                <div className="section-content">
+                                    <div className='content-left'>
+                                        <label for="description">Phòng khám</label></div>
+                                    <div className='content-right'>
+                                        <div className='content-right-child'>
+                                            <label>Tên phòng khám</label>
+                                            <input className='form-control h-25'></input>
+                                        </div>
+                                        <div className='content-right-child'>
+                                            <label>Địa chỉ phòng khám</label>
+                                            <textarea
+                                                onChange={(event) => this.handleDescriptionArea(event)}
+                                                id='description'
+                                                className="form-control "
+                                                value={''}
+
+                                            ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div className="doctor-section-container">
+                                <div className='horizon-line'></div>
+                                <div className="section-content">
+                                    <div className='content-left'>
+                                        <label for="description">Thông tin bổ sung</label></div>
+                                    <div className='content-right'>
+                                        <div className='content-right-child'>
+                                            <label className=''>Ghi chú</label>
+                                            <textarea
+                                                onChange={(event) => this.handleDescriptionArea(event)}
+                                                id='description'
+                                                className="form-control "
+                                                value={''}
+
+                                            ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
+                    </div>
+                </div >
+
+
+
+                <div className='section2'>
+                    <div className='markdown'>
+                        <MdEditor
+                            style={{ height: '500px' }}
+                            renderHTML={text => mdParser.render(text)}
+                            onChange={this.handleEditorChange}
+                            value={this.state.contentMarkdown}
+                        />
+                        <button
+                            onClick={(event) => this.handleOnclickMarkDown(event)}
+                            className={this.state.hasOldData ? 'markdown-btn btn btn-info' : 'markdown-btn btn btn-primary'}
+                        >{this.state.hasOldData ? 'Change' : 'Save'}</button>
                     </div>
                 </div>
-            </div>
+
+            </div >
 
         );
     }
@@ -246,7 +363,9 @@ const mapStateToProps = state => {
         data: state.user,
         allDoctors: state.admin.allDoctors,
         language: state.app.language,
-        selectDoctor: state.admin.selectDoctor
+        selectDoctor: state.admin.selectDoctor,
+        priceData: state.admin.priceData,
+        provinceData: state.admin.provinceData
     };
 };
 
@@ -254,7 +373,8 @@ const mapDispatchToProps = dispatch => {
     return {
         getAllDoctorsStart: () => dispatch(actions.getAllDoctorsStart()),
         saveSelectDoctorStart: (inforDoctor) => dispatch(actions.saveSelectDoctorStart(inforDoctor)),
-        getSelectDoctorStart: (id) => dispatch(actions.getSelectDoctorStart(id))
+        getSelectDoctorStart: (id) => dispatch(actions.getSelectDoctorStart(id)),
+        getDoctorInformationAllCodeStart: () => dispatch(actions.getDoctorInformationAllCodeStart())
     };
 };
 

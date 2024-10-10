@@ -12,7 +12,9 @@ import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
-
+// import Button from '@mui/material/Button';
+// import Pagination from '@mui/material/Pagination';
+// import Stack from '@mui/material/Stack';
 
 class Doctor extends Component {
 
@@ -28,6 +30,7 @@ class Doctor extends Component {
     componentDidMount() {
         this.props.getAllDoctorsStart();
         this.props.getScheduleStart();
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -49,6 +52,7 @@ class Doctor extends Component {
                 allSchedules: data
             })
         }
+
     }
 
     builtDataInputSelect(inputData) {
@@ -239,7 +243,8 @@ const mapStateToProps = state => {
         isLoggedIn: state.user.isLoggedIn,
         data: state.user,
         allDoctors: state.admin.allDoctors,
-        allSchedules: state.admin.allSchedules
+        allSchedules: state.admin.allSchedules,
+
     };
 };
 
@@ -247,7 +252,8 @@ const mapDispatchToProps = dispatch => {
     return {
         getAllDoctorsStart: () => dispatch(actions.getAllDoctorsStart()),
         getScheduleStart: () => dispatch(actions.getScheduleStart()),
-        saveDoctorSchedulesStart: (data) => dispatch(actions.saveDoctorSchedulesStart(data))
+        saveDoctorSchedulesStart: (data) => dispatch(actions.saveDoctorSchedulesStart(data)),
+
     };
 };
 
