@@ -10,7 +10,7 @@ import * as actions from '../../../store/actions';
 import { ACTIONS, LANGUAGES } from '../../../utils/constant';
 import _ from 'lodash';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
-//import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 
 class ManageDoctor extends Component {
 
@@ -52,28 +52,24 @@ class ManageDoctor extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if ((this.props.allDoctors && prevProps.allDoctors !== this.props.allDoctors) || (this.props.language && prevProps.language !== this.props.language)) {
-            let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors, 'DOCTORS');
-            this.handleChange(dataInputSelect[0], 'DOCTORS');
-            this.setState({
-                allDoctors: dataInputSelect,
-                selectedOption: dataInputSelect[0]
-            });
-        }
-
-        if ((this.props.priceData && prevProps.priceData !== this.props.priceData) || (this.props.language && prevProps.language !== this.props.language)) {
+        if ((this.props.allDoctors && prevProps.allDoctors !== this.props.allDoctors)
+            || (this.props.priceData && prevProps.priceData !== this.props.priceData)
+        ) {
             let priceData = this.builtDataInputSelect(this.props.priceData, 'PRICES');
             let paymentData = this.builtDataInputSelect(this.props.paymentData, 'PAYMENTS');
             let provinceData = this.builtDataInputSelect(this.props.provinceData, 'PROVINCES');
-
+            let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors, 'DOCTORS');
             this.setState({
+                allDoctors: dataInputSelect,
+                selectedOption: dataInputSelect[0],
                 priceData: priceData,
                 paymentData: paymentData,
                 provinceData: provinceData,
                 priceSelected: priceData[0],
                 paymentSelected: paymentData[0],
                 provinceSelected: provinceData[0]
-            })
+            });
+            this.handleChange(dataInputSelect[0], 'DOCTORS');
         }
     }
 
@@ -117,12 +113,43 @@ class ManageDoctor extends Component {
             if (type === 'DOCTORS') {
                 await this.props.getSelectDoctorStart(selectedOption.value);
                 let selectDoctor = this.props.selectDoctor;
-                if (selectDoctor && selectDoctor.Markdown) {
+                if (selectDoctor && selectDoctor.Markdown && selectDoctor.doctorInforData && selectDoctor.doctorInforData.priceId) {
+                    let priceSelected = '';
+                    let paymentSelected = '';
+                    let provinceSelected = '';
+                    this.state.priceData.map(item => {
+                        if (item.value === selectDoctor.doctorInforData.priceId) {
+                            priceSelected = item;
+                        };
+                    })
+
+                    this.state.paymentData.map(item => {
+                        if (item.value === selectDoctor.doctorInforData.paymentId) {
+                            paymentSelected = item;
+                        };
+                    })
+
+                    this.state.provinceData.map(item => {
+                        if (item.value === selectDoctor.doctorInforData.provinceId) {
+                            provinceSelected = item;
+                        };
+                    })
+
+
+
                     this.setState({
                         selectedOption: selectedOption,
                         description: selectDoctor.Markdown.description,
                         contentMarkdown: selectDoctor.Markdown.contentMarkdown,
                         contentHTML: selectDoctor.Markdown.contentHTML,
+
+                        priceSelected: priceSelected,
+                        paymentSelected: paymentSelected,
+                        provinceSelected: provinceSelected,
+
+                        clinicName: selectDoctor.doctorInforData.nameClinic,
+                        clinicAddress: selectDoctor.doctorInforData.addressClinic,
+                        clinicDescription: selectDoctor.doctorInforData.note,
                         hasOldData: true,
                     })
                 } else {
@@ -133,6 +160,12 @@ class ManageDoctor extends Component {
                         description: '',
                         contentMarkdown: '',
                         contentHTML: '',
+                        priceSelected: this.state.priceData[0],
+                        paymentSelected: this.state.paymentData[0],
+                        provinceSelected: this.state.provinceData[0],
+                        clinicAddress: '',
+                        clinicName: '',
+                        clinicDescription: '',
                         hasOldData: false,
                     })
                 }
@@ -253,16 +286,30 @@ class ManageDoctor extends Component {
         return result;
     }
     handleOnclickMarkDown = (event) => {
+        console.log('check action', this.state.hasOldData);
         if (this.checkValidateInput() === true) {
             this.props.saveSelectDoctorStart({
+                doctorId: this.state.selectedOption.value,
+                description: this.state.description,
+
+
+                priceSelected: this.state.priceSelected.value,
+                paymentSelected: this.state.paymentSelected.value,
+                provinceSelected: this.state.provinceSelected.value,
+
+                clinicName: this.state.clinicName,
+                clinicAddress: this.state.clinicAddress,
+                clinicDescription: this.state.clinicDescription,
+
                 contentHTML: this.state.contentHTML,
                 contentMarkdown: this.state.contentMarkdown,
-                description: this.state.description,
-                doctorId: this.state.selectedOption.value,
+
                 action: this.state.hasOldData ? ACTIONS.EDIT : ACTIONS.CREATE
             })
-        }
-        else {
+
+            if (this.state.hasOldData === false) {
+                this.setState({ hasOldData: !this.state.hasOldData })
+            }
 
         }
     }
@@ -404,7 +451,7 @@ class ManageDoctor extends Component {
                                         <div className='content-right-child'>
                                             <label for='textarea'>Thông tin bác sĩ</label>
                                             <textarea
-                                                onChange={(event) => this.handleDescriptionArea(event)}
+                                                onChange={(event) => this.handleDescriptionArea(event, 'DESCRIPTION')}
                                                 className="form-control "
                                                 value={this.state.description}
                                                 id='textarea'

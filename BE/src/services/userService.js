@@ -127,13 +127,13 @@ let createNewUser = (data) => {
                 lastName: data.lastName,
                 address: data.address,
                 phoneNumber: data.phoneNumber,
-                avatar : data.avatar,
+                avatar: data.avatar,
                 gender: data.gender,
                 roleId: data.role,
-                positionId : data.position
+                positionId: data.position
             })
-            
-     
+
+
             resolve({
                 errCode: 0,
                 errMessage: "OK",
@@ -201,7 +201,9 @@ let editUser = (data) => {
                     errMessage: "User not found!"
                 })
             }
+
             const avatarBuffer = data.avatar instanceof Buffer ? data.avatar : Buffer.from(data.avatar, 'base64');
+
             user.firstName = data.firstName;
             user.lastName = data.lastName;
             user.address = data.address;
@@ -209,7 +211,7 @@ let editUser = (data) => {
             user.positionId = data.positionId;
             user.gender = data.gender;
             user.phoneNumber = data.phoneNumber;
-            user.avatar = avatarBuffer;
+            user.avatar = data.avatar;
 
             await user.save();
             resolve({
@@ -229,16 +231,16 @@ let getAllCodeService = (type) => {
             let res = {};
             let allCode = {};
             if (type === 'ALL') {
-                 allCode = await db.Allcode.findAll();
-                
+                allCode = await db.Allcode.findAll();
+
             }
             else {
-                 allCode = await db.Allcode.findAll(
+                allCode = await db.Allcode.findAll(
                     { where: { type: type } }
                 );
-                
+
             }
-            
+
             if (allCode) {
                 res.errCode = 0;
                 res.errMessage = 'done';

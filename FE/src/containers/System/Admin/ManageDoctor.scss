@@ -183,9 +183,6 @@
             height: 500px;
 
             .markdown {
-                .rc-md-editor .editor-container .sec-md .input {
-                    overflow: auto;
-                }
 
                 .markdown-btn {
                     margin-top: 100px;
@@ -197,4 +194,13 @@
         }
 
     }
+}
+
+.rc-md-editor .editor-container .sec-md .input {
+    overflow  : auto;
+    margin-top: 0 !important;
+}
+
+.rc-md-editor .editor-container>.section>.section-container {
+    margin-top: 0 !important;
 }

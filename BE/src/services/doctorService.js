@@ -66,25 +66,55 @@ let saveSelectDoctor = (inforDoctor) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (inforDoctor.action === 'CREATE') {
+
                 await db.Markdown.create({
                     contentHTML: inforDoctor.contentHTML,
                     contentMarkdown: inforDoctor.contentMarkdown,
                     description: inforDoctor.description,
                     doctorId: inforDoctor.doctorId,
                 })
+
+                await db.Doctor_infor.create({
+                    doctorId: inforDoctor.doctorId,
+                    priceId: inforDoctor.priceSelected,
+                    provinceId: inforDoctor.provinceSelected,
+                    paymentId: inforDoctor.paymentSelected,
+                    addressClinic: inforDoctor.clinicAddress,
+                    nameClinic: inforDoctor.clinicName,
+                    note: inforDoctor.clinicDescription,
+                    count: 0,
+                })
             }
             else if (inforDoctor.action === 'EDIT') {
+                console.log('asdasd');
                 let doctor = await db.Markdown.findOne({
                     where: { doctorId: inforDoctor.doctorId }
                 });
+                let doctor_infor = await db.Doctor_infor.findOne({
+                    where: { doctorId: inforDoctor.doctorId }
+                });
+
                 if (doctor) {
                     doctor.set({
                         contentHTML: inforDoctor.contentHTML,
                         contentMarkdown: inforDoctor.contentMarkdown,
                         description: inforDoctor.description,
                     });
+                    await doctor.save();
                 }
-                await doctor.save();
+
+                if (doctor_infor) {
+                    doctor_infor.set({
+                        priceId: inforDoctor.priceSelected,
+                        provinceId: inforDoctor.provinceSelected,
+                        paymentId: inforDoctor.paymentSelected,
+                        addressClinic: inforDoctor.clinicAddress,
+                        nameClinic: inforDoctor.clinicName,
+                        note: inforDoctor.clinicDescription,
+                        count: 0,
+                    })
+                    await doctor_infor.save();
+                }
             }
 
             resolve({
@@ -108,10 +138,10 @@ let getDoctorMarkdown = (id) => {
                     exclude: ['password']
                 },
                 include: [{ model: db.Markdown },
-                { model: db.Allcode, as: 'positionData' }
+                { model: db.Allcode, as: 'positionData' },
+                { model: db.Doctor_infor, as: 'doctorInforData' }
                 ]
             })
-
             if (data) {
                 resolve(data);
             }

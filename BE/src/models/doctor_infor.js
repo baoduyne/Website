@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // Doctor_infor.belongsTo(models.Allcode, { foreignKey: 'priceId', targetKey: 'keyMap', as: 'priceData' });
             // Doctor_infor.belongsTo(models.Allcode, { foreignKey: 'proviceId', targetKey: 'keyMap', as: 'proviceData' });
+            Doctor_infor.belongsTo(models.User, { foreignKey: 'doctorId', as: 'doctorInforData' });
         }
     }
     Doctor_infor.init({
@@ -22,12 +23,12 @@ module.exports = (sequelize, DataTypes) => {
         paymentId: DataTypes.INTEGER,
         addressClinic: DataTypes.STRING,
         nameClinic: DataTypes.STRING,
-        note: DataTypes.STRING,
+        note: DataTypes.TEXT('long'),
         count: DataTypes.INTEGER,
     }, {
         sequelize,
         modelName: 'Doctor_infor',
     });
-    //Doctor_infor.sync({ alter: true });
+    // Doctor_infor.sync({ alter: true });
     return Doctor_infor;
 };
