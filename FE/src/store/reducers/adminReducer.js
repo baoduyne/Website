@@ -14,6 +14,7 @@ const initialState = {
     allSchedules: [],
     allDoctorSchedules: [],
     priceData: [],
+    paymentData: [],
     provinceData: []
 }
 
@@ -241,6 +242,7 @@ const appReducer = (state = initialState, action) => {
             copyState = { ...state }
 
             copyState.priceData = action.data.priceData.data;
+            copyState.paymentData = action.data.paymentData.data;
             copyState.provinceData = action.data.provinceData.data;
             copyState.isLoading = false;
             return {

@@ -179,7 +179,8 @@
         }
 
         .section2 {
-            height: 60%;
+            width : 100%;
+            height: 500px;
 
             .markdown {
                 .rc-md-editor .editor-container .sec-md .input {
@@ -189,6 +190,7 @@
                 .markdown-btn {
                     margin-top: 100px;
                     width     : 70px;
+                    margin-top: 200px;
 
                 }
             }

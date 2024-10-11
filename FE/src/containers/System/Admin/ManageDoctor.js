@@ -9,7 +9,8 @@ import Select from 'react-select';
 import * as actions from '../../../store/actions';
 import { ACTIONS, LANGUAGES } from '../../../utils/constant';
 import _ from 'lodash';
-// import Button from '@mui/material/Button';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+//import Button from '@mui/material/Button';
 
 class ManageDoctor extends Component {
 
@@ -32,7 +33,16 @@ class ManageDoctor extends Component {
             action: '',
 
             priceData: '',
-            provinceData: ''
+            paymentData: '',
+            provinceData: '',
+
+            priceSelected: '',
+            paymentSelected: '',
+            provinceSelected: '',
+
+            clinicName: '',
+            clinicAddress: '',
+            clinicDescription: '',
 
         }
     }
@@ -42,35 +52,49 @@ class ManageDoctor extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.allDoctors && prevProps.allDoctors !== this.props.allDoctors) {
-            let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors);
-            this.handleChange(dataInputSelect[0]);
+        if ((this.props.allDoctors && prevProps.allDoctors !== this.props.allDoctors) || (this.props.language && prevProps.language !== this.props.language)) {
+            let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors, 'DOCTORS');
+            this.handleChange(dataInputSelect[0], 'DOCTORS');
             this.setState({
                 allDoctors: dataInputSelect,
                 selectedOption: dataInputSelect[0]
             });
         }
 
-        if (this.props.priceData && prevProps.priceData !== this.props.priceData) {
+        if ((this.props.priceData && prevProps.priceData !== this.props.priceData) || (this.props.language && prevProps.language !== this.props.language)) {
+            let priceData = this.builtDataInputSelect(this.props.priceData, 'PRICES');
+            let paymentData = this.builtDataInputSelect(this.props.paymentData, 'PAYMENTS');
+            let provinceData = this.builtDataInputSelect(this.props.provinceData, 'PROVINCES');
+
             this.setState({
-                priceData: this.props.priceData,
-                provinceData: this.props.provinceData
+                priceData: priceData,
+                paymentData: paymentData,
+                provinceData: provinceData,
+                priceSelected: priceData[0],
+                paymentSelected: paymentData[0],
+                provinceSelected: provinceData[0]
             })
         }
     }
 
 
-    builtDataInputSelect = (inputData) => {
+    builtDataInputSelect = (inputData, type) => {
         let result = [];
 
         if (inputData) {
             inputData.map((item, index) => {
                 let object = {};
-                let valueVi = item.firstName + " " + item.lastName;
-                let valueEn = item.lastName + " " + item.firstName;
+                if (type === 'DOCTORS') {
+                    let valueVi = item.firstName + " " + item.lastName;
+                    let valueEn = item.lastName + " " + item.firstName;
 
-                object.value = item.id;
-                object.label = this.props.language === LANGUAGES.VI ? valueVi : valueEn;
+                    object.value = item.id;
+                    object.label = this.props.language === LANGUAGES.VI ? valueVi : valueEn;
+                }
+                else {
+                    object.value = item.id;
+                    object.label = this.props.language === LANGUAGES.VI ? item.valueVi : item.valueEn;
+                }
 
                 result.push(object)
             })
@@ -78,7 +102,6 @@ class ManageDoctor extends Component {
 
         return result;
     }
-
 
     handleEditorChange = (html, text) => {
         let copyState = { ...this.state };
@@ -89,50 +112,190 @@ class ManageDoctor extends Component {
         })
     }
 
-
-    handleChange = async (selectedOption) => {
+    handleChange = async (selectedOption, type) => {
         if (selectedOption && selectedOption.value) {
-            await this.props.getSelectDoctorStart(selectedOption.value);
-            let selectDoctor = this.props.selectDoctor;
-            if (selectDoctor && selectDoctor.Markdown) {
-                this.setState({
-                    selectedOption: selectedOption,
-                    description: selectDoctor.Markdown.description,
-                    contentMarkdown: selectDoctor.Markdown.contentMarkdown,
-                    contentHTML: selectDoctor.Markdown.contentHTML,
-                    hasOldData: true,
-                })
-            } else {
-                let copyState = { ...this.state };
-                copyState.selectedOption = selectedOption;
-                this.setState({
-                    selectedOption: selectedOption,
-                    description: '',
-                    contentMarkdown: '',
-                    contentHTML: '',
-                    hasOldData: false,
-                })
+            if (type === 'DOCTORS') {
+                await this.props.getSelectDoctorStart(selectedOption.value);
+                let selectDoctor = this.props.selectDoctor;
+                if (selectDoctor && selectDoctor.Markdown) {
+                    this.setState({
+                        selectedOption: selectedOption,
+                        description: selectDoctor.Markdown.description,
+                        contentMarkdown: selectDoctor.Markdown.contentMarkdown,
+                        contentHTML: selectDoctor.Markdown.contentHTML,
+                        hasOldData: true,
+                    })
+                } else {
+                    let copyState = { ...this.state };
+                    copyState.selectedOption = selectedOption;
+                    this.setState({
+                        selectedOption: selectedOption,
+                        description: '',
+                        contentMarkdown: '',
+                        contentHTML: '',
+                        hasOldData: false,
+                    })
+                }
+            }
+            else if (type === 'PRICES') {
+                if (selectedOption.value && selectedOption.label) {
+                    let copyState = { ...this.state }
+                    copyState.priceSelected = selectedOption;
+
+                    this.setState({
+                        ...copyState
+                    })
+                }
+            }
+            else if (type === 'PAYMENTS') {
+                if (selectedOption.value && selectedOption.label) {
+                    let copyState = { ...this.state }
+                    copyState.paymentSelected = selectedOption;
+                    this.setState({
+                        ...copyState
+                    })
+                }
+            }
+            else if (type === 'PROVINCES') {
+
+                if (selectedOption.value && selectedOption.label) {
+                    let copyState = { ...this.state }
+                    copyState.provinceSelected = selectedOption;
+                    this.setState({
+                        ...copyState
+                    })
+                }
             }
         }
 
     };
 
-    handleOnclickMarkDown = (event) => {
-        this.props.saveSelectDoctorStart({
-            contentHTML: this.state.contentHTML,
-            contentMarkdown: this.state.contentMarkdown,
+    checkValidateInput = () => {
+        let result = true;
+        let objectCheck = {
             description: this.state.description,
-            doctorId: this.state.selectedOption.value,
-            action: this.state.hasOldData ? ACTIONS.EDIT : ACTIONS.CREATE
-        })
+            clinicName: this.state.clinicName,
+            clinicAddress: this.state.clinicAddress,
+            clinicDescription: this.state.clinicDescription,
+            contentMarkdown: this.state.contentMarkdown
+        }
+        if (!objectCheck.description) {
+            result = false;
+            toast(' Invalid description!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
+        else if (!objectCheck.clinicName) {
+            result = false;
+            toast(' Invalid description!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
+        else if (!objectCheck.clinicDescription) {
+            result = false;
+            toast(' Invalid description!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
+        else if (!objectCheck.clinicAddress) {
+            result = false;
+            toast(' Invalid description!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
+        else if (!objectCheck.contentMarkdown) {
+            result = false;
+            toast(' Invalid description!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
+
+        return result;
+    }
+    handleOnclickMarkDown = (event) => {
+        if (this.checkValidateInput() === true) {
+            this.props.saveSelectDoctorStart({
+                contentHTML: this.state.contentHTML,
+                contentMarkdown: this.state.contentMarkdown,
+                description: this.state.description,
+                doctorId: this.state.selectedOption.value,
+                action: this.state.hasOldData ? ACTIONS.EDIT : ACTIONS.CREATE
+            })
+        }
+        else {
+
+        }
     }
 
-    handleDescriptionArea = (event) => {
-        let copyState = { ...this.state };
-        copyState.description = event.target.value;
-        this.setState({
-            ...copyState
-        })
+    handleDescriptionArea = (event, type) => {
+        if (type === 'DESCRIPTION') {
+            let copyState = { ...this.state };
+            copyState.description = event.target.value;
+            this.setState({
+                ...copyState
+            })
+        }
+        else if (type === 'CLINICNAME') {
+            let copyState = { ...this.state };
+            copyState.clinicName = event.target.value;
+            this.setState({
+                ...copyState
+            })
+        }
+        else if (type === 'CLINICADDRESS') {
+            let copyState = { ...this.state };
+            copyState.clinicAddress = event.target.value;
+            this.setState({
+                ...copyState
+            })
+        }
+        else if (type === 'CLINICDESCRIPTION') {
+            let copyState = { ...this.state };
+            copyState.clinicDescription = event.target.value;
+            this.setState({
+                ...copyState
+            })
+        }
 
     }
 
@@ -161,8 +324,15 @@ class ManageDoctor extends Component {
         return object;
     }
 
+
+
     render() {
-        let { selectedOption, avatar, positionEn, positionVi, firstName, lastName } = this.state;
+        let { selectedOption, avatar, positionEn, positionVi, firstName, lastName,
+            priceData, paymentData, provinceData,
+            priceSelected, paymentSelected, provinceSelected,
+            clinicName, clinicAddress, clinicDescription
+        } = this.state;
+
         const mdParser = new MarkdownIt(/* Markdown-it options */);
         let object = this.handlePreviewDescription();
 
@@ -226,7 +396,7 @@ class ManageDoctor extends Component {
                                             <label for='select'>Bác sĩ</label>
                                             <Select
                                                 value={selectedOption}
-                                                onChange={this.handleChange}
+                                                onChange={(event) => this.handleChange(event, 'DOCTORS')}
                                                 options={this.state.allDoctors}
                                                 id='select'
                                             />
@@ -254,27 +424,27 @@ class ManageDoctor extends Component {
                                         <div className='content-right-child'>
                                             <label for='select'>Giá khám bệnh</label>
                                             <Select
-                                                value={selectedOption}
-                                                onChange={this.handleChange}
-                                                options={this.state.allDoctors}
+                                                value={priceSelected}
+                                                onChange={(event) => this.handleChange(event, 'PRICES')}
+                                                options={priceData}
                                                 id='select'
                                             />
                                         </div>
                                         <div className='content-right-child'>
                                             <label for='select'>Phương thức thanh toán</label>
                                             <Select
-                                                value={selectedOption}
-                                                onChange={this.handleChange}
-                                                options={this.state.allDoctors}
+                                                value={paymentSelected}
+                                                onChange={(event) => this.handleChange(event, 'PAYMENTS')}
+                                                options={paymentData}
                                                 id='select'
                                             />
                                         </div>
                                         <div className='content-right-child'>
                                             <label for='select'>Tỉnh thành</label>
                                             <Select
-                                                value={selectedOption}
-                                                onChange={this.handleChange}
-                                                options={this.state.allDoctors}
+                                                value={provinceSelected}
+                                                onChange={(event) => this.handleChange(event, 'PROVINCES')}
+                                                options={provinceData}
                                                 id='select'
                                             />
                                         </div>
@@ -291,16 +461,18 @@ class ManageDoctor extends Component {
                                     <div className='content-right'>
                                         <div className='content-right-child'>
                                             <label>Tên phòng khám</label>
-                                            <input className='form-control h-25'></input>
+                                            <input
+                                                value={clinicName}
+                                                onChange={(event) => this.handleDescriptionArea(event, "CLINICNAME")}
+                                                className='form-control h-25'></input>
                                         </div>
                                         <div className='content-right-child'>
                                             <label>Địa chỉ phòng khám</label>
                                             <textarea
-                                                onChange={(event) => this.handleDescriptionArea(event)}
+                                                onChange={(event) => this.handleDescriptionArea(event, 'CLINICADDRESS')}
                                                 id='description'
                                                 className="form-control "
-                                                value={''}
-
+                                                value={clinicAddress}
                                             ></textarea>
                                         </div>
                                     </div>
@@ -317,10 +489,10 @@ class ManageDoctor extends Component {
                                         <div className='content-right-child'>
                                             <label className=''>Ghi chú</label>
                                             <textarea
-                                                onChange={(event) => this.handleDescriptionArea(event)}
+                                                onChange={(event) => this.handleDescriptionArea(event, 'CLINICDESCRIPTION')}
                                                 id='description'
                                                 className="form-control "
-                                                value={''}
+                                                value={clinicDescription}
 
                                             ></textarea>
                                         </div>
@@ -332,8 +504,6 @@ class ManageDoctor extends Component {
                         </div>
                     </div>
                 </div >
-
-
 
                 <div className='section2'>
                     <div className='markdown'>
@@ -365,6 +535,7 @@ const mapStateToProps = state => {
         language: state.app.language,
         selectDoctor: state.admin.selectDoctor,
         priceData: state.admin.priceData,
+        paymentData: state.admin.paymentData,
         provinceData: state.admin.provinceData
     };
 };

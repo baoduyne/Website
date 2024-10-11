@@ -597,16 +597,15 @@ export const getDoctorInformationAllCodeStart = () => {
 
             let dataAllCode = {
                 priceData: {},
+                paymentData: {},
                 provinceData: {},
             }
             dataAllCode.priceData = await getAllCodeService('PRICE');
+            dataAllCode.paymentData = await getAllCodeService('PAYMENT');
             dataAllCode.provinceData = await getAllCodeService('PROVINCE');
 
             if (dataAllCode && dataAllCode.priceData && dataAllCode.priceData.errCode === 0) {
                 dispatch(getDoctorInformationAllCodeSuccess(dataAllCode));
-            }
-            else {
-
             }
         }
         catch (e) {

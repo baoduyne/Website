@@ -27,11 +27,11 @@ module.exports = {
       },
       createdAt: {
         type: Sequelize.DATE,
-        // defaultValue: Sequelize.DATE
+        defaultValue: Sequelize.DATE
       },
       updatedAt: {
         type: Sequelize.DATE,
-        // defaultValue: Sequelize.DATE
+        defaultValue: Sequelize.DATE
       },
     });
   },
