@@ -1,7 +1,7 @@
 import { reject } from "bcrypt/promises";
 import db from "../models/index";
 require('dotenv').config();
-import _ from 'lodash';
+import _, { includes } from 'lodash';
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
 let getTopDoctorHome = (limit) => {
@@ -86,7 +86,7 @@ let saveSelectDoctor = (inforDoctor) => {
                 })
             }
             else if (inforDoctor.action === 'EDIT') {
-                console.log('asdasd');
+
                 let doctor = await db.Markdown.findOne({
                     where: { doctorId: inforDoctor.doctorId }
                 });
@@ -243,11 +243,64 @@ let getDoctorSchedules = (doctorId, date) => {
 
 }
 
+// include: [{ model: db.Markdown },
+//     { model: db.Allcode, as: 'positionData' },
+//     { model: db.Doctor_infor, as: 'doctorInforData' }
+//     ]
+
+let getDoctorInfors = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = '';
+            if (id === 'ALL') {
+                response = await db.Doctor_infor.findAll({
+                    include: [{ model: db.Allcode, as: 'priceData' },
+                    { model: db.Allcode, as: 'proviceData' },
+                    { model: db.Allcode, as: 'paymentData' }
+                    ],
+                    raw: false
+                })
+
+            }
+            else {
+
+                response = await db.Doctor_infor.findOne({
+                    where: { doctorId: id },
+                    include: [{ model: db.Allcode, as: 'priceData' },
+                    { model: db.Allcode, as: 'proviceData', },
+                    { model: db.Allcode, as: 'paymentData' }
+                    ]
+                })
+            }
+
+            if (response) {
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Get doctor informations completed!',
+                    data: response
+                })
+            }
+            else {
+                resolve({
+                    errCode: -1,
+                    errMessage: 'Err from sever!',
+                    data: ''
+                })
+            }
+        }
+        catch (e) {
+            console.log(e);
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getTopDoctorHome: getTopDoctorHome,
     getAllDoctors: getAllDoctors,
     saveSelectDoctor: saveSelectDoctor,
     getDoctorMarkdown: getDoctorMarkdown,
     saveDoctorSchedules: saveDoctorSchedules,
-    getDoctorSchedules: getDoctorSchedules
+    getDoctorSchedules: getDoctorSchedules,
+    getDoctorInfors: getDoctorInfors
 }
