@@ -7,7 +7,8 @@ import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailDoctor.scss';
 import DoctorSchedule from './DoctorSchedule';
-class OutStandingDoctor extends Component {
+import DoctorInformation from './DoctorInformation';
+class DetailDoctor extends Component {
 
     constructor(props) {
         super(props);
@@ -131,7 +132,11 @@ class OutStandingDoctor extends Component {
                         <div className='content-left'><DoctorSchedule
                             doctorId={this.state.id}
                         ></DoctorSchedule></div>
-                        <div className='content-right'></div>
+                        <div className='content-right'>
+                            <DoctorInformation
+                                doctorId={this.state.id}
+                            ></DoctorInformation>
+                        </div>
                     </div>
                 </div>
 
@@ -163,4 +168,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DetailDoctor));

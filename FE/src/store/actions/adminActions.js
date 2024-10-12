@@ -4,7 +4,8 @@ import {
     deleteUserService, editUserService,
     getTopDoctorHomeService, getAllDoctorsService,
     saveSelectDoctorService, getSelectDoctorService,
-    saveDoctorSchedulesService, getDoctorSchedulesService
+    saveDoctorSchedulesService, getDoctorSchedulesService,
+    getDoctorInforsService
 } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -626,5 +627,39 @@ export const getDoctorInformationAllCodeSuccess = (data) => {
 export const getDoctorInformationAllCodeFail = () => {
     return {
         type: actionTypes.GET_DOCTOR_INFROMATION_ALLCODE_FAIL
+    }
+}
+
+
+
+export const getDoctorInformationsStart = (doctorId) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.GET_DOCTOR_INFORMATIONS_START })
+            let response = await getDoctorInforsService(doctorId);
+
+
+            if (response && response.errCode === 0) {
+                dispatch(getDoctorInformationsSuccess(response.data));
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(getDoctorInformationsFail());
+        }
+    }
+
+}
+
+export const getDoctorInformationsSuccess = (data) => {
+    return {
+        type: actionTypes.GET_DOCTOR_INFORMATIONS_SUCCESS,
+        data: data
+    }
+}
+
+export const getDoctorInformationsFail = () => {
+    return {
+        type: actionTypes.GET_DOCTOR_INFORMATIONS_FAIL
     }
 }
