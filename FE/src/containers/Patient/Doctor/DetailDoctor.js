@@ -8,6 +8,7 @@ import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailDoctor.scss';
 import DoctorSchedule from './DoctorSchedule';
 import DoctorInformation from './DoctorInformation';
+import HomeFooter from '../../HomePage/Section/HomeFooter';
 class DetailDoctor extends Component {
 
     constructor(props) {
@@ -149,6 +150,7 @@ class DetailDoctor extends Component {
                         ></div>
                     </div>
                 </div>
+                <HomeFooter></HomeFooter>
             </>
         );
     }

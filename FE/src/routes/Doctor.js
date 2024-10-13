@@ -12,7 +12,6 @@ class Doctor extends Component {
                 {isLoggedIn && <Header />}
                 <Switch>
                     <Route path="/doctor/manage-schedule" component={DoctorSchedule}></Route>
-
                 </Switch>
 
             </React.Fragment>
