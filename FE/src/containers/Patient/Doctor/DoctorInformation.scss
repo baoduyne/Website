@@ -1,0 +1,131 @@
+.Doctor-infor-container {
+    width : 100%;
+    height: 100%;
+
+    padding: 0 10%;
+
+    .Doctor-infor-content {
+        width : 100%;
+        height: 100%;
+
+        display       : flex;
+        flex-direction: column;
+        gap           : 25px;
+
+        .clinic-address {
+            width: 100%;
+
+            .clinic-address-title {
+                width      : 100%;
+                font-weight: 600;
+                font-size  : 110%;
+                opacity    : 1;
+                color      : darkgray;
+            }
+
+            .clinic-address-name {
+                width      : 100%;
+                font-size  : 96%;
+                font-weight: 600;
+
+            }
+
+            .clinic-address-description {
+                font-size: 90%;
+            }
+        }
+
+        .booking-price {
+            width         : 100%;
+            display       : flex;
+            flex-direction: column;
+
+            .booking-price-title {
+                width         : 100%;
+                display       : flex;
+                flex-direction: row;
+                gap           : 30px;
+
+                .price-header {
+                    font-weight: 600;
+                    font-size  : 110%;
+                    opacity    : 1;
+                    color      : darkgray;
+                    display    : block;
+
+                }
+
+                .price-body-up {
+                    display: block;
+                }
+
+                .price-body-down {
+                    width  : 100%;
+                    display: block;
+
+                    .price-body-down-content {
+                        width: 100%;
+
+                        .list-group-item {
+                            display        : flex;
+                            flex-direction : row;
+                            justify-content: space-between;
+                            width          : 100%;
+                            height         : 60px;
+
+                            .list-content-left {
+                                width    : 58%;
+                                opacity  : 0.7;
+                                font-size: 96%;
+                            }
+
+                            .list-content-right {
+                                width        : 25%;
+                                // text-align: center;
+                            }
+                        }
+
+
+                    }
+
+                    .price-discount {
+                        width         : 100%;
+                        display       : flex;
+                        flex-direction: row;
+                        gap           : 7px;
+                        color         : rgb(255, 169, 3);
+                        margin-top    : 5px;
+                        cursor        : pointer;
+
+                        .price-discount-icon {
+                            margin-top: 5px;
+                        }
+
+                        .price-discount-content {
+                            padding: 5px 0;
+                        }
+                    }
+                }
+
+                .price-dis-active {
+                    display: none;
+                }
+
+            }
+
+            .booking-price-title-active {
+                display       : flex;
+                flex-direction: column;
+                gap           : 0
+            }
+
+            .booking-price-button {
+                width     : 30%;
+                opacity   : 0.8;
+                cursor    : pointer;
+                margin-top: 5px;
+            }
+
+        }
+    }
+}

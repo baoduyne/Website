@@ -7,6 +7,8 @@ import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import './DoctorSchedule.scss';
 import moment from 'moment';
 import localization from 'moment/locale/vi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faListUl } from '@fortawesome/free-solid-svg-icons';
 
 class DoctorSchedule extends Component {
 
@@ -172,7 +174,7 @@ class DoctorSchedule extends Component {
                                 })}
                             </select>
                         </div>
-                        <div className='schedule-header'><i class="fa-solid fa-calendar-days"></i> <FormattedMessage id='patient.doctor-schedule.Schedule'></FormattedMessage></div>
+                        <div className='schedule-header'><FontAwesomeIcon icon={faListUl} /> <FormattedMessage id='patient.doctor-schedule.Schedule'></FormattedMessage></div>
                         <div className='schedule-list'>
                             {
 
