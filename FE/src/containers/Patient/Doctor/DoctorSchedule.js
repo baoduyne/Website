@@ -9,6 +9,7 @@ import moment from 'moment';
 import localization from 'moment/locale/vi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListUl } from '@fortawesome/free-solid-svg-icons';
+import BookingModal from './BookingModal'
 
 class DoctorSchedule extends Component {
 
@@ -19,7 +20,11 @@ class DoctorSchedule extends Component {
             arrDate: [],
             dateSelected: '',
             allDoctorSchedules: [],
-            allCode: []
+            allCode: [],
+
+            //modal
+            scheduleData: '',
+            modalIsOpen: false,
         }
     }
 
@@ -60,7 +65,7 @@ class DoctorSchedule extends Component {
 
     setArrDate = async () => {
         let arrDate = [];
-        let { doctorId } = this.state;
+        let { doctorId, modalIsOpen } = this.state;
 
         for (let i = 0; i < 7; i++) {
             let object = {};
@@ -143,13 +148,33 @@ class DoctorSchedule extends Component {
             }
             return (item);
         })
+        console.log('test data', data);
+        this.setState({
+            allDoctorSchedules: allDoctorSchedules,
+            scheduleData: data,
+            modalIsOpen: !this.state.modalIsOpen
+        })
+    }
 
+    toggleModalFromParent = () => {
+        this.setState({
+            modalIsOpen: !this.state.modalIsOpen
+        })
+
+
+        let allDoctorSchedules = this.state.allDoctorSchedules.map(item => {
+            item.isSelected = false;
+            return item;
+        })
         this.setState({
             allDoctorSchedules: allDoctorSchedules
         })
+
     }
+
+
     render() {
-        let { arrDate, allDoctorSchedules, allCode } = this.state;
+        let { arrDate, allDoctorSchedules, allCode, modalIsOpen } = this.state;
         let language = this.props.language;
         // console.log('momentVi:', moment(new Date()).locale('en').format('ddd - DD/MM'));
         // console.log('momentEn:', moment(new Date()).valueOf());
@@ -203,6 +228,13 @@ class DoctorSchedule extends Component {
                         <div className='schedule-description'><FormattedMessage id='patient.doctor-schedule.Choose-schedule'></FormattedMessage></div>
                     </div>
                 </div>
+
+                <BookingModal
+                    modalIsOpen={this.state.modalIsOpen}
+                    scheduleData={this.state.scheduleData}
+                    toggleModalFromParent={this.toggleModalFromParent}
+                ></BookingModal>
+
 
             </React.Fragment>
         );

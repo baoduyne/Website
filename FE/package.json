@@ -50,6 +50,7 @@
     "react-multi-carousel": "^2.8.5",
     "react-number-format": "^5.4.2",
     "react-redux": "^7.2.4",
+    "react-responsive-modal": "^6.4.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
