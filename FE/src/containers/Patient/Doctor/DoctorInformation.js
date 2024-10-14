@@ -8,6 +8,8 @@ import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import './DoctorInformation.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBolt } from '@fortawesome/free-solid-svg-icons';
+import { NumericFormat } from 'react-number-format';
+
 class DoctorInformation extends Component {
 
     constructor(props) {
@@ -15,6 +17,8 @@ class DoctorInformation extends Component {
         this.state = {
             doctorId: '',
             doctorInfors: '',
+            priceValue: '',
+            paymentValue: '',
             detailIsOpened: false,
         }
     }
@@ -57,12 +61,12 @@ class DoctorInformation extends Component {
             priceValueEn = doctorInfors.priceData.valueEn;
             paymentValueEn = doctorInfors.paymentData.valueEn;
             paymentValueVi = doctorInfors.paymentData.valueVi;
-
         }
         console.log('this state', this.state);
 
         return (
             <>
+
 
                 <div className='Doctor-infor-container'>
                     <div className='Doctor-infor-content'>
@@ -77,7 +81,7 @@ class DoctorInformation extends Component {
                             <div className={detailIsOpened === false ? 'booking-price-title' : "booking-price-title booking-price-title-active"}>
                                 <span className='price-header'>Giá khám :</span>
                                 <div className={detailIsOpened === false ? 'price-body-up' : 'price-body-up price-dis-active'}>{language === LANGUAGES.VI ?
-                                    priceValueVi + " VNĐ" : priceValueEn + ' $'}</div>
+                                    <NumericFormat displayType='text' value={priceValueVi} allowLeadingZeros={true} thousandSeparator="," suffix=' VNĐ' /> : priceValueEn + ' $'}</div>
                                 <div className={detailIsOpened === false ? 'price-body-down price-dis-active' : 'price-body-down'}>
                                     <div className='price-body-down-content'>
                                         <ol class="list-group list-group-numbered">
@@ -86,7 +90,7 @@ class DoctorInformation extends Component {
                                                     Giá khám chưa bao gồm chi phí chụp chiếu, xét nghiệm :
                                                 </div>
                                                 <div className='list-content-right'>
-                                                    {language === LANGUAGES.VI ? priceValueVi + " VNĐ" : priceValueEn + ' $'}
+                                                    {language === LANGUAGES.VI ? <NumericFormat displayType='text' value={priceValueVi} allowLeadingZeros thousandSeparator="," suffix=' VNĐ' /> : priceValueEn + ' $'}
                                                 </div>
                                             </li>
                                             <li class="list-group-item">

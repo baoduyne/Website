@@ -5,9 +5,17 @@ import { FormattedMessage } from 'react-intl';
 import { LANGUAGES } from '../../utils/constant';
 import { changeLanguageApp } from '../../store/actions/appActions';
 import { Redirect, withRouter } from 'react-router-dom/cjs/react-router-dom.min';
-
+import Drawer from 'react-modern-drawer';
+import 'react-modern-drawer/dist/index.css';
 
 class HomeHeader extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            drawerIsOpen: false
+        }
+    }
 
     changeLanguage = (langague) => {
         this.props.changeLanguageAppRedux(langague);
@@ -17,6 +25,12 @@ class HomeHeader extends Component {
             this.props.history.push(`/home`);
         }
     }
+
+    handleOnClickDrawer = () => {
+        this.setState({
+            drawerIsOpen: !this.state.drawerIsOpen
+        })
+    }
     render() {
 
         return (
@@ -25,7 +39,9 @@ class HomeHeader extends Component {
                     <div className='home-header-content'>
 
                         <div className="left-content">
-                            <i className="fas fa-bars"></i>
+                            <i
+                                onClick={() => this.handleOnClickDrawer()}
+                                className="fas fa-bars"></i>
                             <div
                                 onClick={() => this.handleOnClickLogo()}
                                 className="header-logo "></div>
@@ -92,6 +108,15 @@ class HomeHeader extends Component {
                         </div>
                     </div>
                 </div>}
+
+                <Drawer
+                    open={this.state.drawerIsOpen}
+                    onClose={() => this.handleOnClickDrawer()}
+                    direction='left'
+                    className='bla bla bla'
+                >
+                    <div>Hello World</div>
+                </Drawer>
             </React.Fragment>
 
 
