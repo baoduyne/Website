@@ -212,7 +212,7 @@ class DoctorSchedule extends Component {
                                         return (
                                             <button
                                                 onClick={() => this.handleChooseSchedule(item)}
-                                                className={item.isSelected === true ? 'btn btn-info schedule-list-date' : 'btn btn-light schedule-list-date'}>
+                                                className={item.isSelected === true ? 'btn btn-warning schedule-list-date' : 'btn btn-warning schedule-list-date'}>
 
                                                 {language === LANGUAGES.VI ? result[0].valueVi : result[0].valueEn}</button>
                                         )
