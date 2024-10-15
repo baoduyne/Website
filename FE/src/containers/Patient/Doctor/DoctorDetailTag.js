@@ -5,12 +5,11 @@ import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils/constant';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import HomeHeader from '../../HomePage/HomeHeader';
-import './DetailDoctor.scss';
+import './DoctorDetailTag.scss';
 import DoctorSchedule from './DoctorSchedule';
 import DoctorInformation from './DoctorInformation';
 import HomeFooter from '../../HomePage/Section/HomeFooter';
-import DoctorDetailTag from './DoctorDetailTag';
-class DetailDoctor extends Component {
+class DoctorDetailTag extends Component {
 
     constructor(props) {
         super(props);
@@ -23,19 +22,16 @@ class DetailDoctor extends Component {
             phoneNumber: '',
             positionVi: '',
             positionEn: '',
-
             description: '',
-            contentMarkdown: '',
-            contentHTML: ''
         }
     }
 
     componentDidMount() {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
-            this.props.getSelectDoctorStart(this.props.match.params.id);
             this.setState({
-                id: this.props.match.params.id
+                id: this.props.id
             })
+            this.props.getSelectDoctorStart(this.state.id);
         }
 
     }
@@ -59,16 +55,13 @@ class DetailDoctor extends Component {
                 copyState.address = copySelectDoctor.address;
                 copyState.avatar = copySelectDoctor.avatar;
                 copyState.phoneNumber = copySelectDoctor.phoneNumber;
+                copyState.description = copySelectDoctor.Markdown.description;
             }
             if (copySelectDoctor.positionData) {
                 copyState.positionVi = copySelectDoctor.positionData.valueVi;
                 copyState.positionEn = copySelectDoctor.positionData.valueEn;
             }
-            if (copySelectDoctor.Markdown) {
-                copyState.description = copySelectDoctor.Markdown.description;
-                copyState.contentMarkdown = copySelectDoctor.Markdown.contentMarkdown;
-                copyState.contentHTML = copySelectDoctor.Markdown.contentHTML
-            }
+
             this.setState({
                 ...copyState
             })
@@ -78,8 +71,6 @@ class DetailDoctor extends Component {
     }
 
     render() {
-
-
         let {
             id,
             firstName,
@@ -93,40 +84,41 @@ class DetailDoctor extends Component {
             contentMarkdown,
             contentHTML
         } = this.state;
+        console.log('check detail state', this.state);
         let language = this.props.language;
         return (
             <>
+                <div className='doctor-detail-container'>
+                    <div className='doctor-detail-content'>
 
-                <HomeHeader isShowBanner={false} />
+                        <div className='doctor-detail-description'>
 
-                <DoctorDetailTag
-                    id={id}
-                ></DoctorDetailTag>
+                            <div className='content-left'>
+                                <div
+                                    style={{ backgroundImage: `url(${avatar})` }}
+                                    className='avatar'>
+                                </div>
+                            </div>
 
-
-                <div className='schedule-container'>
-                    <div className='schedule-content'>
-                        <div className='content-left'><DoctorSchedule
-                            doctorId={this.state.id}
-                        ></DoctorSchedule></div>
-                        <div className='content-right'>
-                            <DoctorInformation
-                                doctorId={this.state.id}
-                            ></DoctorInformation>
+                            <div className='content-right'>
+                                <div className='doctor-title'>
+                                    {language === LANGUAGES.VI ?
+                                        positionVi + " " + firstName + " " + lastName
+                                        :
+                                        positionEn + " " + lastName + " " + firstName}
+                                </div>
+                                <div className='doctor-description'>
+                                    {description}
+                                </div>
+                                <div className='doctor-address'>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{address}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div className='doctor-detail-markdown'>
-                    <div className='doctor-detail-markdown-content'>
-                        <div
-                            contentEditable='false'
-                            dangerouslySetInnerHTML={{ __html: contentHTML }}
-                            className='markdown-content-html'
-                        ></div>
-                    </div>
-                </div>
-                <HomeFooter></HomeFooter>
             </>
         );
     }
@@ -146,4 +138,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DetailDoctor));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DoctorDetailTag));

@@ -1,0 +1,154 @@
+.booking-modal-container {
+    width        : 100%;
+    height       : 100%;
+    padding      : 0 0%;
+    margin-top   : 4%;
+    margin-bottom: 10%;
+
+    .booking-modal-content {
+        border        : 1px solid rgba(0, 0, 0, 0.2);
+        width         : 100%;
+        height        : 100%;
+        display       : flex;
+        flex-direction: column;
+
+        .schedule-logo {
+            width     : 100%;
+            height    : 32px;
+            margin-top: 20px;
+
+            .logo {
+                width                : 28%;
+                height               : 100%;
+                background-image     : url('../../../assets/logo.png');
+                background-size      : contain;
+                background-repeat    : no-repeat;
+                background-position-x: center;
+                cursor               : pointer;
+                margin-left          : auto;
+                margin-right         : auto;
+            }
+        }
+
+        .title-container {
+            width         : 100%;
+            height        : 5%;
+            display       : flex;
+            flex-direction: column;
+            align-items   : center;
+            margin-top    : 14px;
+            margin-bottom : 30px;
+
+            .redux-title {
+                height     : 50%;
+                font-size  : 187%;
+                font-weight: 600;
+            }
+
+            .redux-description {
+                height    : 50%;
+                opacity   : 0.6;
+                margin-top: 10px;
+                font-size : 110%;
+            }
+        }
+
+        .horizon-line {
+            width           : 100%;
+            height          : 3px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius   : 3px;
+        }
+
+
+        .doctor-form {
+            width         : 100%;
+            height        : 100%;
+            display       : flex;
+            flex-direction: column;
+            gap           : 25px;
+            padding       : 0 35px;
+
+            .doctor-section-container {
+                width: 100%;
+
+                .section-content {
+                    display        : flex;
+                    flex-direction : row;
+                    width          : 100%;
+                    margin-top     : 10px;
+                    justify-content: center;
+
+                    .content-left {
+                        width : 30%;
+                        height: 100%;
+
+                        font-weight: 600;
+                    }
+
+                    .content-right {
+                        width : 70%;
+                        height: 100%;
+
+                        .type-book {
+                            margin-left: 18px;
+                            margin-top : 5px;
+                        }
+                    }
+                }
+
+                .doctor-sectioc-description {
+                    width        : 100%;
+                    background   : #D4EFFC;
+                    margin-bottom: 10px;
+                    padding      : 10px;
+                    border-radius: 3px;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+
+    }
+}
+
+.react-responsive-modal-modal {
+    max-width: none !important;
+    width    : 69%;
+}
+
+.support-booking-display-none {
+    display: none;
+}
+
+.margin-up {
+    margin-top: 30px;
+}
+
+.button-submit {
+    background-color: #FFC419;
+    color           : white;
+    border          : none;
+    outline         : none;
+    height          : 40px;
+    border-radius   : 5px;
+    font-size       : 120%;
+    margin-bottom   : 30px;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.booking-description-policy {
+    opacity: 0.7;
+
+    .right-policy {
+        color : #45c3d2;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+
+}

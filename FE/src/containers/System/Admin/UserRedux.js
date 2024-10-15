@@ -98,7 +98,11 @@ class UserRedux extends Component {
 
     }
 
-
+    handleOnClickLogo = () => {
+        if (this.props.location.pathname !== '/home') {
+            this.props.history.push(`/home`);
+        }
+    }
     handleOnchangeInput = (event, name) => {
         let copyState = { ...this.state };
         copyState[name] = event.target.value;
@@ -224,7 +228,7 @@ class UserRedux extends Component {
                                                         <label for="inputEmail4">Email</label>
                                                         <input
                                                             type="email"
-                                                            class="form-control"
+                                                            className="form-control"
                                                             id="inputEmail4"
                                                             placeholder="Email"
                                                             value={email}
@@ -236,7 +240,7 @@ class UserRedux extends Component {
                                                         <label for="inputPassword4"><FormattedMessage id="menu.admin.password"></FormattedMessage></label>
                                                         <input
                                                             type="password"
-                                                            class="form-control"
+                                                            className="form-control"
                                                             id="inputPassword4"
                                                             placeholder="Password"
                                                             value={password}
