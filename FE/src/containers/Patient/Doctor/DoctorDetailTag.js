@@ -4,17 +4,13 @@ import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils/constant';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
-import HomeHeader from '../../HomePage/HomeHeader';
 import './DoctorDetailTag.scss';
-import DoctorSchedule from './DoctorSchedule';
-import DoctorInformation from './DoctorInformation';
-import HomeFooter from '../../HomePage/Section/HomeFooter';
 class DoctorDetailTag extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            id: '',
+            doctorId: '',
             firstName: '',
             lastName: '',
             address: '',
@@ -23,15 +19,19 @@ class DoctorDetailTag extends Component {
             positionVi: '',
             positionEn: '',
             description: '',
+
+            doctorDescriptionIsShow: true
         }
     }
 
-    componentDidMount() {
+    componentDidMount = async () => {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             this.setState({
-                id: this.props.id
+                doctorId: this.props.doctorId,
+                doctorDescriptionIsShow: this.props.doctorDescriptionIsShow
             })
-            this.props.getSelectDoctorStart(this.state.id);
+
+            await this.props.getSelectDoctorStart(this.props.doctorId);
         }
 
     }
@@ -42,6 +42,7 @@ class DoctorDetailTag extends Component {
         }
 
         if (prevProps.selectDoctor !== this.props.selectDoctor) {
+
             let copySelectDoctor = { ...this.props.selectDoctor };
             if (copySelectDoctor && copySelectDoctor.avatar) {
                 copySelectDoctor.avatar = new Buffer(copySelectDoctor.avatar, 'base64').toString('binary');
@@ -68,11 +69,23 @@ class DoctorDetailTag extends Component {
 
         }
 
+        if (this.props.doctorId && (prevProps.doctorId !== this.props.doctorId)) {
+            this.setState({ doctorId: this.props.doctorId })
+            this.props.getSelectDoctorStart(this.props.doctorId);
+        }
+
+        if (this.props.doctorDescriptionIsShow && prevProps.doctorDescriptionIsShow !== this.props.doctorDescriptionIsShow) {
+            this.setState({
+                doctorDescriptionIsShow: this.props.doctorDescriptionIsShow
+            })
+        }
+
     }
 
     render() {
+
         let {
-            id,
+            doctorId,
             firstName,
             lastName,
             address,
@@ -81,44 +94,46 @@ class DoctorDetailTag extends Component {
             positionVi,
             positionEn,
             description,
-            contentMarkdown,
-            contentHTML
+
+            doctorDescriptionIsShow,
         } = this.state;
-        console.log('check detail state', this.state);
+
         let language = this.props.language;
         return (
             <>
-                <div className='doctor-detail-container'>
-                    <div className='doctor-detail-content'>
 
-                        <div className='doctor-detail-description'>
+                <div className='doctor-detail-content'>
 
-                            <div className='content-left'>
-                                <div
-                                    style={{ backgroundImage: `url(${avatar})` }}
-                                    className='avatar'>
-                                </div>
+                    <div className='doctor-detail-description'>
+
+                        <div className='content-left'>
+                            <div
+                                style={{ backgroundImage: `url(${avatar})` }}
+                                className='avatar'>
+                            </div>
+                        </div>
+
+                        <div className='content-right'>
+                            <div className='doctor-title'>
+                                {language === LANGUAGES.VI ?
+                                    positionVi + " " + firstName + " " + lastName
+                                    :
+                                    positionEn + " " + lastName + " " + firstName}
+                            </div>
+                            <div className={doctorDescriptionIsShow === true ? 'doctor-description' : 'doctor-des-hide'}>
+                                {description}
+                            </div>
+                            <div className={doctorDescriptionIsShow === false ? 'doctor-description' : 'doctor-des-hide'}>
+                                {'jjj'}
                             </div>
 
-                            <div className='content-right'>
-                                <div className='doctor-title'>
-                                    {language === LANGUAGES.VI ?
-                                        positionVi + " " + firstName + " " + lastName
-                                        :
-                                        positionEn + " " + lastName + " " + firstName}
-                                </div>
-                                <div className='doctor-description'>
-                                    {description}
-                                </div>
-                                <div className='doctor-address'>
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>{address}</span>
-                                </div>
+                            <div className='doctor-address'>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{address}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </>
         );
     }

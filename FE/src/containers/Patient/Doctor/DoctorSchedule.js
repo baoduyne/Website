@@ -135,6 +135,7 @@ class DoctorSchedule extends Component {
                 allDoctorSchedules: copyDoctorSchedules,
                 dateSelected: event.target.value
             });
+
         }
 
     }
@@ -148,12 +149,14 @@ class DoctorSchedule extends Component {
             }
             return (item);
         })
-        console.log('test data', data);
+
         this.setState({
             allDoctorSchedules: allDoctorSchedules,
             scheduleData: data,
             modalIsOpen: !this.state.modalIsOpen
         })
+
+
     }
 
     toggleModalFromParent = () => {
@@ -233,6 +236,7 @@ class DoctorSchedule extends Component {
                     modalIsOpen={this.state.modalIsOpen}
                     scheduleData={this.state.scheduleData}
                     toggleModalFromParent={this.toggleModalFromParent}
+                    id={this.state.doctorId}
                 ></BookingModal>
 
 

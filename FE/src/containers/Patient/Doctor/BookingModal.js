@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import './BookingModal.scss';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+import DoctorDetailTag from './DoctorDetailTag.js';
 
 class BookingModal extends Component {
 
@@ -70,7 +71,7 @@ class BookingModal extends Component {
     }
 
     render() {
-        console.log('test state', this.state);
+
         let {
             firstName,
             lastName,
@@ -102,6 +103,17 @@ class BookingModal extends Component {
                             </div>
 
                             <div className="doctor-form">
+
+
+                                <div className="doctor-section-container">
+                                    <div className='horizon-line'></div>
+                                    <div className='margin-up'>
+                                        <DoctorDetailTag
+                                            doctorId={this.props.id}
+                                            doctorDescriptionIsShow={false}
+                                        ></DoctorDetailTag>
+                                    </div>
+                                </div>
 
 
                                 <div className="doctor-section-container">
@@ -342,7 +354,7 @@ class BookingModal extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
-
+        allCodes: state.admin.times
     };
 };
 

@@ -32,7 +32,7 @@ class DetailDoctor extends Component {
 
     componentDidMount() {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
-            this.props.getSelectDoctorStart(this.props.match.params.id);
+            //this.props.getSelectDoctorStart(this.props.match.params.id);
             this.setState({
                 id: this.props.match.params.id
             })
@@ -98,11 +98,12 @@ class DetailDoctor extends Component {
             <>
 
                 <HomeHeader isShowBanner={false} />
-
-                <DoctorDetailTag
-                    id={id}
-                ></DoctorDetailTag>
-
+                <div className='doctor-detail-container'>
+                    <DoctorDetailTag
+                        doctorId={this.state.id}
+                        doctorDescriptionIsShow={true}
+                    ></DoctorDetailTag>
+                </div>
 
                 <div className='schedule-container'>
                     <div className='schedule-content'>

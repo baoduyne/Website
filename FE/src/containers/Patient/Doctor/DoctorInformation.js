@@ -24,6 +24,7 @@ class DoctorInformation extends Component {
     }
 
     componentDidMount = async () => {
+        this.setState({ doctorId: this.props.doctorId })
         await this.getDoctorInformation();
     }
 
@@ -42,8 +43,9 @@ class DoctorInformation extends Component {
     }
 
     getDoctorInformation = async () => {
-        console.log('check id', this.state.doctorId)
-        await this.props.getDoctorInformationsStart(this.state.doctorId);
+
+        await this.props.getDoctorInformationsStart(this.props.doctorId);
+
     }
 
     handlePriceButton = () => {
@@ -53,6 +55,8 @@ class DoctorInformation extends Component {
     }
 
     render() {
+
+
         let { doctorInfors, detailIsOpened } = this.state;
         let language = this.props.language;
         let priceValueVi, priceValueEn, paymentValueEn, paymentValueVi = '';
@@ -62,12 +66,10 @@ class DoctorInformation extends Component {
             paymentValueEn = doctorInfors.paymentData.valueEn;
             paymentValueVi = doctorInfors.paymentData.valueVi;
         }
-        console.log('this state', this.state);
+
 
         return (
             <>
-
-
                 <div className='Doctor-infor-container'>
                     <div className='Doctor-infor-content'>
 
