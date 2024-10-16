@@ -5,12 +5,15 @@ import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils/constant';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import './DoctorDetailTag.scss';
+import _ from 'lodash';
+import moment from 'moment';
+import { locale } from 'moment';
+import { NumericFormat } from 'react-number-format';
 class DoctorDetailTag extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            doctorId: '',
             firstName: '',
             lastName: '',
             address: '',
@@ -20,28 +23,33 @@ class DoctorDetailTag extends Component {
             positionEn: '',
             description: '',
 
-            doctorDescriptionIsShow: true
+            doctorDescriptionIsShow: true,
+            bookingPrice: '',
+            bookingPayment: '',
+
         }
     }
 
     componentDidMount = async () => {
-        if (this.props.match && this.props.match.params && this.props.match.params.id) {
-            this.setState({
-                doctorId: this.props.doctorId,
-                doctorDescriptionIsShow: this.props.doctorDescriptionIsShow
-            })
 
-            await this.props.getSelectDoctorStart(this.props.doctorId);
-        }
+        await this.fetchAllData()
 
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.language != this.props.language) {
-            this.componentDidMount();
+    fetchAllData = async () => {
+        await this.props.getSelectDoctorStart(this.props.doctorId);
+        await this.props.fetchAllCodeStart();
+        if (this.props.doctorDescriptionIsShow === false) {
+            await this.props.getDoctorInformationsStart(this.props.doctorId)
         }
+    }
 
-        if (prevProps.selectDoctor !== this.props.selectDoctor) {
+    componentDidUpdate = async (prevProps, prevState) => {
+        // if (prevProps.language != this.props.language) {
+        //     this.componentDidMount();
+        // }
+
+        if (this.props.selectDoctor && prevProps.selectDoctor !== this.props.selectDoctor) {
 
             let copySelectDoctor = { ...this.props.selectDoctor };
             if (copySelectDoctor && copySelectDoctor.avatar) {
@@ -66,39 +74,114 @@ class DoctorDetailTag extends Component {
             this.setState({
                 ...copyState
             })
+        }
 
+        if (this.props.allCode && (prevProps.allCode !== this.props.allCode)) {
+
+            let allCode = this.props.allCode;
+            let bookingDate = '';
+            if (this.props.scheduleData && this.props.scheduleData.timeType) {
+
+                allCode.map(item => {
+                    if (item.keyMap === this.props.scheduleData.timeType) {
+                        bookingDate = item;
+                    }
+                })
+            }
+
+            console.log('test booking 2', this.state.bookingDate)
         }
 
         if (this.props.doctorId && (prevProps.doctorId !== this.props.doctorId)) {
-            this.setState({ doctorId: this.props.doctorId })
-            this.props.getSelectDoctorStart(this.props.doctorId);
+            this.fetchAllData();
+        }
+    }
+
+    handleRenderDoctorTable = () => {
+
+        let allCode = this.props.allCode;
+        let scheduleData = this.props.scheduleData;
+        let priceData = '';
+        let bookingDate = '';
+        let bookingTime = '';
+        let time = '';
+        let price = '';
+
+
+
+
+
+
+        if (this.props.scheduleData && !_.isEmpty(this.props.scheduleData) && !_.isEmpty(this.props.doctorInfors)) {
+
+            priceData = this.props.doctorInfors.priceData;
+            console.log('doctor infor22', priceData);
+            allCode.map(item => {
+                if (item.keyMap === this.props.scheduleData.timeType) {
+                    bookingDate = item;
+                }
+            })
+            if (this.props.language === LANGUAGES.VI) {
+                bookingDate = bookingDate.valueVi;
+                bookingTime = moment.unix(scheduleData.date / 1000).format('dddd - DD/MM/YYYY');
+                price = <NumericFormat displayType='text' value={priceData.valueVi} allowLeadingZeros thousandSeparator="," suffix=' VNĐ' />;
+            }
+            else {
+                bookingDate = bookingDate.valueEn;
+                bookingTime = moment.unix(scheduleData.date / 1000).locale('en').format('ddd - DD/MM/YYYY');
+                price = priceData.valueEn + "$";
+            }
+
         }
 
-        if (this.props.doctorDescriptionIsShow && prevProps.doctorDescriptionIsShow !== this.props.doctorDescriptionIsShow) {
-            this.setState({
-                doctorDescriptionIsShow: this.props.doctorDescriptionIsShow
-            })
-        }
+
+
+        return (
+            <>
+
+                <div className='doctor-booking-up'>
+
+                    <div className='doctor-booking-child'>
+                        <div className='doctor-booking-child-left'>Ngày khám: </div>
+                        <div className='doctor-booking-child-right'>{bookingTime}</div>
+                    </div>
+
+                    <div className='doctor-booking-child'>
+                        <div className='doctor-booking-child-left'>Thời gian: </div>
+                        <div className='doctor-booking-child-right'>{bookingDate}</div>
+                    </div>
+
+                    <div className='doctor-booking-child'>
+                        <div className='doctor-booking-child-left'>Giá khám: </div>
+                        <div className='doctor-booking-child-right'>{price}</div>
+                    </div>
+
+                </div>
+
+
+                <div className='doctor-booking-down'>~Miễn phí đặt lịch~</div>
+
+            </>
+        )
 
     }
 
+
+
     render() {
 
-        let {
-            doctorId,
-            firstName,
-            lastName,
-            address,
-            avatar,
-            phoneNumber,
-            positionVi,
-            positionEn,
-            description,
-
-            doctorDescriptionIsShow,
+        let { firstName, lastName, address, avatar, phoneNumber, positionVi, positionEn, description,
+            bookingPrice, bookingPayment, bookingSchedule
         } = this.state;
 
+        let { doctorId, doctorDescriptionIsShow, scheduleData } = this.props;
+
+
+        console.log('test doctor infors props', this.props)
         let language = this.props.language;
+
+
+
         return (
             <>
 
@@ -123,17 +206,21 @@ class DoctorDetailTag extends Component {
                             <div className={doctorDescriptionIsShow === true ? 'doctor-description' : 'doctor-des-hide'}>
                                 {description}
                             </div>
-                            <div className={doctorDescriptionIsShow === false ? 'doctor-description' : 'doctor-des-hide'}>
-                                {'jjj'}
-                            </div>
 
-                            <div className='doctor-address'>
+
+                            <div className={doctorDescriptionIsShow === true ? 'doctor-address' : 'doctor-des-hide'}>
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>{address}</span>
                             </div>
+
+                            <div className={doctorDescriptionIsShow === false ? 'doctor-description doctor-des-expand' : 'doctor-des-hide'}>
+                                {this.handleRenderDoctorTable()}
+                            </div>
+
+
                         </div>
                     </div>
-                </div>
+                </div >
             </>
         );
     }
@@ -143,13 +230,17 @@ class DoctorDetailTag extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
-        selectDoctor: state.admin.selectDoctor
+        selectDoctor: state.admin.selectDoctor,
+        doctorInfors: state.admin.doctorInfors,
+        allCode: state.admin.times,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getSelectDoctorStart: (id) => dispatch(actions.getSelectDoctorStart(id))
+        getSelectDoctorStart: (id) => dispatch(actions.getSelectDoctorStart(id)),
+        getDoctorInformationsStart: (doctorId) => dispatch(actions.getDoctorInformationsStart(doctorId)),
+        fetchAllCodeStart: () => dispatch(actions.fetchAllCodeStart())
     };
 };
 

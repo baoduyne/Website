@@ -52,6 +52,33 @@
                     font-size  : 110%;
                 }
             }
+
+            .doctor-booking-up {
+                margin-top    : 5px;
+                width         : 100%;
+                display       : flex;
+                flex-direction: column;
+                gap           : 5px;
+
+                .doctor-booking-child {
+                    width         : 100%;
+                    display       : flex;
+                    flex-direction: row;
+                    gap           : 7px;
+
+                    .doctor-booking-child-left {
+                        font-weight: 600;
+                    }
+
+                    .doctor-booking-child-right {}
+                }
+            }
+
+            .doctor-booking-down {
+                margin-top: 10px;
+                width     : 100%;
+                font-style: italic;
+            }
         }
     }
 }

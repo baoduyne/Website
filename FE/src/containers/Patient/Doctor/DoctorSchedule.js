@@ -19,6 +19,7 @@ class DoctorSchedule extends Component {
             doctorId: '',
             arrDate: [],
             dateSelected: '',
+
             allDoctorSchedules: [],
             allCode: [],
 

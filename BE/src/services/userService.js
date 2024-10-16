@@ -128,9 +128,9 @@ let createNewUser = (data) => {
                 address: data.address,
                 phoneNumber: data.phoneNumber,
                 avatar: data.avatar,
-                gender: data.gender,
-                roleId: data.role,
-                positionId: data.position
+                gender: data.genderId,
+                roleId: data.roleId,
+                positionId: data.positionId
             })
 
 
@@ -212,6 +212,8 @@ let editUser = (data) => {
             user.gender = data.gender;
             user.phoneNumber = data.phoneNumber;
             user.avatar = data.avatar;
+
+            console.log('test user', user);
 
             await user.save();
             resolve({

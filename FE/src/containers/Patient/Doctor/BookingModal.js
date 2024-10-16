@@ -107,12 +107,11 @@ class BookingModal extends Component {
 
                                 <div className="doctor-section-container">
                                     <div className='horizon-line'></div>
-                                    <div className='margin-up'>
-                                        <DoctorDetailTag
-                                            doctorId={this.props.id}
-                                            doctorDescriptionIsShow={false}
-                                        ></DoctorDetailTag>
-                                    </div>
+                                    <DoctorDetailTag
+                                        doctorId={this.props.id}
+                                        doctorDescriptionIsShow={false}
+                                        scheduleData={this.props.scheduleData}
+                                    ></DoctorDetailTag>
                                 </div>
 
 
@@ -254,7 +253,7 @@ class BookingModal extends Component {
                                                 <div class="form-group col-12 d-flex flex-column">
                                                     <div class="form-group d-flex gap-3 justify-content-center">
                                                         <div class="form-group col-6">
-                                                            <label for="inputAddress"><FormattedMessage id="menu.admin.first-name"></FormattedMessage></label>
+                                                            <label for="inputAddress">Họ bệnh nhân</label>
                                                             <input
                                                                 type="text"
                                                                 class="form-control"
@@ -265,7 +264,7 @@ class BookingModal extends Component {
                                                             ></input>
                                                         </div>
                                                         <div class="form-group col-6">
-                                                            <label for="inputAddress"><FormattedMessage id="menu.admin.last-name"></FormattedMessage></label>
+                                                            <label for="inputAddress">Tên Bệnh Nhân</label>
                                                             <input
                                                                 type="text"
                                                                 class="form-control"
@@ -279,7 +278,7 @@ class BookingModal extends Component {
 
                                                     <div class="form-group d-flex gap-3 justify-content-center">
                                                         <div class="form-group col-12">
-                                                            <label for="inputEmail4">Số điện thoại</label>
+                                                            <label for="inputEmail4">Số điện thoại bệnh nhân</label>
                                                             <input
                                                                 className='form-control'
                                                                 placeholder="Số điện thoại"

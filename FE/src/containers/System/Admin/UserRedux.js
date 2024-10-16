@@ -86,6 +86,7 @@ class UserRedux extends Component {
 
         let data = event.target.files;
         let file = data[0];
+
         if (file) {
 
             let objectUrl = URL.createObjectURL(file);
@@ -140,9 +141,9 @@ class UserRedux extends Component {
             lastName: this.state.lastName,
             address: this.state.address,
             phoneNumber: this.state.phoneNumber,
-            gender: this.state.gender,
-            position: this.state.position,
-            role: this.state.role,
+            genderId: this.state.gender,
+            positionId: this.state.position,
+            roleId: this.state.role,
             avatar: this.state.avatar,
             id: this.state.id
         }
@@ -165,7 +166,7 @@ class UserRedux extends Component {
         }
     }
 
-    handleEditUser = (user) => {
+    handleEditUser = async (user) => {
         let imageBase64 = '';
         if (user.avatar) {
             imageBase64 = new Buffer(user.avatar, 'base64').toString('binary');
@@ -181,7 +182,7 @@ class UserRedux extends Component {
             gender: user.genderId,
             position: user.positionId,
             role: user.roleId,
-            avatar: user.avatar,
+            avatar: imageBase64,
             action: ACTIONS.EDIT,
             id: user.id,
 
