@@ -28,6 +28,11 @@ export const YesNoObj = {
     NO: 'N'
 }
 
+export const GENDERS = {
+    MALE: 'M',
+    FEMALE: 'F'
+}
+
 export const ROLEID = {
     ADMIN: 'R1',
     DOCTOR: 'R2',

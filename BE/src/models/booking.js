@@ -17,12 +17,18 @@ module.exports = (sequelize, DataTypes) => {
     statusId: DataTypes.STRING,
     doctorId: DataTypes.INTEGER,
     patientId: DataTypes.INTEGER,
-    date: DataTypes.DATE,
+    date: DataTypes.STRING,
     timeType: DataTypes.STRING,
-    roleid: DataTypes.STRING,
+    supportFirstName: DataTypes.STRING,
+    supportLastName: DataTypes.STRING,
+    supportPhoneNumber: DataTypes.STRING,
+    supportBirthDay: DataTypes.INTEGER,
+    supportGender: DataTypes.STRING,
+    note: DataTypes.TEXT('long')
   }, {
     sequelize,
     modelName: 'Booking',
   });
+  Booking.sync();
   return Booking;
 };

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../store/actions';
-import { LANGUAGES } from '../../../utils/constant';
+import { GENDERS, LANGUAGES } from '../../../utils/constant';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import './BookingModal.scss';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import DoctorDetailTag from './DoctorDetailTag.js';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { createBooking } from '../../../services/userService.js';
 
 class BookingModal extends Component {
 
@@ -21,12 +23,17 @@ class BookingModal extends Component {
             email: '',
             phoneNumber: '',
             address: '',
+            gender: '',
+            birthDay: '',
 
             supportFirstName: '',
             supportLastName: '',
             supportPhoneNumber: '',
+            supportGender: '',
+            supportBirthDay: '',
 
             reasonBooking: '',
+
 
         }
     }
@@ -63,11 +70,289 @@ class BookingModal extends Component {
             ...copyState
         })
     }
+    handleOnchangeCheckBox = (event, name) => {
+        let copyState = { ...this.state };
+        copyState[name] = event.target.value;
+        this.setState({
+            ...copyState
+        })
+    }
 
     handleOnClickLogo = () => {
         if (this.props.location.pathname !== '/home') {
             this.props.history.push(`/home`);
         }
+    }
+
+    checkValidateInput = () => {
+        let result = true;
+
+        if (!this.state.firstName) {
+            result = false;
+            toast(' Invalid first name!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            return result;
+        }
+
+        if (!this.state.lastName) {
+            result = false;
+            toast(' Invalid last name!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            return result;
+        }
+
+        if (!this.state.gender) {
+            result = false;
+            toast(' Invalid gender!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            return result;
+        }
+
+        if (!this.state.phoneNumber) {
+            result = false;
+            toast(' Invalid phone number!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            return result;
+        }
+
+        if (!this.state.email) {
+            result = false;
+            toast(' Invalid email!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            return result;
+        }
+
+        if (!this.state.address) {
+            result = false;
+            toast(' Invalid address!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            return result;
+        }
+
+        if (!this.state.birthDay) {
+            result = false;
+            toast(' Invalid birthyear!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            return result;
+        }
+
+        if (!this.state.reasonBooking) {
+            result = false;
+            toast(' Invalid reason to booking!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            return result;
+        }
+
+        if (this.state.supportBookingIsShow === true) {
+            if (!this.state.supportFirstName) {
+                result = false;
+                toast(' Invalid patient first name!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+                return result;
+            }
+
+            if (!this.state.supportLastName) {
+                result = false;
+                toast(' Invalid support last name!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+                return result;
+            }
+
+            if (!this.state.email) {
+                result = false;
+                toast(' Invalid support email!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+                return result;
+            }
+
+            if (!this.state.supportPhoneNumber) {
+                result = false;
+                toast(' Invalid phone number!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+                return result;
+            }
+
+            if (!this.state.supportGender) {
+                result = false;
+                toast(' Invalid support gender!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+                return result;
+            }
+
+            if (!this.state.supportBirthDay) {
+                result = false;
+                toast(' Invalid support gender!', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+                return result;
+            }
+
+        }
+        return result;
+    }
+
+    handleSubbmitPatient = async () => {
+
+        let checkValid = this.checkValidateInput();
+
+        if (checkValid === true) {
+
+            let data = {
+                email: this.state.email,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                address: this.state.address,
+                phoneNumber: this.state.phoneNumber,
+                genderId: this.state.gender,
+                doctorId: this.props.doctorId,
+                date: this.props.scheduleData.date,
+                timeType: this.props.scheduleData.timeType,
+                note: this.state.reasonBooking
+            }
+
+            if (this.state.supportBookingIsShow === true) {
+                data.supportFirstName = this.state.supportFirstName;
+                data.supportLastName = this.state.supportLastName;
+                data.supportBirthDay = this.state.supportBirthDay;
+                data.supportPhoneNumber = this.state.supportPhoneNumber;
+                data.supportGender = this.state.supportGender;
+            }
+
+            await this.props.createBookingStart(data);
+
+
+
+        }
+        else {
+
+        }
+
+
     }
 
     render() {
@@ -78,12 +363,19 @@ class BookingModal extends Component {
             email,
             phoneNumber,
             address,
+            gender,
+            birthDay,
+
             supportFirstName,
             supportLastName,
             supportPhoneNumber,
-            reasonBooking
-        } = this.state;
+            supportBirthDay,
+            supportGender,
 
+            reasonBooking,
+
+        } = this.state;
+        console.log('doctor id', this.props.doctorId)
 
         return (
             <React.Fragment>
@@ -108,7 +400,7 @@ class BookingModal extends Component {
                                 <div className="doctor-section-container">
                                     <div className='horizon-line'></div>
                                     <DoctorDetailTag
-                                        doctorId={this.props.id}
+                                        doctorId={this.props.doctorId}
                                         doctorDescriptionIsShow={false}
                                         scheduleData={this.props.scheduleData}
                                     ></DoctorDetailTag>
@@ -143,6 +435,55 @@ class BookingModal extends Component {
                                                         onChange={(event) => this.handleOnchangeInput(event, 'lastName')}
                                                     ></input>
                                                 </div>
+                                            </div>
+
+                                            <div class="form-group d-flex gap-3" >
+                                                <div class="form-group d-flex gap-3 col-6 flex-column">
+                                                    <label className='mt-1' for='123'>Giới tính</label>
+                                                    <div class="form-group d-flex gap-3 col-12 pl-0 pr-0">
+                                                        <div class="form-group col-3">
+                                                            <input
+                                                                class="form-check-input"
+                                                                type="radio"
+                                                                name="flexRadioDefault4"
+                                                                id="flexRadioDefault5"
+                                                                value={GENDERS.MALE}
+                                                                onClick={(event) => this.handleOnchangeCheckBox(event, 'gender')}
+                                                            ></input>
+                                                            <label class="form-check-label" for="flexRadioDefault5">
+                                                                Nam
+                                                            </label>
+                                                        </div>
+
+                                                        <div class='from-group col-3'>
+                                                            <input
+                                                                class="form-check-input"
+                                                                type="radio"
+                                                                name="flexRadioDefault4"
+                                                                id="flexRadioDefault6"
+                                                                value={GENDERS.FEMALE}
+                                                                onClick={(event) => this.handleOnchangeCheckBox(event, 'gender')}
+                                                            ></input>
+                                                            <label class="form-check-label" for="flexRadioDefault6">
+                                                                Nữ
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group d-flex gap-3 col-6 flex-column">
+                                                    <label class='' for='inputBirthDay'>Năm sinh</label>
+                                                    <div class="form-group d-flex gap-3 col-12 pl-0 pr-0">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="inputBirthDay"
+                                                            placeholder="Năm sinh"
+                                                            value={birthDay}
+                                                            onChange={(event) => this.handleOnchangeInput(event, 'birthDay')}
+                                                        ></input>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -287,7 +628,57 @@ class BookingModal extends Component {
                                                             ></input>
                                                         </div>
                                                     </div>
+
+                                                    <div class="form-group d-flex gap-3" >
+                                                        <div class="form-group d-flex gap-3 col-6 flex-column">
+                                                            <label className='mt-1' for='123'>Giới tính bệnh nhân</label>
+                                                            <div class="form-group d-flex gap-3 col-12 pl-0">
+                                                                <div class="form-group col-3">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="radio"
+                                                                        name="flexRadioDefault3"
+                                                                        id="flexRadioDefault3"
+                                                                        value={GENDERS.MALE}
+                                                                        onClick={(event) => this.handleOnchangeCheckBox(event, 'supportGender')}
+                                                                    ></input>
+                                                                    <label class="form-check-label" for="flexRadioDefault3">
+                                                                        Nam
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class='from-group col-3'>
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="radio"
+                                                                        name="flexRadioDefault3"
+                                                                        id="flexRadioDefault4"
+                                                                        value={GENDERS.FEMALE}
+                                                                        onClick={(event) => this.handleOnchangeCheckBox(event, 'supportGender')}
+                                                                    ></input>
+                                                                    <label class="form-check-label" for="flexRadioDefault4">
+                                                                        Nữ
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group d-flex gap-3 col-6 flex-column">
+                                                            <label class='' for='inputBirthDay'>Năm sinh bệnh nhân</label>
+                                                            <div class="form-group d-flex gap-3 col-12 pl-0 pr-0">
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    id="inputBirthDay"
+                                                                    placeholder="Năm sinh"
+                                                                    value={supportBirthDay}
+                                                                    onChange={(event) => this.handleOnchangeInput(event, 'supportBirthDay')}
+                                                                ></input>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -333,7 +724,9 @@ class BookingModal extends Component {
                                 </div>
 
                                 <div className="doctor-section-container">
-                                    <button className='col-12 button-submit'>Xác nhận đặt lịch khám</button>
+                                    <button
+                                        onClick={() => this.handleSubbmitPatient()}
+                                        className='col-12 button-submit'>Xác nhận đặt lịch khám</button>
                                     <p className='booking-description-policy'>Bằng việc xác nhận đặt khám, bạn đã hoàn toàn đồng ý với <span className='right-policy'>Điều khoản sử dụng dịch vụ</span> của chúng tôi.</p>
                                 </div>
 
@@ -359,7 +752,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        createBookingStart: (data) => dispatch(actions.createBookingStart(data))
     };
 };
 

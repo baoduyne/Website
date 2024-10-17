@@ -57,6 +57,9 @@ const getDoctorInforsService = (doctorId) => {
     return axios.get(`/api/get-doctor-infors?id=${doctorId}`);
 }
 
+const createBookingService = (data) => {
+    return axios.post('/api/create-booking', data);
+}
 export {
     handleLoginApi,
     getAllUsers,
@@ -70,5 +73,6 @@ export {
     getSelectDoctorService,
     saveDoctorSchedulesService,
     getDoctorSchedulesService,
-    getDoctorInforsService
+    getDoctorInforsService,
+    createBookingService
 }
