@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     supportPhoneNumber: DataTypes.STRING,
     supportBirthDay: DataTypes.INTEGER,
     supportGender: DataTypes.STRING,
-    note: DataTypes.TEXT('long')
+    note: DataTypes.TEXT('long'),
+    token: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Booking',
