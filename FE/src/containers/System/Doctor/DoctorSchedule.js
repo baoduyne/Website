@@ -159,7 +159,7 @@ class Doctor extends Component {
             }
 
             this.props.saveDoctorSchedulesStart(result);
-            console.log('check result', result)
+
         }
 
 

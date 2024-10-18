@@ -286,7 +286,7 @@ class ManageDoctor extends Component {
         return result;
     }
     handleOnclickMarkDown = (event) => {
-        console.log('check action', this.state.hasOldData);
+
         if (this.checkValidateInput() === true) {
             this.props.saveSelectDoctorStart({
                 doctorId: this.state.selectedOption.value,
@@ -390,7 +390,7 @@ class ManageDoctor extends Component {
             lastName = object.lastName;
         }
 
-        console.log('check state', this.state)
+
 
         return (
             <div className='manage-doctor-container'>

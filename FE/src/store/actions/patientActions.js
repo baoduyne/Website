@@ -8,7 +8,7 @@ export const createBookingStart = (data) => {
         try {
             dispatch({ type: actionTypes.GET_DOCTOR_INFORMATIONS_START })
             let response = await createBookingService(data);
-            console.log('checkres', response);
+
             if (response && response.errCode === 0) {
                 dispatch(createBookingSuccess());
                 toast.success('Đặt lịch thành công!', {

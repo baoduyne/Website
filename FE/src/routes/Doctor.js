@@ -6,7 +6,7 @@ import DoctorSchedule from '../containers/System/Doctor/DoctorSchedule';
 class Doctor extends Component {
     render() {
         const { DoctorMenuPath, isLoggedIn } = this.props;
-        console.log("check", this.props.data)
+
         return (
             <React.Fragment>
                 {isLoggedIn && <Header />}

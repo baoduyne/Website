@@ -25,7 +25,7 @@ class Home extends Component {
 
 
     render() {
-        console.log('check redux', this.state);
+
         let linkToRedirect = this.state.isLoggedIn ? '/system/user-manage' : '/home';
         return (
             <Redirect to={linkToRedirect} />

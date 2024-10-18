@@ -13,7 +13,7 @@ const patientReducer = (state = initialState, action) => {
 
             }
         case actionTypes.CREATE_BOOKING_SUCCESS:
-            console.log('succes completed!')
+
             return {
                 ...state,
                 isLoading: false

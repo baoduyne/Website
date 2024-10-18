@@ -1,6 +1,7 @@
 const { reject } = require("bcrypt/promises")
 import db from "../models/index";
 require('dotenv').config();
+import { sendSimpleEmail } from "./emailService";
 import _, { includes } from 'lodash';
 
 let createBooking = (data) => {
@@ -12,26 +13,25 @@ let createBooking = (data) => {
                     errMessage: 'Missing parameter!'
                 });
             }
+
             else {
+                let doctor = await db.User.findOne({
+                    where: { id: data.doctorId },
+                    raw: true
+                })
+                let allcode = await db.Allcode.findAll({
+                    raw: true
+                });
+                // console.log('doctor', doctor);
+                // console.log('allcode', allcode);
 
-                // let user = await db.User.findOrCreate({
-                //     where: { email: data.email },
-                //     default: {
-                //         email: data.email,
-                //         firstName: 'asdsad',
-                //         lastName: data.lastName,
-                //         address: data.address,
-                //         phoneNumber: data.phoneNumber,
-                //         gender: data.genderId,
-                //         roleId: 'R3',
-                //         positonId: 'P0'
-                //     },
-                //     raw: false
-                // })
-
-
-
-
+                await sendSimpleEmail({
+                    receiverEmail: data.email,
+                    patientName: data.firstName + " " + data.lastName,
+                    date: 'Thứ 2',
+                    doctorName: doctor.firstName + " " + doctor.lastName,
+                    redirectLink: 'https://google.com',
+                });
                 let user = await db.User.findOne({
                     where: { email: data.email },
                     raw: false
@@ -54,7 +54,7 @@ let createBooking = (data) => {
                         raw: false
                     })
                 }
-                console.log(user);
+
 
 
                 if (user) {
