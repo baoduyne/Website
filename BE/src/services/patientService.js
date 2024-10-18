@@ -15,21 +15,13 @@ let createBooking = (data) => {
             }
 
             else {
-                let doctor = await db.User.findOne({
-                    where: { id: data.doctorId },
-                    raw: true
-                })
-                let allcode = await db.Allcode.findAll({
-                    raw: true
-                });
-                // console.log('doctor', doctor);
-                // console.log('allcode', allcode);
-
+                console.log(data);
                 await sendSimpleEmail({
                     receiverEmail: data.email,
                     patientName: data.firstName + " " + data.lastName,
-                    date: 'Thứ 2',
-                    doctorName: doctor.firstName + " " + doctor.lastName,
+                    date: data.fullTime,
+                    doctorName: data.doctorName,
+                    language: data.language,
                     redirectLink: 'https://google.com',
                 });
                 let user = await db.User.findOne({

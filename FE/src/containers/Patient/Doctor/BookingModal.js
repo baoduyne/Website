@@ -10,6 +10,10 @@ import { Modal } from 'react-responsive-modal';
 import DoctorDetailTag from './DoctorDetailTag.js';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import { createBooking } from '../../../services/userService.js';
+import _ from 'lodash';
+import moment from 'moment';
+import { NumericFormat } from 'react-number-format';
+import { locale } from 'moment';
 
 class BookingModal extends Component {
 
@@ -34,7 +38,7 @@ class BookingModal extends Component {
 
             reasonBooking: '',
 
-
+            selectDoctor: ''
         }
     }
 
@@ -43,6 +47,9 @@ class BookingModal extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if (this.props.selectDoctor && (prevProps.selectDoctor !== this.props.selectDoctor)) {
+            this.setState({ selectDoctor: this.props.selectDoctor })
+        }
 
     }
 
@@ -316,11 +323,55 @@ class BookingModal extends Component {
         return result;
     }
 
+    buildTimeBooking = () => {
+        let allCode = this.props.allCodes;
+        let scheduleData = this.props.scheduleData;
+        let priceData = '';
+        let bookingDate = '';
+        let bookingTime = '';
+        let time = '';
+        let price = '';
+        console.log('test 0', this.props.doctorInfors);
+        if (this.props.scheduleData && !_.isEmpty(this.props.scheduleData) && !_.isEmpty(this.props.doctorInfors)) {
+            console.log('test 1');
+            priceData = this.props.doctorInfors.priceData;
+            allCode.map(item => {
+                if (item.keyMap === this.props.scheduleData.timeType) {
+                    bookingDate = item;
+                }
+            })
+            if (this.props.language === LANGUAGES.VI) {
+                bookingDate = bookingDate.valueVi;
+                bookingTime = moment.unix(scheduleData.date / 1000).format('dddd - DD/MM/YYYY');
+                price = <NumericFormat displayType='text' value={priceData.valueVi} allowLeadingZeros thousandSeparator="," suffix=' VNĐ' />;
+            }
+            else {
+                bookingDate = bookingDate.valueEn;
+                bookingTime = moment.unix(scheduleData.date / 1000).locale('en').format('ddd - DD/MM/YYYY');
+                price = priceData.valueEn + "$";
+            }
+            console.log('test 2');
+            return `${bookingTime} | ${bookingDate}`;
+        }
+
+        return ``;
+    }
+
     handleSubbmitPatient = async () => {
 
         let checkValid = this.checkValidateInput();
 
         if (checkValid === true) {
+
+            let fullTime = this.buildTimeBooking();
+            let doctorName = ''
+            if (this.language === LANGUAGES.VI) {
+                doctorName = `${this.state.selectDoctor.firstName}  ${this.state.selectDoctor.lastName}`
+            }
+            else {
+                doctorName = `${this.state.selectDoctor.lastName}  ${this.state.selectDoctor.firstName}`
+            }
+
 
             let data = {
                 email: this.state.email,
@@ -332,7 +383,12 @@ class BookingModal extends Component {
                 doctorId: this.props.doctorId,
                 date: this.props.scheduleData.date,
                 timeType: this.props.scheduleData.timeType,
-                note: this.state.reasonBooking
+                note: this.state.reasonBooking,
+
+                language: this.props.language,
+                fullTime: fullTime,
+                doctorName: doctorName
+
             }
 
             if (this.state.supportBookingIsShow === true) {
@@ -375,7 +431,7 @@ class BookingModal extends Component {
             reasonBooking,
 
         } = this.state;
-        console.log('doctor id', this.props.doctorId)
+
 
         return (
             <React.Fragment>
@@ -746,7 +802,9 @@ class BookingModal extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
-        allCodes: state.admin.times
+        allCodes: state.admin.times,
+        doctorInfors: state.admin.doctorInfors,
+        selectDoctor: state.admin.selectDoctor
     };
 };
 

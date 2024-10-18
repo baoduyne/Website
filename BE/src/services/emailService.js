@@ -23,24 +23,36 @@ let sendSimpleEmail = async (emailData) => {
         to: emailData.receiverEmail, // list of receivers
         subject: "Thông tin đặt lịch khám bệnh", // Subject line
         text: "Hello", // plain text body
-        html:
-            `<h1>Xin chào ${emailData.patientName}</h1> 
-             <p>Bạn nhận được email này vì đã đặt lịch khám bệnh online trên github : https://github.com/baoduyne </p>
-             <p>Thông tin đặt lịch khám bệnh: </p>
-             <p>Thời gian: ${emailData.date}</p>
-             <p>Bác sĩ đảm nhiệm: ${emailData.doctorName}</p>
-             <p>Nếu thông tin này là thật xin vui lòng click vào đường link bên dưới để xác nhận và hoàn tất thủ tục khám bệnh</p>
-             <div>
-             <a href = '${emailData.redirectLink}'>
-             </a>
-             </div>
-
-        
-        `,
+        html: createHTMLContent(emailData, emailData.language),
     });
+}
 
-    console.log("Message sent: %s", info.messageId);
-    // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+let createHTMLContent = (emailData, language) => {
+    if (language === 'vi')
+        return (`<h1>Xin chào ${emailData.patientName}</h1> 
+    <p>Bạn nhận được email này vì đã đặt lịch khám bệnh online trên github : https://github.com/baoduyne </p>
+    <p>Thông tin đặt lịch khám bệnh: </p>
+    <p>Thời gian: ${emailData.date}</p>
+    <p>Bác sĩ đảm nhiệm: ${emailData.doctorName}</p>
+    <p>Nếu thông tin này là thật xin vui lòng click vào đường link bên dưới để xác nhận và hoàn tất thủ tục khám bệnh</p>
+    <div>
+    <a href = '${emailData.redirectLink}'>Xác nhận lịch hẹn
+    </a>
+    </div>
+`)
+    else {
+        return (`<h1>Hello ${emailData.patientName}</h1> 
+        <p>You received this email as you have booked a schedule in github : https://github.com/baoduyne </p>
+        <p>booking informations: </p>
+        <p>Time: ${emailData.date}</p>
+        <p>Doctor: ${emailData.doctorName}</p>
+        <p>In case all the informations above are correct, please click the link below to confirm and redirect to complete booking form</p>
+        <div>
+        <a href = '${emailData.redirectLink}'>Confirm booking
+        </a>
+        </div>
+    `)
+    }
 }
 
 

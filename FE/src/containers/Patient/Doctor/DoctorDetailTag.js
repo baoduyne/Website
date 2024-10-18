@@ -115,7 +115,7 @@ class DoctorDetailTag extends Component {
         if (this.props.scheduleData && !_.isEmpty(this.props.scheduleData) && !_.isEmpty(this.props.doctorInfors)) {
 
             priceData = this.props.doctorInfors.priceData;
-            console.log('doctor infor22', priceData);
+
             allCode.map(item => {
                 if (item.keyMap === this.props.scheduleData.timeType) {
                     bookingDate = item;
