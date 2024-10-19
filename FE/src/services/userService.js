@@ -60,6 +60,10 @@ const getDoctorInforsService = (doctorId) => {
 const createBookingService = (data) => {
     return axios.post('/api/create-booking', data);
 }
+
+const verifyUserBookingAppoinmentService = (token, doctorId) => {
+    return axios.post(`/api/verify?token=${token}&doctorId=${doctorId}`);
+}
 export {
     handleLoginApi,
     getAllUsers,
@@ -74,5 +78,5 @@ export {
     saveDoctorSchedulesService,
     getDoctorSchedulesService,
     getDoctorInforsService,
-    createBookingService
+    createBookingService, verifyUserBookingAppoinmentService
 }

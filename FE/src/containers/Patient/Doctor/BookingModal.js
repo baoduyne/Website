@@ -96,226 +96,86 @@ class BookingModal extends Component {
 
         if (!this.state.firstName) {
             result = false;
-            toast(' Invalid first name!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid first name!');
             return result;
         }
 
         if (!this.state.lastName) {
             result = false;
-            toast(' Invalid last name!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid last name!');
             return result;
         }
 
         if (!this.state.gender) {
             result = false;
-            toast(' Invalid gender!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid gender!');
             return result;
         }
 
         if (!this.state.phoneNumber) {
             result = false;
-            toast(' Invalid phone number!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid phone number!');
             return result;
         }
 
         if (!this.state.email) {
             result = false;
-            toast(' Invalid email!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid email!');
             return result;
         }
 
         if (!this.state.address) {
             result = false;
-            toast(' Invalid address!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid address!');
             return result;
         }
 
         if (!this.state.birthDay) {
             result = false;
-            toast(' Invalid birthyear!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid birthyear!');
             return result;
         }
 
         if (!this.state.reasonBooking) {
             result = false;
-            toast(' Invalid reason to booking!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid reason to booking!');
             return result;
         }
 
         if (this.state.supportBookingIsShow === true) {
             if (!this.state.supportFirstName) {
                 result = false;
-                toast(' Invalid patient first name!', {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                });
+                toast(' Invalid patient first name!');
                 return result;
             }
 
             if (!this.state.supportLastName) {
                 result = false;
-                toast(' Invalid support last name!', {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                });
+                toast(' Invalid support last name!');
                 return result;
             }
 
             if (!this.state.email) {
                 result = false;
-                toast(' Invalid support email!', {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                });
+                toast(' Invalid support email!');
                 return result;
             }
 
             if (!this.state.supportPhoneNumber) {
                 result = false;
-                toast(' Invalid phone number!', {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                });
+                toast(' Invalid phone number!');
                 return result;
             }
 
             if (!this.state.supportGender) {
                 result = false;
-                toast(' Invalid support gender!', {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                });
+                toast(' Invalid support gender!');
                 return result;
             }
 
             if (!this.state.supportBirthDay) {
                 result = false;
-                toast(' Invalid support gender!', {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                });
+                toast(' Invalid support gender!');
                 return result;
             }
 
@@ -400,9 +260,6 @@ class BookingModal extends Component {
             }
 
             await this.props.createBookingStart(data);
-
-
-
         }
         else {
 

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
-import { Bounce, ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
 import { path } from '../utils'
 import CustomScrollbars from '../components/CustomScrollbars.js';
@@ -16,6 +17,7 @@ import Doctor from '../routes/Doctor.js'
 import HomePage from './HomePage/HomePage.js'
 import { CustomToastCloseButton } from '../components/CustomToast';
 import DetailDoctor from './Patient/Doctor/DetailDoctor.js';
+import VerifyEmail from './Patient/VerifyEmail/VerifyEmail.js'
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -56,24 +58,24 @@ class App extends Component {
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_DOCTOR} component={DetailDoctor}></Route>
                                     <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
+                                    <Route path={path.VERIFY_APPOINMENT} component={VerifyEmail}></Route>
                                 </Switch>
                             </CustomScrollbars>
                         </span>
-                        <ToastContainer
-                            position="bottom-right"
-                            autoClose={5000}
-                            hideProgressBar
-                            newestOnTop={false}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                            theme="light"
-                            transition={Bounce}
-                        />
                     </div>
                 </Router>
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={true}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
             </Fragment>
         )
     }

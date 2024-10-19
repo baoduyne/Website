@@ -10,7 +10,6 @@ const patientReducer = (state = initialState, action) => {
         case actionTypes.CREATE_BOOKING_START:
             return {
                 ...state,
-
             }
         case actionTypes.CREATE_BOOKING_SUCCESS:
 

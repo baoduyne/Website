@@ -213,7 +213,7 @@ let editUser = (data) => {
             user.phoneNumber = data.phoneNumber;
             user.avatar = data.avatar;
 
-            console.log('test user', user);
+
 
             await user.save();
             resolve({

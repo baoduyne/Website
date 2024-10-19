@@ -3,6 +3,13 @@ import db from "../models/index";
 require('dotenv').config();
 import { sendSimpleEmail } from "./emailService";
 import _, { includes } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
+
+
+let createToken = (doctorId, token) => {
+    let result = `${process.env.URL_REACT}/verify-booking-appoinment?token=${token}&doctorId=${doctorId}`
+    return result;
+}
 
 let createBooking = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -15,15 +22,19 @@ let createBooking = (data) => {
             }
 
             else {
-                console.log(data);
+
+                let token = uuidv4();
+
                 await sendSimpleEmail({
                     receiverEmail: data.email,
                     patientName: data.firstName + " " + data.lastName,
                     date: data.fullTime,
                     doctorName: data.doctorName,
                     language: data.language,
-                    redirectLink: 'https://google.com',
+                    redirectLink: createToken(data.doctorId, token),
                 });
+
+
                 let user = await db.User.findOne({
                     where: { email: data.email },
                     raw: false
@@ -61,6 +72,7 @@ let createBooking = (data) => {
                         supportPhoneNumber: data.supportPhoneNumber,
                         supportGender: data.supportGender,
                         supportBirthDay: data.supportBirthDay,
+                        token: token,
                         note: data.note
 
                     })
@@ -81,6 +93,49 @@ let createBooking = (data) => {
     })
 }
 
+let verifyAppoinment = (data) => {
+    try {
+        return new Promise(async (resolve, reject) => {
+            if (!data.token || !data.doctorId) {
+                resolve({
+                    errCode: -1,
+                    errMessage: 'Missing Parameter...'
+                })
+            }
+            else {
+
+                let booking = await db.Booking.findOne({
+                    where: {
+                        token: data.token,
+                        doctorId: data.doctorId,
+                        statusId: 'S1'
+                    },
+                    raw: false
+                })
+                if (booking) {
+                    booking.statusId = 'S2';
+
+                    await booking.save();
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'Verify user token completed...'
+                    })
+                }
+                else {
+                    resolve({
+                        errCode: -1,
+                        errMessage: 'Cant find booking appointment...'
+                    })
+                }
+            }
+
+        })
+    }
+    catch (e) {
+        reject(e);
+    }
+}
+
 module.exports = {
-    createBooking
+    createBooking, verifyAppoinment
 }

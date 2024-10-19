@@ -1,6 +1,5 @@
-
+import { NIL as NIL_UUID } from 'uuid';
 const dotenv = require('dotenv').config;
-
 import nodemailer from 'nodemailer';
 import { EmptyResultError } from 'sequelize';
 
@@ -19,7 +18,7 @@ let sendSimpleEmail = async (emailData) => {
 
     // send mail with defined transport object
     const info = await transporter.sendMail({
-        from: '"👻" <lobaoduy@gmail.com>', // sender address
+        from: '"Bảo Duy" <lobaoduy@gmail.com>', // sender address
         to: emailData.receiverEmail, // list of receivers
         subject: "Thông tin đặt lịch khám bệnh", // Subject line
         text: "Hello", // plain text body
