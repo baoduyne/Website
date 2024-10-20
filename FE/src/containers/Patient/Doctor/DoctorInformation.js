@@ -56,7 +56,6 @@ class DoctorInformation extends Component {
 
     render() {
 
-
         let { doctorInfors, detailIsOpened } = this.state;
         let language = this.props.language;
         let priceValueVi, priceValueEn, paymentValueEn, paymentValueVi = '';
@@ -66,8 +65,6 @@ class DoctorInformation extends Component {
             paymentValueEn = doctorInfors.paymentData.valueEn;
             paymentValueVi = doctorInfors.paymentData.valueVi;
         }
-
-
         return (
             <>
                 <div className='Doctor-infor-container'>

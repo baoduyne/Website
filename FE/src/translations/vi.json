@@ -43,7 +43,7 @@
             "system-administrator": {
                 "header": "Quản trị hệ thống",
                 "user-manage": "Quản lý người dùng",
-                "user-redux": "Quản lý user redux"
+                "user-redux": "Quản lý người dùng"
             },
             "system-parameter": {
                 "header": "Tham số hệ thống"
@@ -57,14 +57,14 @@
             "user": "Người dùng",
             "doctor": "Bác sĩ",
             "crud": "CRUD",
-            "crud-redux": "CRUD-Redux",
+            "crud-redux": "Quản lý người dùng",
             "clinic": "Phòng khám",
             "manage-clinic": "Quản lý phòng khám",
             "specialty": "Chuyên khoa",
             "manage-specialty": "Quản lý chuyên khoa",
             "handbook": "Cẩm nang",
             "handbook-manage": "Quản lý cẩm nang",
-            "redux-handle": "Quản lý người dùng redux",
+            "redux-handle": "QUẢN LÝ NGƯỜI DÙNG",
             "password": "Mật khẩu",
             "first-name": "Họ",
             "last-name": "Tên",

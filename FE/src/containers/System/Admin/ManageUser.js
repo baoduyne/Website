@@ -6,13 +6,13 @@ import { getAllCodeService } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils/constant';
 import * as actions from '../../../store/actions';
 import LoadingPage from './LoadingPage';
-import './UserRedux.scss'
+import './ManageUser.scss'
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import ManageUserTable from "./ManageUserTable";
 import { ACTIONS } from '../../../utils/constant';
 import CommonUtils from "../../../utils/CommonUtils";
-class UserRedux extends Component {
+class ManageUser extends Component {
 
     constructor(props) {
         super(props);
@@ -502,7 +502,7 @@ let mapDispathToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispathToProps)(UserRedux);
+export default connect(mapStateToProps, mapDispathToProps)(ManageUser);
 
 
 

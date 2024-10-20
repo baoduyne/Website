@@ -73,6 +73,12 @@ class ManageDoctor extends Component {
         }
     }
 
+    handleOnClickLogo = () => {
+        if (this.props.location.pathname !== '/home') {
+            this.props.history.push(`/home`);
+        }
+    }
+
 
     builtDataInputSelect = (inputData, type) => {
         let result = [];
@@ -395,10 +401,21 @@ class ManageDoctor extends Component {
         return (
             <div className='manage-doctor-container'>
                 <div className='manage-doctor-content-up'>
+                    <div
+                        onClick={() => this.handleOnClickLogo()}
+                        className='doctor-manage-logo'>
+                        <div className='logo'></div>
+                    </div>
+
+                    <div className='title-container'>
+                        <div className='doctor-manage-title'>QUẢN LÝ BÁC SĨ</div>
+                        <div className='doctor-manage-description'>Thêm hoặc chỉnh sửa thông tin của bác sĩ</div>
+                    </div>
 
                     <div className='content-down'>
+                        <div className='horizon-line'></div>
                         <div className='preview-description'>
-                            <div className='section1'>
+                            <div className='doctor-manage-section1'>
                                 <div
                                     className='avatar'
                                     style={{ backgroundImage: `url(${this.state.avatar})` }}
@@ -406,7 +423,7 @@ class ManageDoctor extends Component {
                                 </div>
 
                             </div>
-                            <div className='section2'>
+                            <div className='doctor-manage-section2'>
                                 <div className='name-doctor'>
                                     {this.props.language === LANGUAGES.VI ?
                                         positionVi + ' ' + firstName + ' ' + lastName :
@@ -547,25 +564,41 @@ class ManageDoctor extends Component {
                                 </div>
                             </div>
 
+                            <div className="doctor-section-container">
+                                <div className='horizon-line'></div>
+                                <div className='title-container'>
+                                    <div>Thông tin chuyên khoa</div>
+                                </div>
+                                <MdEditor
+                                    style={{ height: '500px' }}
+                                    renderHTML={text => mdParser.render(text)}
+                                    onChange={this.handleEditorChange}
+                                    value={this.state.contentMarkdown}
+                                />
+                            </div>
+
+
+                            <div className="doctor-section-container">
+                                <div className='horizon-line'></div>
+                                <div className='specialty-section-description margin-up'>
+                                    <p><strong>LƯU Ý</strong></p>
+                                    <p>Thông tin anh/chị cung cấp sẽ được sử dụng làm thông tin chuyên khoa, khi điền thông tin anh/chị vui lòng:</p>
+                                    <ul>
+                                        <li>Ghi rõ tên chuyên khoa, viết hoa chữ cái đầu tiên, ví dụ: <strong>Khoa sương khớp</strong></li>
+                                        <li>Điền đầy đủ, đúng và vui lòng kiểm tra lại thông tin trước khi ấn &quot;Xác nhận&quot;</li>
+
+                                    </ul>
+                                </div>
+
+                                <button
+                                    onClick={() => this.handleSubmitSpecialty()}
+                                    className='col-12 button-submit'>Xác nhận tạo chuyên khoa
+                                </button>
+                            </div>
 
                         </div>
                     </div>
                 </div >
-
-                <div className='section2'>
-                    <div className='markdown'>
-                        <MdEditor
-                            style={{ height: '500px' }}
-                            renderHTML={text => mdParser.render(text)}
-                            onChange={this.handleEditorChange}
-                            value={this.state.contentMarkdown}
-                        />
-                        <button
-                            onClick={(event) => this.handleOnclickMarkDown(event)}
-                            className={this.state.hasOldData ? 'markdown-btn btn btn-info' : 'markdown-btn btn btn-primary'}
-                        >{this.state.hasOldData ? 'Change' : 'Save'}</button>
-                    </div>
-                </div>
 
             </div >
 

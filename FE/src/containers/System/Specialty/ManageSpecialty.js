@@ -116,7 +116,9 @@ class ManageSpecialty extends Component {
             <>
                 <div className='manage-specialty-container'>
                     <div className='manage-specialty-content'>
-                        <div className='specialty-logo'>
+                        <div
+                            onClick={() => this.handleOnClickLogo()}
+                            className='specialty-logo'>
                             <div className='logo'></div>
                         </div>
 

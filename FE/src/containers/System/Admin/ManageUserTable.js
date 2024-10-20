@@ -5,6 +5,7 @@ import './ManageUserTable.scss';
 import * as actions from '../../../store/actions'
 import { deleteUserService } from "../../../services/userService";
 
+
 class ManageUserTable extends Component {
     constructor(props) {
         super(props);
@@ -36,9 +37,10 @@ class ManageUserTable extends Component {
         return (
             <div>
                 <div className="user-table mt-4 mx-1">
-                    <table id="customers">
+                    <table className="table" id="customers">
                         <thead>
                             <tr>
+                                <th>Number</th>
                                 <th>Email</th>
                                 <th>FirstName</th>
                                 <th>LastName</th>
@@ -47,16 +49,19 @@ class ManageUserTable extends Component {
                             </tr>
                         </thead>
                         <tbody>
+
                             {arrUsers && arrUsers.map((item, index) => {
+
                                 return (
                                     <tr>
+                                        <td className="font-weight-bold">{index}</td>
                                         <td>{item.email}</td>
                                         <td>{item.firstName}</td>
                                         <td>{item.lastName}</td>
                                         <td>{item.address}</td>
                                         <td>
-                                            <button className="btn-edit" onClick={() => this.props.handleEditUser(item)}><i className="far fa-edit"></i></button>
-                                            <button className="btn-delete" onClick={() => this.handleDeleteUser(item)}><i className="fas fa-trash-alt"></i></button>
+                                            <button className="btn btn-success" onClick={() => this.props.handleEditUser(item)}><i className="far fa-edit"></i></button>
+                                            <button className="btn btn-light ml-3" onClick={() => this.handleDeleteUser(item)}><i className="fas fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                 )

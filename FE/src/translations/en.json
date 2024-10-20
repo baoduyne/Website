@@ -43,7 +43,7 @@
             "system-administrator": {
                 "header": "System Administrator",
                 "user-manage": "User manage",
-                "user-redux": "user redux manage"
+                "user-redux": "Manage User"
             },
             "system-parameter": {
                 "header": "System-parameter"
@@ -57,14 +57,14 @@
             "user": "Users",
             "doctor": "Doctor",
             "crud": "CRUD",
-            "crud-redux": "CRUD-Redux",
+            "crud-redux": "Manage User",
             "clinic": "Clinic",
             "manage-clinic": "Clinic manage",
             "specialty": "Specialty",
             "manage-specialty": "Specialty manage",
             "handbook": "Handbook",
             "handbook-manage": "Handbook manage",
-            "redux-handle": "Manage user from system",
+            "redux-handle": "MANAGE USERS",
             "password": "Password",
             "first-name": "First Name",
             "last-name": "Last Name",
