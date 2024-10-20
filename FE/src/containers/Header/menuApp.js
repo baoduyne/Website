@@ -26,7 +26,11 @@ export const adminMenu = [
     },
     //chuyên khoa
     {
-        name: "menu.admin.specialty", link: "system/user-manage",
+        name: "menu.admin.specialty", menus: [
+            {
+                name: 'menu.admin.specialty', link: "/system/manage-specialty"
+            }
+        ]
     },
     //cẩm nang
     {

@@ -256,24 +256,26 @@ const appReducer = (state = initialState, action) => {
                 ...copyState
             }
 
-        case actionTypes.GET_DOCTOR_INFORMATIONS_START:
+        case actionTypes.CREATE_SPECIALTY_START:
             return {
                 ...state
             }
-        case actionTypes.GET_DOCTOR_INFORMATIONS_SUCCESS:
+        case actionTypes.CREATE_SPECIALTY_SUCCESS:
             copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+        case actionTypes.CREATE_SPECIALTY_FAIL:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
 
-            copyState.doctorInfors = action.data;
-            copyState.isLoading = false;
-            return {
-                ...copyState
-            }
-        case actionTypes.GET_DOCTOR_INFORMATIONS_FAIL:
-            copyState = { ...state }
-            copyState.isLoading = false;
-            return {
-                ...copyState
-            }
+
+
+
         default:
             return { state }
 

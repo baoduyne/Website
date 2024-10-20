@@ -13,23 +13,31 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      description: {
-        type: Sequelize.TEXT
-      },
       name: {
         type: Sequelize.STRING
       },
+      descriptionHTML: {
+        type: Sequelize.TEXT('LONG'),
+        allowNull: false,
+      },
+      contentMarkDown: {
+        type: Sequelize.TEXT("LONG"),
+        allowNull: false,
+      },
       image: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB('LONG'),
+        allowNull: false,
       },
 
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: DATE
       }
     });
   },

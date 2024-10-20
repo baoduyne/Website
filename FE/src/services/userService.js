@@ -64,6 +64,12 @@ const createBookingService = (data) => {
 const verifyUserBookingAppoinmentService = (token, doctorId) => {
     return axios.post(`/api/verify?token=${token}&doctorId=${doctorId}`);
 }
+
+const createSpecialtyService = (data) => {
+    return axios.post('/api/create-specialty', data);
+}
+
+
 export {
     handleLoginApi,
     getAllUsers,
@@ -78,5 +84,6 @@ export {
     saveDoctorSchedulesService,
     getDoctorSchedulesService,
     getDoctorInforsService,
-    createBookingService, verifyUserBookingAppoinmentService
+    createBookingService, verifyUserBookingAppoinmentService,
+    createSpecialtyService
 }

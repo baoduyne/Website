@@ -112,6 +112,7 @@ class UserRedux extends Component {
         })
 
     }
+
     checkValidate = () => {
         let isValid = true;
         let arrValid = ['email', 'password', 'firstName', 'lastName', 'address'

@@ -5,7 +5,7 @@ import {
     getTopDoctorHomeService, getAllDoctorsService,
     saveSelectDoctorService, getSelectDoctorService,
     saveDoctorSchedulesService, getDoctorSchedulesService,
-    getDoctorInforsService
+    getDoctorInforsService, createSpecialtyService
 } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -661,5 +661,55 @@ export const getDoctorInformationsSuccess = (data) => {
 export const getDoctorInformationsFail = () => {
     return {
         type: actionTypes.GET_DOCTOR_INFORMATIONS_FAIL
+    }
+}
+
+export const createSpecialtyStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.CREATE_SPECIALTY_START })
+
+            toast('Đang tạo phòng khám...', {
+                position: "bottom-right",
+                autoClose: 2800,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+
+            let response = await createSpecialtyService(data);
+
+            if (response && response.errCode === 0) {
+                dispatch(createSpecialtySuccess());
+            }
+            else {
+                dispatch(createSpecialtyFail());
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(createSpecialtyFail());
+        }
+    }
+
+}
+
+export const createSpecialtySuccess = () => {
+    toast.success('Đặt phòng khám thành công!');
+
+    return {
+        type: actionTypes.CREATE_SPECIALTY_SUCCESS,
+    }
+}
+
+export const createSpecialtyFail = () => {
+    toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
+    return {
+        type: actionTypes.CREATE_SPECIALTY_FAIL
+
     }
 }
