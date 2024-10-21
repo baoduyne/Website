@@ -305,63 +305,39 @@ export const saveSelectDoctorStart = (data) => {
         try {
 
             dispatch({ type: actionTypes.SAVE_SELECT_DOCTOR_START })
+
             let res = await saveSelectDoctorService(data);
+            toast("Compiling...");
 
             if (res && res.errCode === 0) {
+                console.log('3');
                 dispatch(saveSelectDoctorSuccess());
-                toast.success('Save doctor information completed!', {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                })
+
             }
 
             else {
-                toast.fail('Save doctor failed!', {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                })
+                toast.fail('Save doctor failed!')
             }
         }
         catch (e) {
             console.log(e);
             dispatch(saveSelectDoctorFail());
-            toast.fail('Save doctor failed!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            })
+
         }
     }
 
 }
 
 export const saveSelectDoctorSuccess = () => {
+    toast.success('Save doctor information completed!');
     return {
+
         type: actionTypes.SAVE_SELECT_DOCTOR_SUCCESS,
     }
 }
 
 export const saveSelectDoctorFail = () => {
+    toast.fail('Save doctor failed!',)
     return {
         type: actionTypes.SAVE_SELECT_DOCTOR_FAIL
     }

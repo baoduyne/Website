@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
         doctorId: DataTypes.INTEGER,
         priceId: DataTypes.INTEGER,
         provinceId: DataTypes.INTEGER,
+        specialtyId: DataTypes.INTEGER,
+        clinicId: DataTypes.INTEGER,
         paymentId: DataTypes.INTEGER,
         addressClinic: DataTypes.STRING,
         nameClinic: DataTypes.STRING,
@@ -33,6 +35,6 @@ module.exports = (sequelize, DataTypes) => {
         sequelize,
         modelName: 'Doctor_infor',
     });
-    // Doctor_infor.sync({ alter: true });
+    // Doctor_infor.sync();
     return Doctor_infor;
 };

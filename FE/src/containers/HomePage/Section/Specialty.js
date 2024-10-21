@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import * as actions from '../../../store/actions';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 class Specialty extends Component {
     constructor(props) {
         super(props);
@@ -22,9 +23,14 @@ class Specialty extends Component {
         }
     }
 
+    handleOnClickSpecialty = (specialty) => {
+
+        this.props.history.push(`/specialty/${specialty.id}`)
+    }
+
     render() {
         let { allSpecialty } = this.state;
-        console.log('check state>>', this.state)
+
         return (
 
             <div className='section-container section-specialty'>
@@ -55,8 +61,11 @@ class Specialty extends Component {
                         >
                             {allSpecialty && allSpecialty.length > 0 && allSpecialty.map(item => {
                                 let imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+
                                 return (
-                                    <><div className='section-items specialty'>
+                                    <><div
+                                        onClick={() => this.handleOnClickSpecialty(item)}
+                                        className='section-items specialty'>
                                         <div
                                             className='section-image section-specialty'
                                             style={{ backgroundImage: `url(${imageBase64})` }}
@@ -91,4 +100,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Specialty));

@@ -44,21 +44,29 @@ class ManageDoctor extends Component {
             clinicAddress: '',
             clinicDescription: '',
 
+
+            clinicList: '',
+            specialtyList: '',
+            selectClinic: '',
+            selectSpecialty: ''
         }
     }
     componentDidMount = async () => {
         await this.props.getAllDoctorsStart();
         await this.props.getDoctorInformationAllCodeStart();
+        await this.props.getAllSpecialtyStart();
     }
 
     componentDidUpdate(prevProps, prevState) {
         if ((this.props.allDoctors && prevProps.allDoctors !== this.props.allDoctors)
             || (this.props.priceData && prevProps.priceData !== this.props.priceData)
+            || (this.props.allSpecialty && prevProps.allSpecialty !== this.props.allSpecialty)
         ) {
             let priceData = this.builtDataInputSelect(this.props.priceData, 'PRICES');
             let paymentData = this.builtDataInputSelect(this.props.paymentData, 'PAYMENTS');
             let provinceData = this.builtDataInputSelect(this.props.provinceData, 'PROVINCES');
             let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors, 'DOCTORS');
+            let specialtyList = this.builtDataInputSelect(this.props.allSpecialty, 'SPECIALTY');
             this.setState({
                 allDoctors: dataInputSelect,
                 selectedOption: dataInputSelect[0],
@@ -67,10 +75,12 @@ class ManageDoctor extends Component {
                 provinceData: provinceData,
                 priceSelected: priceData[0],
                 paymentSelected: paymentData[0],
-                provinceSelected: provinceData[0]
+                provinceSelected: provinceData[0],
+                specialtyList: specialtyList
             });
             this.handleChange(dataInputSelect[0], 'DOCTORS');
         }
+
     }
 
     handleOnClickLogo = () => {
@@ -92,6 +102,10 @@ class ManageDoctor extends Component {
 
                     object.value = item.id;
                     object.label = this.props.language === LANGUAGES.VI ? valueVi : valueEn;
+                }
+                else if (type === 'SPECIALTY') {
+                    object.value = item.id;
+                    object.label = item.name;
                 }
                 else {
                     object.value = item.id;
@@ -123,6 +137,7 @@ class ManageDoctor extends Component {
                     let priceSelected = '';
                     let paymentSelected = '';
                     let provinceSelected = '';
+                    let specialtySelected = '';
                     this.state.priceData.map(item => {
                         if (item.value === selectDoctor.doctorInforData.priceId) {
                             priceSelected = item;
@@ -141,6 +156,12 @@ class ManageDoctor extends Component {
                         };
                     })
 
+                    this.state.specialtyList.map(item => {
+                        if (item.value === selectDoctor.doctorInforData.specialtyId) {
+                            specialtySelected = item;
+                        }
+                    })
+
 
 
                     this.setState({
@@ -152,10 +173,13 @@ class ManageDoctor extends Component {
                         priceSelected: priceSelected,
                         paymentSelected: paymentSelected,
                         provinceSelected: provinceSelected,
+                        selectSpecialty: specialtySelected,
 
                         clinicName: selectDoctor.doctorInforData.nameClinic,
                         clinicAddress: selectDoctor.doctorInforData.addressClinic,
                         clinicDescription: selectDoctor.doctorInforData.note,
+
+
                         hasOldData: true,
                     })
                 } else {
@@ -205,6 +229,25 @@ class ManageDoctor extends Component {
                     })
                 }
             }
+            else if (type === 'SPECIALTY') {
+                if (selectedOption.value && selectedOption.label) {
+                    let copyState = { ...this.state }
+                    copyState.selectSpecialty = selectedOption;
+                    this.setState({
+                        ...copyState
+                    })
+                }
+            }
+
+            else if (type === 'CLINIC') {
+                if (selectedOption.value && selectedOption.label) {
+                    let copyState = { ...this.state }
+                    copyState.selectClinic = selectedOption;
+                    this.setState({
+                        ...copyState
+                    })
+                }
+            }
         }
 
     };
@@ -216,77 +259,32 @@ class ManageDoctor extends Component {
             clinicName: this.state.clinicName,
             clinicAddress: this.state.clinicAddress,
             clinicDescription: this.state.clinicDescription,
-            contentMarkdown: this.state.contentMarkdown
+            contentMarkdown: this.state.contentMarkdown,
+            specialty: this.state.selectSpecialty
         }
         if (!objectCheck.description) {
             result = false;
-            toast(' Invalid description!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid description!',);
         }
         else if (!objectCheck.clinicName) {
             result = false;
-            toast(' Invalid description!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid clinic name!',);
+        }
+        else if (!objectCheck.specialty) {
+            result = false;
+            toast(' Invalid specialty!',);
         }
         else if (!objectCheck.clinicDescription) {
             result = false;
-            toast(' Invalid description!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid clinic description!',);
         }
         else if (!objectCheck.clinicAddress) {
             result = false;
-            toast(' Invalid description!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid clinic address!',);
         }
         else if (!objectCheck.contentMarkdown) {
             result = false;
-            toast(' Invalid description!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast(' Invalid content markdown!',);
         }
 
         return result;
@@ -294,6 +292,7 @@ class ManageDoctor extends Component {
     handleOnclickMarkDown = (event) => {
 
         if (this.checkValidateInput() === true) {
+
             this.props.saveSelectDoctorStart({
                 doctorId: this.state.selectedOption.value,
                 description: this.state.description,
@@ -306,6 +305,9 @@ class ManageDoctor extends Component {
                 clinicName: this.state.clinicName,
                 clinicAddress: this.state.clinicAddress,
                 clinicDescription: this.state.clinicDescription,
+
+                // clinicId: this.state.selectClinic.value,
+                specialtyId: this.state.selectSpecialty.value,
 
                 contentHTML: this.state.contentHTML,
                 contentMarkdown: this.state.contentMarkdown,
@@ -383,7 +385,8 @@ class ManageDoctor extends Component {
         let { selectedOption, avatar, positionEn, positionVi, firstName, lastName,
             priceData, paymentData, provinceData,
             priceSelected, paymentSelected, provinceSelected,
-            clinicName, clinicAddress, clinicDescription
+            clinicName, clinicAddress, clinicDescription,
+            selectClinic, selectSpecialty, clinicList, specialtyList
         } = this.state;
 
         const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -548,6 +551,35 @@ class ManageDoctor extends Component {
                                 <div className='horizon-line'></div>
                                 <div className="section-content">
                                     <div className='content-left'>
+                                        <label for="description">Chuyên nghành</label></div>
+                                    <div className='content-right'>
+                                        <div className='content-right-child'>
+                                            <label for='select'>Chọn chuyên khoa</label>
+                                            <Select
+                                                value={selectSpecialty}
+                                                onChange={(event) => this.handleChange(event, 'SPECIALTY')}
+                                                options={specialtyList}
+                                                id='select'
+                                            />
+                                        </div>
+                                        <div className='content-right-child'>
+                                            <label for='select'>Chọn phòng khám</label>
+                                            <Select
+                                                value={selectClinic}
+                                                onChange={(event) => this.handleChange(event, 'CLINIC')}
+                                                options={clinicList}
+                                                id='select'
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div className="doctor-section-container">
+                                <div className='horizon-line'></div>
+                                <div className="section-content">
+                                    <div className='content-left'>
                                         <label for="description">Thông tin bổ sung</label></div>
                                     <div className='content-right'>
                                         <div className='content-right-child'>
@@ -589,11 +621,14 @@ class ManageDoctor extends Component {
 
                                     </ul>
                                 </div>
+                                {this.state.hasOldData === true ? <button
+                                    onClick={() => this.handleOnclickMarkDown()}
+                                    className='col-12 button-edit btn btn-primary'>Xác nhận sửa thông tin bác sĩ</button> :
 
-                                <button
-                                    onClick={() => this.handleSubmitSpecialty()}
-                                    className='col-12 button-submit'>Xác nhận tạo chuyên khoa
-                                </button>
+                                    <button
+                                        onClick={() => this.handleOnclickMarkDown()}
+                                        className='col-12 button-submit'>Xác nhận tạo thông tin bác sĩ</button>}
+
                             </div>
 
                         </div>
@@ -616,7 +651,8 @@ const mapStateToProps = state => {
         selectDoctor: state.admin.selectDoctor,
         priceData: state.admin.priceData,
         paymentData: state.admin.paymentData,
-        provinceData: state.admin.provinceData
+        provinceData: state.admin.provinceData,
+        allSpecialty: state.admin.allSpecialty
     };
 };
 
@@ -625,7 +661,8 @@ const mapDispatchToProps = dispatch => {
         getAllDoctorsStart: () => dispatch(actions.getAllDoctorsStart()),
         saveSelectDoctorStart: (inforDoctor) => dispatch(actions.saveSelectDoctorStart(inforDoctor)),
         getSelectDoctorStart: (id) => dispatch(actions.getSelectDoctorStart(id)),
-        getDoctorInformationAllCodeStart: () => dispatch(actions.getDoctorInformationAllCodeStart())
+        getDoctorInformationAllCodeStart: () => dispatch(actions.getDoctorInformationAllCodeStart()),
+        getAllSpecialtyStart: () => dispatch(actions.getAllSpecialtyStart())
     };
 };
 

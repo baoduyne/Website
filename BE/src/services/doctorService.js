@@ -81,6 +81,8 @@ let saveSelectDoctor = (inforDoctor) => {
                     paymentId: inforDoctor.paymentSelected,
                     addressClinic: inforDoctor.clinicAddress,
                     nameClinic: inforDoctor.clinicName,
+                    // clinicId: inforDoctor.clinicId,
+                    specialtyId: inforDoctor.specialtyId,
                     note: inforDoctor.clinicDescription,
                     count: 0,
                 })
@@ -110,6 +112,7 @@ let saveSelectDoctor = (inforDoctor) => {
                         paymentId: inforDoctor.paymentSelected,
                         addressClinic: inforDoctor.clinicAddress,
                         nameClinic: inforDoctor.clinicName,
+                        specialtyId: inforDoctor.specialtyId,
                         note: inforDoctor.clinicDescription,
                         count: 0,
                     })
@@ -125,6 +128,10 @@ let saveSelectDoctor = (inforDoctor) => {
 
         catch (e) {
             console.log(e);
+            reject({
+                errCode: -1,
+                errMessage: 'err from sever!'
+            })
         }
     })
 }

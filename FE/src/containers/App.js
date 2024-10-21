@@ -17,11 +17,8 @@ import Doctor from '../routes/Doctor.js'
 import HomePage from './HomePage/HomePage.js'
 import { CustomToastCloseButton } from '../components/CustomToast';
 import DetailDoctor from './Patient/Doctor/DetailDoctor.js';
-import VerifyEmail from './Patient/VerifyEmail/VerifyEmail.js'
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+import VerifyEmail from './Patient/VerifyEmail/VerifyEmail.js';
+import DetailSpecialty from './Patient/Specialty/SpecialtyDetail.js';
 
 class App extends Component {
 
@@ -59,6 +56,7 @@ class App extends Component {
                                     <Route path={path.DETAIL_DOCTOR} component={DetailDoctor}></Route>
                                     <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
                                     <Route path={path.VERIFY_APPOINMENT} component={VerifyEmail}></Route>
+                                    <Route path={path.SPECIALTY} component={DetailSpecialty}></Route>
                                 </Switch>
                             </CustomScrollbars>
                         </span>
