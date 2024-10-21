@@ -72,7 +72,7 @@ class OutStandingDoctor extends Component {
                                 let nameEn = `${item.positionData.valueEn} ${item.firstName} ${item.lastName}`;
                                 return (
                                     <div
-                                        className='section-items'
+                                        className='section-items section-out-standing-doctor'
                                         onClick={() => this.handleDetailDoctor(item)}
                                     >
                                         <div style={{ backgroundImage: `url(${avatarUrl})` }} className='section-image section-outstanding-doctor'></div>

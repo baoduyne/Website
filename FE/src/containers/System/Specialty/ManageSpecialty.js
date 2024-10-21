@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import _, { size } from 'lodash';
 import './ManageSpecialty.scss';
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
@@ -12,10 +12,15 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import * as actions from '../../../store/actions';
+import { ACTIONS } from '../../../utils/constant';
 class ManageSpecialty extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            allSpecialty: '',
+            selectedSpecialty: '',
+            specialtyOptions: '',
+
             nameSpecialty: '',
 
             avatar: '',
@@ -31,6 +36,41 @@ class ManageSpecialty extends Component {
     }
 
     componentDidMount() {
+        this.props.getAllSpecialtyStart();
+    }
+
+    builtSpecialtySelectOptions = (data) => {
+        let result = [];
+        if (data) {
+            data.map(item => {
+                let object = {}
+                object.value = item.id;
+                object.label = item.name;
+                result.push(object);
+            })
+        }
+        if (result) {
+            result.push({ value: -1, label: '...' })
+            return result;
+        }
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if (this.props.allSpecialty && prevProps.allSpecialty !== this.props.allSpecialty) {
+            let specialtyOptions = this.builtSpecialtySelectOptions(this.props.allSpecialty);
+            console.log('log', specialtyOptions.length);
+            this.setState({
+                allSpecialty: this.props.allSpecialty,
+                selectedSpecialty: specialtyOptions[specialtyOptions.length - 1],
+                specialtyOptions: specialtyOptions
+            })
+
+        }
+        if (prevState.allSpecialty !== this.state.allSpecialty) {
+            this.handleSetStateDependOnId(this.state.specialtyOptions[this.state.specialtyOptions.length - 1].value);
+        }
+
+
 
     }
 
@@ -54,13 +94,66 @@ class ManageSpecialty extends Component {
         this.setState({ objectUrl: '' })
     }
 
-    handleOnchangeInput = (event, name) => {
-        let copyState = { ...this.state };
-        copyState[name] = event.target.value;
-        this.setState({
-            ...copyState
-        })
+    handleSetStateDependOnId = (specialtyId) => {
+        console.log('test2', this.state)
+        let specialty = '';
+        if (this.state.allSpecialty) {
+            this.state.allSpecialty.map(item => {
+                if (item.id === specialtyId) {
+                    specialty = item;
+                }
+            })
 
+        }
+        if (specialty) {
+
+            let imageBase64 = new Buffer(specialty.image, 'base64').toString('binary');
+
+            this.setState({
+                nameSpecialty: specialty.name,
+
+                avatar: imageBase64,
+                objectUrl: imageBase64,
+
+                contentMarkdown: specialty.contentMarkDown,
+                contentHTML: specialty.descriptionHTML,
+
+                hasOldData: true
+            })
+        }
+        else {
+
+            this.setState({
+                nameSpecialty: '',
+
+                avatar: '',
+                objectUrl: '',
+
+                contentMarkdown: '',
+                contentHTML: '',
+                hasOldData: false
+            })
+        }
+
+    }
+
+    handleOnchangeInput = (event, name) => {
+        if (name === 'SELECT') {
+            console.log('asdsad', event.value);
+            let copyState = { ...this.state };
+            copyState.selectedSpecialty = event;
+            this.setState({
+                ...copyState
+            })
+            this.handleSetStateDependOnId(event.value);
+        }
+        else {
+            let copyState = { ...this.state };
+            copyState[name] = event.target.value;
+            this.setState({
+                ...copyState
+            })
+        }
     }
 
     handleOnClickLogo = () => {
@@ -100,16 +193,34 @@ class ManageSpecialty extends Component {
         let isValid = this.checkValidate();
         if (isValid === true) {
             let data = {
+                id: this.state.selectedSpecialty.value,
                 nameSpecialty: this.state.nameSpecialty,
                 avatar: this.state.avatar,
                 descriptionHTML: this.state.contentHTML,
-                contentMarkdown: this.state.contentMarkdown
+                contentMarkdown: this.state.contentMarkdown,
+                action: this.state.hasOldData === true ? ACTIONS.EDIT : ACTIONS.CREATE
             }
             this.props.createSpecialtyStart(data);
+
+            this.setState({
+                selectedSpecialty: this.state.specialtyOptions[size() - 1],
+                nameSpecialty: '',
+
+                avatar: '',
+                objectUrl: '',
+                isOpen: false,
+
+                contentMarkdown: '',
+                contentHTML: '',
+
+                action: '',
+                hasOldData: false
+            })
         }
     }
 
     render() {
+        // imageBase64 = new Buffer(user.avatar, 'base64').toString('binary');
         const mdParser = new MarkdownIt(/* Markdown-it options */);
         console.log('check state manage specialty =>>', this.state)
         return (
@@ -128,6 +239,26 @@ class ManageSpecialty extends Component {
                         </div>
 
                         <div className='specialty-form'>
+
+                            <div className="specialty-section-container">
+                                <div className='horizon-line'></div>
+                                <div className="section-content">
+                                    <div className="content-left">Chuyên khoa</div>
+                                    <div className="content-right">
+                                        <div class="form-group d-flex justify-content-center">
+                                            <div class="form-group col-12">
+                                                <label for="inputAddress">Chọn chuyên khoa</label>
+                                                <Select
+                                                    value={this.state.selectedSpecialty}
+                                                    onChange={(event) => this.handleOnchangeInput(event, 'SELECT')}
+                                                    options={this.state.specialtyOptions}
+                                                    id='select'
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div className="specialty-section-container">
                                 <div className='horizon-line'></div>
@@ -214,9 +345,14 @@ class ManageSpecialty extends Component {
                                         </ul>
                                     </div>
                                 </div>
-                                <button
+                                {this.state.hasOldData === true ? <button
                                     onClick={() => this.handleSubmitSpecialty()}
-                                    className='col-12 button-submit'>Xác nhận tạo chuyên khoa</button>
+                                    className='col-12 button-edit btn btn-primary'>Xác nhận sửa chuyên khoa</button> :
+
+                                    <button
+                                        onClick={() => this.handleSubmitSpecialty()}
+                                        className='col-12 button-submit'>Xác nhận tạo chuyên khoa</button>}
+
                             </div>
 
                         </div>
@@ -237,12 +373,14 @@ class ManageSpecialty extends Component {
 
 const mapStateToProps = state => {
     return {
+        allSpecialty: state.admin.allSpecialty
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        createSpecialtyStart: (data) => dispatch(actions.createSpecialtyStart(data))
+        createSpecialtyStart: (data) => dispatch(actions.createSpecialtyStart(data)),
+        getAllSpecialtyStart: () => dispatch(actions.getAllSpecialtyStart())
     };
 };
 

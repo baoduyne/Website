@@ -1,11 +1,14 @@
 .section-container {
     width     : 100%;
-    height    : 380px;
-    margin-top: 50px;
+    height    : 430px;
+    margin-top: 30px;
 
 
     &.section-specialty {
-        background-color: rgba(242, 242, 242, 0.8);
+        // background-color: rgba(242, 242, 242, 0.8);
+        background-image: url('../../assets/Out-Standing-Doctor-Background.png');
+        margin-top      : 180px;
+        height          : 430px;
     }
 
     &.section-medical-facility {
@@ -212,6 +215,7 @@
                 justify-content: center;
                 cursor         : pointer;
 
+
                 &.section-hand-book {
                     width          : 480px;
                     flex-direction : row;
@@ -220,15 +224,23 @@
                     border         : 1px solid rgba(0, 0, 0, 0.3);
                 }
 
+                &.specialty {
+                    border          : 1px solid rgba(0, 0, 0, 0.1);
+                    padding         : 15px;
+                    background-color: white;
+                    border-radius   : 20px;
+                }
+
+                &.section-out-standing-doctor {
+                    width: 230px;
+                }
+
                 .section-image {
                     width            : 100%;
-                    height           : 80%;
+                    height           : 75%;
                     background-repeat: no-repeat;
                     background-size  : cover;
 
-                    &.section-specialty {
-                        background-image: url('../../assets/specialtyImg.jpg');
-                    }
 
                     &.section-medical-facility {
                         background-image: url('../../assets/Medical-facility-Img.jpg');
@@ -236,7 +248,7 @@
 
                     &.section-outstanding-doctor {
                         background-image: url('../../assets/Out-Standing-Doctor.jpg');
-                        border-radius   : 579px;
+                        border-radius   : 650px;
                         width           : 85%;
                     }
 
@@ -246,13 +258,17 @@
                         height          : 100%;
 
                     }
+
+                    &.section-specialty {
+                        background-position-x: -60px;
+                    }
                 }
 
 
                 .section-text {
                     width      : 100%;
-                    height     : 20%;
-                    text-align : left;
+                    height     : 25%;
+                    text-align : center;
                     user-select: none;
                     padding-top: 10px;
                     font-weight: 600;
@@ -266,7 +282,14 @@
                         width     : 40%;
                         height    : 100%;
                         text-align: left;
+
                     }
+
+                    &.section-specialty {
+                        font-size: 125%;
+                    }
+
+
                 }
 
             }

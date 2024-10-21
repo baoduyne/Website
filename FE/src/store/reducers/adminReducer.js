@@ -16,7 +16,8 @@ const initialState = {
     priceData: [],
     paymentData: [],
     provinceData: [],
-    doctorInfors: []
+    doctorInfors: [],
+    allSpecialty: []
 }
 
 const appReducer = (state = initialState, action) => {
@@ -276,6 +277,7 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.CREATE_SPECIALTY_START:
+            copyState = { ...state }
             return {
                 ...state
             }
@@ -292,8 +294,24 @@ const appReducer = (state = initialState, action) => {
                 ...copyState
             }
 
-
-
+        case actionTypes.GET_ALL_SPECIALTY_START:
+            copyState = { ...state }
+            return {
+                ...copyState
+            }
+        case actionTypes.GET_ALL_SPECIALTY_SUCCESS:
+            copyState = { ...state }
+            copyState.allSpecialty = action.data
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+        case actionTypes.GET_ALL_SPECIALTY_FAIL:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
 
         default:
             return { state }

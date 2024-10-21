@@ -5,7 +5,7 @@ import {
     getTopDoctorHomeService, getAllDoctorsService,
     saveSelectDoctorService, getSelectDoctorService,
     saveDoctorSchedulesService, getDoctorSchedulesService,
-    getDoctorInforsService, createSpecialtyService
+    getDoctorInforsService, createSpecialtyService, getAllSpecialtyService
 } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -669,7 +669,7 @@ export const createSpecialtyStart = (data) => {
         try {
             dispatch({ type: actionTypes.CREATE_SPECIALTY_START })
 
-            toast('Đang tạo phòng khám...', {
+            toast('Đang xử lý thông tin chuyên khoa...', {
                 position: "bottom-right",
                 autoClose: 2800,
                 hideProgressBar: true,
@@ -699,7 +699,7 @@ export const createSpecialtyStart = (data) => {
 }
 
 export const createSpecialtySuccess = () => {
-    toast.success('Đặt phòng khám thành công!');
+    toast.success('Xử lý chuyên khoa thành công!');
 
     return {
         type: actionTypes.CREATE_SPECIALTY_SUCCESS,
@@ -711,5 +711,44 @@ export const createSpecialtyFail = () => {
     return {
         type: actionTypes.CREATE_SPECIALTY_FAIL
 
+    }
+}
+
+
+export const getAllSpecialtyStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.GET_ALL_SPECIALTY_START })
+
+
+            let response = await getAllSpecialtyService();
+
+            if (response && response.errCode === 0) {
+                dispatch(getAllSpecialtySuccess(response.data));
+            }
+            else {
+                dispatch(getAllSpecialtyFail());
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(getAllSpecialtyFail());
+        }
+    }
+
+}
+
+export const getAllSpecialtySuccess = (data) => {
+
+    return {
+        type: actionTypes.GET_ALL_SPECIALTY_SUCCESS,
+        data: data
+    }
+}
+
+export const getAllSpecialtyFail = () => {
+    toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
+    return {
+        type: actionTypes.GET_ALL_SPECIALTY_FAIL
     }
 }
