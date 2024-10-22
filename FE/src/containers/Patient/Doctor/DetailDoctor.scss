@@ -17,14 +17,16 @@
         flex-direction: row;
 
         .content-left {
-            width       : 60%;
-            height      : 100%;
-            border-right: 1px solid rgba(0, 0, 0, 0.2);
+            width : 60%;
+            height: 100%;
+
         }
 
         .content-right {
-            width : 40%;
-            height: 100%;
+            width      : 40%;
+            height     : 100%;
+            padding    : 0 5%;
+            border-left: 1px solid rgba(0, 0, 0, 0.2);
         }
     }
 }

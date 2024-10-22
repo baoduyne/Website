@@ -14,6 +14,8 @@ class DoctorDetailTag extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            doctorId: '',
+
             firstName: '',
             lastName: '',
             address: '',
@@ -27,21 +29,22 @@ class DoctorDetailTag extends Component {
             bookingPrice: '',
             bookingPayment: '',
 
+            hasOldData: false
+
         }
     }
 
     componentDidMount = async () => {
-
         await this.fetchAllData()
-
     }
 
     fetchAllData = async () => {
-        await this.props.getSelectDoctorStart(this.props.doctorId);
         await this.props.fetchAllCodeStart();
+        await this.props.getSelectDoctorStart(this.props.doctorId);
         if (this.props.doctorDescriptionIsShow === false) {
             await this.props.getDoctorInformationsStart(this.props.doctorId)
         }
+
     }
 
     componentDidUpdate = async (prevProps, prevState) => {
@@ -49,31 +52,38 @@ class DoctorDetailTag extends Component {
         //     this.componentDidMount();
         // }
 
-        if (this.props.selectDoctor && prevProps.selectDoctor !== this.props.selectDoctor) {
+        if (
 
-            let copySelectDoctor = { ...this.props.selectDoctor };
-            if (copySelectDoctor && copySelectDoctor.avatar) {
-                copySelectDoctor.avatar = new Buffer(copySelectDoctor.avatar, 'base64').toString('binary');
-            }
-            let copyState = { ...this.state };
-            copyState.selectDoctor = this.props.selectDoctor;
-            if (copySelectDoctor.firstName && copySelectDoctor.lastName) {
-                copyState.id = copySelectDoctor.id;
-                copyState.firstName = copySelectDoctor.firstName;
-                copyState.lastName = copySelectDoctor.lastName;
-                copyState.address = copySelectDoctor.address;
-                copyState.avatar = copySelectDoctor.avatar;
-                copyState.phoneNumber = copySelectDoctor.phoneNumber;
-                copyState.description = copySelectDoctor.Markdown.description;
-            }
-            if (copySelectDoctor.positionData) {
-                copyState.positionVi = copySelectDoctor.positionData.valueVi;
-                copyState.positionEn = copySelectDoctor.positionData.valueEn;
-            }
+            // this.props.doctorId && this.props.doctorId === this.props.selectDoctor.id &&
+            this.props.selectDoctor && prevProps.selectDoctor !== this.props.selectDoctor) {
+            if (this.props.doctorId === this.props.selectDoctor.id) {
+                console.log('check doctor', this.props.selectDoctor.lastName)
+                console.log('check hasolddata', this.state.hasOldData)
+                let copySelectDoctor = { ...this.props.selectDoctor };
+                if (copySelectDoctor && copySelectDoctor.avatar) {
+                    copySelectDoctor.avatar = new Buffer(copySelectDoctor.avatar, 'base64').toString('binary');
+                }
+                let copyState = { ...this.state };
+                copyState.selectDoctor = this.props.selectDoctor;
+                if (copySelectDoctor.firstName && copySelectDoctor.lastName) {
+                    copyState.id = copySelectDoctor.id;
+                    copyState.firstName = copySelectDoctor.firstName;
+                    copyState.lastName = copySelectDoctor.lastName;
+                    copyState.address = copySelectDoctor.address;
+                    copyState.avatar = copySelectDoctor.avatar;
+                    copyState.phoneNumber = copySelectDoctor.phoneNumber;
+                    copyState.description = copySelectDoctor.Markdown.description;
+                    copyState.hasOldData = true;
+                }
+                if (copySelectDoctor.positionData) {
+                    copyState.positionVi = copySelectDoctor.positionData.valueVi;
+                    copyState.positionEn = copySelectDoctor.positionData.valueEn;
+                }
 
-            this.setState({
-                ...copyState
-            })
+                this.setState({
+                    ...copyState
+                })
+            }
         }
 
         if (this.props.allCode && (prevProps.allCode !== this.props.allCode)) {
@@ -89,12 +99,12 @@ class DoctorDetailTag extends Component {
                 })
             }
 
-            console.log('test booking 2', this.state.bookingDate)
+
         }
 
-        if (this.props.doctorId && (prevProps.doctorId !== this.props.doctorId)) {
-            this.fetchAllData();
-        }
+        // if (this.props.doctorId && (prevProps.doctorId !== this.props.doctorId)) {
+        //     await this.fetchAllData();
+        // }
     }
 
     handleRenderDoctorTable = () => {
@@ -106,10 +116,6 @@ class DoctorDetailTag extends Component {
         let bookingTime = '';
         let time = '';
         let price = '';
-
-
-
-
 
 
         if (this.props.scheduleData && !_.isEmpty(this.props.scheduleData) && !_.isEmpty(this.props.doctorInfors)) {
@@ -170,18 +176,16 @@ class DoctorDetailTag extends Component {
 
     render() {
 
+
         let { firstName, lastName, address, avatar, phoneNumber, positionVi, positionEn, description,
             bookingPrice, bookingPayment, bookingSchedule
         } = this.state;
 
         let { doctorId, doctorDescriptionIsShow, scheduleData } = this.props;
 
-
-        console.log('test doctor infors props', this.props)
         let language = this.props.language;
-
-
-
+        // console.log('check id props', this.props.doctorId)
+        // console.log('check id state', this.state.doctorId)
         return (
             <>
 

@@ -31,10 +31,11 @@ class DoctorInformation extends Component {
     componentDidUpdate(prevProps, prevState) {
 
         if (this.props.doctorInfors && (prevProps.doctorInfors !== this.props.doctorInfors)) {
-            this.setState({
-                doctorInfors: this.props.doctorInfors
-            })
-
+            if (this.props.doctorId === this.props.doctorInfors.doctorId) {
+                this.setState({
+                    doctorInfors: this.props.doctorInfors
+                })
+            }
         }
         if (this.props.doctorId && (prevProps.doctorId !== this.props.doctorId)) {
             this.setState({ doctorId: this.props.doctorId });
