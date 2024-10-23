@@ -7,6 +7,7 @@ const initialState = {
     positions: [],
     times: [],
     status: [],
+    provinces: [],
     users: [],
     topDoctors: [],
     allDoctors: [],

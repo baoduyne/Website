@@ -7,7 +7,7 @@ export const path = {
     DOCTOR: '/doctor',
     DETAIL_DOCTOR: '/detail-doctor/:id',
     VERIFY_APPOINMENT: '/verify-booking-appoinment',
-    SPECIALTY: '/specialty'
+    SPECIALTY: '/specialty/:id'
 };
 
 export const LANGUAGES = {
@@ -39,4 +39,9 @@ export const ROLEID = {
     ADMIN: 'R1',
     DOCTOR: 'R2',
     PATIENT: 'R3'
+}
+
+export const TYPE = {
+    SPECIALTY: 'SPECIALTY',
+    DOCTOR: 'DOCTOR'
 }

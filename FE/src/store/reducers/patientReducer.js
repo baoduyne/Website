@@ -1,8 +1,11 @@
 
 import actionTypes from '../actions/actionTypes';
+import _ from 'lodash';
 
 const initialState = {
-    isLoading: true
+    isLoading: true,
+    specialtyData: [],
+    arrDoctorId: []
 }
 
 const patientReducer = (state = initialState, action) => {
@@ -21,6 +24,33 @@ const patientReducer = (state = initialState, action) => {
         case actionTypes.CREATE_BOOKING_FAIL:
             return {
                 ...state,
+            }
+
+        case actionTypes.GET_DETAIL_SPECIALTY_START:
+            return {
+                ...state,
+            }
+        case actionTypes.GET_DETAIL_SPECIALTY_SUCCESS:
+
+            let copyState = { ...state };
+
+            if (action.data.specialtyData && !_.isEmpty(action.data.specialtyData)) {
+                copyState.specialtyData = action.data.specialtyData;
+
+            }
+            else {
+                copyState.arrDoctorId = action.data.doctorData;
+
+            }
+
+            return {
+                ...copyState,
+                isLoading: false
+            }
+        case actionTypes.GET_DETAIL_SPECIALTY_FAIL:
+            return {
+                ...state,
+                isLoading: false
             }
         default:
             return state;

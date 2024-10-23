@@ -24,7 +24,8 @@ export const fetchAllCodeStart = () => {
                 roles: [],
                 positions: [],
                 times: [],
-                status: []
+                status: [],
+                provinces: []
             };
             if (res && res.errCode === 0) {
                 AllCode.map((item, index) => {
@@ -42,6 +43,9 @@ export const fetchAllCodeStart = () => {
                     }
                     if (item.type === 'STATUS') {
                         arrAllCode.status.push(item);
+                    }
+                    if (item.type === 'PROVINCE') {
+                        arrAllCode.provinces.push(item)
                     }
                 })
                 dispatch(fetchAllCodeSuccess(arrAllCode));

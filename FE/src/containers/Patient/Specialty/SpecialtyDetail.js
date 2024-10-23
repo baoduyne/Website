@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../store/actions';
-import { LANGUAGES } from '../../../utils/constant';
+import { ACTIONS, LANGUAGES, TYPE } from '../../../utils/constant';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import './SpecialtyDetail.scss';
 import _ from 'lodash';
@@ -10,30 +10,117 @@ import HomeHeader from '../../HomePage/HomeHeader';
 import DoctorSchedule from '../Doctor/DoctorSchedule';
 import DoctorInformation from '../Doctor/DoctorInformation';
 import DoctorDetailTag from '../Doctor/DoctorDetailTag';
+import Select from 'react-select';
 class SpecialtyDetail extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            arrDoctorId: [91, 86, 90, 89]
+            specialtyId: '',
+            specialtyData: '',
+            arrDoctorId: [],
+
+            allProvince: '',
+            selectecProvince: '',
+
+            isExpandContentUp: false,
         }
     }
 
     componentDidMount = async () => {
+        if (this.props.match && this.props.match.params && this.props.match.params.id) {
+            let id = this.props.match.params.id;
 
-
+            await this.props.getDetailSpecialtyStart(id, 'ALL', TYPE.SPECIALTY);
+            await this.props.getDetailSpecialtyStart(id, 'ALL', TYPE.DOCTOR);
+            await this.props.fetchAllCodeStart();
+        }
     }
 
+    builtDataInputSelect = (inputData) => {
+        let result = [];
+
+        if (inputData) {
+            inputData.map((item, index) => {
+                let object = {};
+                object.value = item.id;
+                object.label = this.props.language === LANGUAGES.VI ? item.valueVi : item.valueEn;
+                result.push(object)
+            })
+        }
+
+        return result;
+    }
 
     componentDidUpdate = async (prevProps, prevState) => {
+        if (this.props.language !== prevProps.language) {
+            this.builtDataInputSelect(this.props.allCode)
+        }
 
+        if (this.props.allCode && this.props.allCode !== prevProps.allCode) {
+            let allProvince = this.builtDataInputSelect(this.props.allCode);
+            this.setState({
+                allProvince: allProvince,
+            })
+        }
+        if (this.props.specialtyData && prevProps.specialtyData !== this.props.specialtyData) {
+            let copyState = { ...this.state }
+            copyState.specialtyData = this.props.specialtyData;
+            this.setState({
+                ...copyState
+            })
+        }
+
+        if (this.props.arrDoctorId && prevProps.arrDoctorId !== this.props.arrDoctorId) {
+            let copyState = { ...this.state }
+            copyState.arrDoctorId = this.props.arrDoctorId;
+            this.setState({
+                ...copyState
+            })
+        }
     }
 
+    renderContentUp = (specialtyData) => {
 
+        if (specialtyData && !_.isEmpty(specialtyData)) {
+            let base64Image = new Buffer(specialtyData.image, 'base64').toString('binary');
+            return (<>
+                <div
+                    style={{ backgroundImage: `url(${base64Image})` }}
+                    className={this.state.isExpandContentUp === false ? 'content-up-content' : 'content-up-content expand-content'}
+                >
+                    <div className='content-lineear'></div>
+                </div >
+                <div
+                    dangerouslySetInnerHTML={{ __html: specialtyData.descriptionHTML }}
+                    className={this.state.isExpandContentUp === false ? 'content-up-description' : 'content-up-description expand-content'}
+                >
+                </div>
+
+
+
+
+            </>)
+        }
+    }
+    handleExpandButton = () => {
+        this.setState({
+            isExpandContentUp: !this.state.isExpandContentUp
+        })
+    }
+
+    handleOnclickSort = async (event) => {
+        this.setState({
+            selectecProvince: event
+        })
+        let id = this.props.match.params.id;
+        console.log('event', event.value)
+        await this.props.getDetailSpecialtyStart(id, event.value, TYPE.DOCTOR);
+    }
 
 
     render() {
-        console.log('check render')
+        console.log('check render', this.state)
         return (
             <>
                 <HomeHeader
@@ -41,9 +128,25 @@ class SpecialtyDetail extends Component {
                 ></HomeHeader>
                 <div className='specialty-detail-container'>
                     <div className='specialty-detail-content'>
-                        <div className='specialty-content-up'>this div tag will display specialty's data</div>
+                        <div className={this.state.isExpandContentUp === false ? 'specialty-content-up' : 'specialty-content-up expand-content'}>{this.renderContentUp(this.state.specialtyData)}</div>
+                        <div
+                            onClick={() => this.handleExpandButton()}
+                            className='content-up-expand'
+                        >Xem thêm...</div>
+
                         <div className='specialty-content-down'>
+
                             <div className='specialty-content-down-content'>
+                                <div className='province-sort'>
+                                    <Select
+                                        value={this.state.selectedOption}
+                                        onChange={(event) => this.handleOnclickSort(event)}
+                                        options={this.state.allProvince}
+                                        className='col-2'
+                                        placeholder='Tỉnh thành'
+                                        id='select'
+                                    />
+                                </div>
                                 {this.state.arrDoctorId && this.state.arrDoctorId.length > 0 && this.state.arrDoctorId.map(item => {
 
                                     return (
@@ -81,13 +184,16 @@ class SpecialtyDetail extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
-        allCode: state.admin.times,
+        allCode: state.admin.provinces,
+        arrDoctorId: state.patient.arrDoctorId,
+        specialtyData: state.patient.specialtyData,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllCodeStart: () => dispatch(actions.fetchAllCodeStart())
+        fetchAllCodeStart: () => dispatch(actions.fetchAllCodeStart()),
+        getDetailSpecialtyStart: (specialtyId, provinceId, type) => dispatch(actions.getDetailSpecialtyStart(specialtyId, provinceId, type)),
     };
 };
 

@@ -18,7 +18,7 @@ class VerifyEmail extends Component {
             let token = urlParams.get('token');
             let doctorId = urlParams.get('doctorId');
             let response = await verifyUserBookingAppoinmentService(token, doctorId);
-            console.log('response', response);
+
             if (response && response.errCode === 0) {
                 this.setState({ isVerify: true })
             }

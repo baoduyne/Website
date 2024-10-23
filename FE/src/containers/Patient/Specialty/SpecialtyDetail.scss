@@ -6,11 +6,64 @@
         width: 100%;
 
         .specialty-content-up {
-            width: 100%;
+            width         : 100%;
+            height        : 195px;
+            display       : flex;
+            flex-direction: column;
+            overflow      : hidden;
+            position      : relative;
+
+            &.expand-content {
+                height: 500px;
+            }
+
+            .content-up-content {
+                width            : 100%;
+                height           : 200px;
+                background-repeat: no-repeat;
+                background-size  : contain;
+                position         : absolute;
+                left             : 30%;
+
+                .content-lineear {
+                    width           : 100%;
+                    height          : 100%;
+                    background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.898), rgb(255, 255, 255));
+                }
+
+                &.expand-content {
+                    height: 500px;
+                    left  : 10%;
+                }
+            }
+
+            .content-up-description {
+                width   : 100%;
+                height  : 200px;
+                position: absolute;
+                overflow: hidden;
+
+                &.expand-content {
+                    height: fit-content;
+                }
+            }
+
+
+
+        }
+
+        .content-up-expand {
+            width : fit-content;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.7;
+            }
         }
 
         .specialty-content-down {
-            width: 100%;
+            width     : 100%;
+            margin-top: 70px;
 
             .specialty-content-down-content {
                 width: 100%;
@@ -22,7 +75,7 @@
                     gap           : 20px;
                     box-shadow    : rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
                     padding       : 30px 30px;
-                    margin-top    : 30px;
+                    margin-top    : 15px;
 
                     .content-down-left {
                         width : 50%;

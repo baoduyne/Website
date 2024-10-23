@@ -79,6 +79,83 @@ let getAllSpecialty = () => {
     })
 }
 
+let getDetailSpecialty = (specialtyId, provinceId, type) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!specialtyId || !provinceId || !type) {
+                resolve({
+                    errCode: -2,
+                    errMessage: 'Missing parameter!',
+                    data: {}
+                })
+            }
+            else {
+                let data = {}
+                data.specialtyData = {};
+                data.doctorData = {};
+
+                if (type === 'SPECIALTY') {
+                    data.specialtyData = await db.Specialty.findOne({
+                        where: { id: specialtyId }
+                    })
+                }
+
+                else {
+                    if (provinceId === 'ALL') {
+                        let doctorData = await db.Doctor_infor.findAll({
+                            where: { specialtyId: specialtyId },
+                            attributes: ['doctorId']
+
+                        })
+                        let arrDoctorId = [];
+
+                        doctorData.map(item => {
+                            arrDoctorId.push(item.doctorId);
+                        })
+                        data.doctorData = arrDoctorId;
+                    }
+                    else {
+                        let doctorData = await db.Doctor_infor.findAll({
+                            where: {
+                                specialtyId: specialtyId,
+                                provinceId: provinceId
+                            },
+                            attributes: ['doctorId']
+                        })
+
+                        let arrDoctorId = [];
+
+                        doctorData.map(item => {
+                            arrDoctorId.push(item.doctorId);
+                        })
+                        data.doctorData = arrDoctorId;
+
+                    }
+
+                }
+
+                if (data) {
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'Get specialty data completed!',
+                        data: data
+                    })
+                }
+
+
+            }
+
+
+
+
+        }
+        catch (e) {
+            console.log(e);
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
-    createSpecialty, getAllSpecialty
+    createSpecialty, getAllSpecialty, getDetailSpecialty
 }
