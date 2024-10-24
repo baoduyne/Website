@@ -57,6 +57,7 @@ class App extends Component {
                                     <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
                                     <Route path={path.VERIFY_APPOINMENT} component={VerifyEmail}></Route>
                                     <Route path={path.SPECIALTY} component={DetailSpecialty}></Route>
+                                    <Route path={path.CLINIC} component={DetailSpecialty}></Route>
                                 </Switch>
                             </CustomScrollbars>
                         </span>

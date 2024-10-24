@@ -16,7 +16,11 @@ export const adminMenu = [
     },
     // phòng khám
     {
-        name: "menu.admin.clinic", link: "system/user-manage",
+        name: "menu.admin.clinic", menus: [
+            {
+                name: 'menu.admin.clinic', link: '/system/manage-clinic'
+            }
+        ]
     },
     //chuyên khoa
     {

@@ -13,22 +13,37 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name:{
-        type:Sequelize.STRING
+      name: {
+        type: Sequelize.STRING
       },
-      adress : {
-        type : Sequelize.STRING
+      address: {
+        type: Sequelize.STRING
       },
-      description: {
-        type : Sequelize.TEXT
+      contentMarkDown: {
+        type: Sequelize.TEXT('LONG'),
+        allowNull: false
+      },
+      contentHTML: {
+        type: Sequelize.TEXT('LONG'),
+        allowNull: false
+      },
+      image: {
+        type: Sequelize.BLOB('LONG'),
+        allowNull: false,
+      },
+      backgroundImage: {
+        type: Sequelize.BLOB('LONG'),
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE
       }
     });
   },

@@ -14,6 +14,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { NumericFormat } from 'react-number-format';
 import { locale } from 'moment';
+import { emitter } from '../../../utils/emitter';
 
 class BookingModal extends Component {
 
@@ -225,7 +226,7 @@ class BookingModal extends Component {
 
             let fullTime = this.buildTimeBooking();
             let doctorName = ''
-            if (this.language === LANGUAGES.VI) {
+            if (this.props.language === LANGUAGES.VI) {
                 doctorName = `${this.state.selectDoctor.firstName}  ${this.state.selectDoctor.lastName}`
             }
             else {
@@ -260,6 +261,8 @@ class BookingModal extends Component {
             }
 
             await this.props.createBookingStart(data);
+
+
         }
         else {
 

@@ -192,6 +192,10 @@ class ManageUser extends Component {
 
     }
 
+    handleDeleteImage = () => {
+        this.setState({ objectUrl: '' })
+    }
+
     render() {
         let isLoading = this.props.allCodeData.isLoading;
         let language = this.props.language;
@@ -416,21 +420,30 @@ class ManageUser extends Component {
                                         <div className="section-content">
                                             <div className="content-left">Tài khoản</div>
                                             <div className="content-right">
-                                                <div class="form-group d-flex justify-content-center">
-                                                    <div class="form-group image-preview-container">
-                                                        <label
-                                                            htmlFor="imagePreview"><FormattedMessage id="menu.admin.image"></FormattedMessage></label>
-                                                        <input
-                                                            onChange={(event) => this.handlePreviewImage(event)}
-                                                            id='imagePreview'
-                                                            class="form-control "
-                                                            type='file'
-                                                            hidden
-                                                        ></input>
-                                                        <div
-                                                            className="preview-box"
-                                                            style={{ backgroundImage: `url(${imagePreview})` }}
-                                                            onClick={() => this.setState({ isOpen: true })}></div>
+                                                {/* <label
+                                            htmlFor="imagePreview"><FormattedMessage id="menu.admin.image"></FormattedMessage></label> */}
+                                                <div className='image-content'>
+                                                    <div
+                                                        className="preview-box"
+                                                        style={{ backgroundImage: `url(${this.state.objectUrl})` }}
+                                                        onClick={() => this.setState({ isOpen: true })}>
+                                                    </div>
+                                                    <div className='image-group-button'>
+                                                        <label htmlFor='imagePreview' className='preview-button add-image btn btn-primary'>
+                                                            Thêm ảnh
+                                                            <input
+                                                                onChange={(event) => this.handlePreviewImage(event)}
+                                                                id='imagePreview'
+                                                                type='file'
+                                                                hidden
+                                                            ></input>
+                                                        </label>
+
+                                                        <button
+                                                            onClick={() => this.handleDeleteImage()}
+                                                            className='preview-button add-image btn btn-light'>
+                                                            Xóa ảnh
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

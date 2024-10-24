@@ -77,6 +77,18 @@ const getDetailSpecialtyService = (specialtyId, provinceId, type) => {
     return axios.get(`/api/get-detail-specialty?specialtyId=${specialtyId}&provinceId=${provinceId}&type=${type}`,);
 }
 
+const createClinicService = (data) => {
+    return axios.post('/api/create-clinic', data);
+}
+
+const getAllClinicService = () => {
+    return axios.get(`/api/get-all-clinic`);
+}
+
+const getDetailClinicService = (clinicId) => {
+    return axios.get(`/api/get-detail-clinic?ClinicId=${clinicId}`,);
+}
+
 
 export {
     handleLoginApi,
@@ -93,5 +105,6 @@ export {
     getDoctorSchedulesService,
     getDoctorInforsService,
     createBookingService, verifyUserBookingAppoinmentService,
-    createSpecialtyService, getAllSpecialtyService, getDetailSpecialtyService
+    createSpecialtyService, getAllSpecialtyService, getDetailSpecialtyService,
+    getDetailClinicService, getAllClinicService, createClinicService
 }

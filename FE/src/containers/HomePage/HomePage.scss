@@ -242,9 +242,7 @@
                     background-size  : cover;
 
 
-                    &.section-medical-facility {
-                        background-image: url('../../assets/Medical-facility-Img.jpg');
-                    }
+                    &.section-medical-facility {}
 
                     &.section-outstanding-doctor {
                         background-image: url('../../assets/Out-Standing-Doctor.jpg');
@@ -273,6 +271,10 @@
                     padding-top: 10px;
                     font-weight: 600;
                     font-size  : 110%;
+
+                    &.section-facility {
+                        font-size: 100%;
+                    }
 
                     &.section-outstanding-doctor {
                         text-align: center;

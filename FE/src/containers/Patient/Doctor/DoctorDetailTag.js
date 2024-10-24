@@ -29,12 +29,22 @@ class DoctorDetailTag extends Component {
             bookingPrice: '',
             bookingPayment: '',
 
+            scheduleData: '',
+            doctorInfors: '',
+
             hasOldData: false
 
         }
     }
 
     componentDidMount = async () => {
+        if (this.props.doctorInfors && this.props.scheduleData) {
+            this.setState({
+                scheduleData: this.props.scheduleData,
+                doctorInfors: this.props.doctorInfors
+            })
+        }
+
         await this.fetchAllData()
     }
 
@@ -47,43 +57,46 @@ class DoctorDetailTag extends Component {
 
     }
 
+    handleOnchangeProps = () => {
+        if (this.props.selectDoctor.id && this.props.doctorId && this.props.doctorId === this.props.selectDoctor.id) {
+            console.log('check doctor', this.props.selectDoctor.lastName)
+            console.log('check hasolddata', this.state.hasOldData)
+            let copySelectDoctor = { ...this.props.selectDoctor };
+            if (copySelectDoctor && copySelectDoctor.avatar) {
+                copySelectDoctor.avatar = new Buffer(copySelectDoctor.avatar, 'base64').toString('binary');
+            }
+            let copyState = { ...this.state };
+            copyState.selectDoctor = this.props.selectDoctor;
+            if (copySelectDoctor.firstName && copySelectDoctor.lastName) {
+                copyState.id = copySelectDoctor.id;
+                copyState.firstName = copySelectDoctor.firstName;
+                copyState.lastName = copySelectDoctor.lastName;
+                copyState.address = copySelectDoctor.address;
+                copyState.avatar = copySelectDoctor.avatar;
+                copyState.phoneNumber = copySelectDoctor.phoneNumber;
+                copyState.description = copySelectDoctor.Markdown.description;
+                copyState.hasOldData = true;
+            }
+            if (copySelectDoctor.positionData) {
+                copyState.positionVi = copySelectDoctor.positionData.valueVi;
+                copyState.positionEn = copySelectDoctor.positionData.valueEn;
+            }
+
+            this.setState({
+                ...copyState
+            })
+        }
+    }
+
     componentDidUpdate = async (prevProps, prevState) => {
         // if (prevProps.language != this.props.language) {
         //     this.componentDidMount();
         // }
 
         if (
-
             // this.props.doctorId && this.props.doctorId === this.props.selectDoctor.id &&
             this.props.selectDoctor && prevProps.selectDoctor !== this.props.selectDoctor) {
-            if (this.props.doctorId === this.props.selectDoctor.id) {
-                console.log('check doctor', this.props.selectDoctor.lastName)
-                console.log('check hasolddata', this.state.hasOldData)
-                let copySelectDoctor = { ...this.props.selectDoctor };
-                if (copySelectDoctor && copySelectDoctor.avatar) {
-                    copySelectDoctor.avatar = new Buffer(copySelectDoctor.avatar, 'base64').toString('binary');
-                }
-                let copyState = { ...this.state };
-                copyState.selectDoctor = this.props.selectDoctor;
-                if (copySelectDoctor.firstName && copySelectDoctor.lastName) {
-                    copyState.id = copySelectDoctor.id;
-                    copyState.firstName = copySelectDoctor.firstName;
-                    copyState.lastName = copySelectDoctor.lastName;
-                    copyState.address = copySelectDoctor.address;
-                    copyState.avatar = copySelectDoctor.avatar;
-                    copyState.phoneNumber = copySelectDoctor.phoneNumber;
-                    copyState.description = copySelectDoctor.Markdown.description;
-                    copyState.hasOldData = true;
-                }
-                if (copySelectDoctor.positionData) {
-                    copyState.positionVi = copySelectDoctor.positionData.valueVi;
-                    copyState.positionEn = copySelectDoctor.positionData.valueEn;
-                }
-
-                this.setState({
-                    ...copyState
-                })
-            }
+            this.handleOnchangeProps();
         }
 
         if (this.props.allCode && (prevProps.allCode !== this.props.allCode)) {
@@ -102,15 +115,28 @@ class DoctorDetailTag extends Component {
 
         }
 
-        // if (this.props.doctorId && (prevProps.doctorId !== this.props.doctorId)) {
-        //     await this.fetchAllData();
-        // }
+        if (this.props.doctorId && (prevProps.doctorId !== this.props.doctorId)) {
+            await this.fetchAllData();
+        }
+
+        if (this.props.scheduleData && this.props.scheduleData !== prevProps.scheduleData) {
+            this.setState({
+                scheduleData: this.props.scheduleData
+            })
+        }
+
+        if (this.props.doctorInfors && this.props.doctorInfors !== prevProps.doctorInfors) {
+            this.setState({
+                doctorInfors: this.props.doctorInfors
+            })
+        }
+
     }
 
     handleRenderDoctorTable = () => {
 
         let allCode = this.props.allCode;
-        let scheduleData = this.props.scheduleData;
+        let scheduleData = this.state.scheduleData;
         let priceData = '';
         let bookingDate = '';
         let bookingTime = '';
@@ -118,9 +144,9 @@ class DoctorDetailTag extends Component {
         let price = '';
 
 
-        if (this.props.scheduleData && !_.isEmpty(this.props.scheduleData) && !_.isEmpty(this.props.doctorInfors)) {
+        if (scheduleData && !_.isEmpty(scheduleData) && !_.isEmpty(this.state.doctorInfors)) {
 
-            priceData = this.props.doctorInfors.priceData;
+            priceData = this.state.doctorInfors.priceData;
 
             allCode.map(item => {
                 if (item.keyMap === this.props.scheduleData.timeType) {
@@ -175,7 +201,7 @@ class DoctorDetailTag extends Component {
 
 
     render() {
-
+        console.log('check render', this.state);
 
         let { firstName, lastName, address, avatar, phoneNumber, positionVi, positionEn, description,
             bookingPrice, bookingPayment, bookingSchedule

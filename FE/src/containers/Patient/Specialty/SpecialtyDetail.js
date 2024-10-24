@@ -11,6 +11,7 @@ import DoctorSchedule from '../Doctor/DoctorSchedule';
 import DoctorInformation from '../Doctor/DoctorInformation';
 import DoctorDetailTag from '../Doctor/DoctorDetailTag';
 import Select from 'react-select';
+import HomeFooter from '../../HomePage/Section/HomeFooter';
 class SpecialtyDetail extends Component {
 
     constructor(props) {
@@ -39,6 +40,11 @@ class SpecialtyDetail extends Component {
 
     builtDataInputSelect = (inputData) => {
         let result = [];
+
+        result.push({
+            value: 'ALL',
+            label: this.props.language === LANGUAGES.VI ? 'Tất cả tỉnh thành' : 'All province'
+        })
 
         if (inputData) {
             inputData.map((item, index) => {
@@ -96,10 +102,6 @@ class SpecialtyDetail extends Component {
                     className={this.state.isExpandContentUp === false ? 'content-up-description' : 'content-up-description expand-content'}
                 >
                 </div>
-
-
-
-
             </>)
         }
     }
@@ -114,7 +116,7 @@ class SpecialtyDetail extends Component {
             selectecProvince: event
         })
         let id = this.props.match.params.id;
-        console.log('event', event.value)
+
         await this.props.getDetailSpecialtyStart(id, event.value, TYPE.DOCTOR);
     }
 
@@ -142,7 +144,7 @@ class SpecialtyDetail extends Component {
                                         value={this.state.selectedOption}
                                         onChange={(event) => this.handleOnclickSort(event)}
                                         options={this.state.allProvince}
-                                        className='col-2'
+                                        className='w-3'
                                         placeholder='Tỉnh thành'
                                         id='select'
                                     />
@@ -175,6 +177,7 @@ class SpecialtyDetail extends Component {
                         </div>
                     </div>
                 </div>
+                {/* <HomeFooter></HomeFooter> */}
             </>
         );
     }

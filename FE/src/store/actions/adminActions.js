@@ -5,7 +5,8 @@ import {
     getTopDoctorHomeService, getAllDoctorsService,
     saveSelectDoctorService, getSelectDoctorService,
     saveDoctorSchedulesService, getDoctorSchedulesService,
-    getDoctorInforsService, createSpecialtyService, getAllSpecialtyService
+    getDoctorInforsService, createSpecialtyService, getAllSpecialtyService,
+    getDetailClinicService, getAllClinicService, createClinicService
 } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -730,5 +731,95 @@ export const getAllSpecialtyFail = () => {
     toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
     return {
         type: actionTypes.GET_ALL_SPECIALTY_FAIL
+    }
+}
+
+
+export const createClinicStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.CREATE_CLINIC_START })
+
+            toast('Đang xử lý thông tin phòng khám...', {
+                position: "bottom-right",
+                autoClose: 2800,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+
+            let response = await createClinicService(data);
+
+            if (response && response.errCode === 0) {
+                dispatch(createClinicSuccess());
+            }
+            else {
+                dispatch(createClinicFail());
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(createClinicFail());
+        }
+    }
+
+}
+
+export const createClinicSuccess = () => {
+    toast.success('Xử lý phòng khám thành công!');
+
+    return {
+        type: actionTypes.CREATE_CLINIC_SUCCESS,
+    }
+}
+
+export const createClinicFail = () => {
+    toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
+    return {
+        type: actionTypes.CREATE_CLINIC_FAIL
+
+    }
+}
+
+
+export const getAllClinicStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.GET_ALL_CLINIC_START })
+
+
+            let response = await getAllClinicService();
+
+            if (response && response.errCode === 0) {
+                dispatch(getAllClinicSuccess(response.data));
+            }
+            else {
+                dispatch(getAllClinicFail());
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(getAllClinicFail());
+        }
+    }
+
+}
+
+export const getAllClinicSuccess = (data) => {
+
+    return {
+        type: actionTypes.GET_ALL_CLINIC_SUCCESS,
+        data: data
+    }
+}
+
+export const getAllClinicFail = () => {
+    toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
+    return {
+        type: actionTypes.GET_ALL_CLINIC_FAIL
     }
 }

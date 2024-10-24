@@ -3,10 +3,36 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import * as actions from '../../../store/actions';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 class MedicalFacility extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            allClinic: ''
+        }
+    }
+
+    componentDidMount() {
+        this.props.getAllClinicStart();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.allClinic && prevProps.allClinic !== this.props.allClinic) {
+            this.setState({ allClinic: this.props.allClinic })
+        }
+    }
+
+
+    handleOnClickClinic = (Clinic) => {
+        this.props.history.push(`/clinic/${Clinic.id}`)
+    }
+
     render() {
+        console.log('this props', this.props)
+
         return (
             <div className='section-container section-medical-facility'>
                 <div className='section-content'>
@@ -16,35 +42,45 @@ class MedicalFacility extends Component {
                         <span><FormattedMessage id='section.medicalFacility'></FormattedMessage></span>
                         <button><FormattedMessage id="section.more"></FormattedMessage></button>
                     </div>
-                    <Carousel
-                        swipeable={false}
-                        draggable={false}
-                        showDots={false}
-                        responsive={this.props.responsive}
-                        ssr={true} // means to render carousel on server-side.   
-                        infinite={false}
-                        autoPlay={false}
-                        autoPlaySpeed={1000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={[]}
-                        deviceType={this.props.deviceType}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                    >
-                        <div className='section-items'><div className='section-image section-medical-facility '></div><div className='section-text'>Khoa xương khớp1</div></div>
-                        <div className='section-items'><div className='section-image section-medical-facility '></div><div className='section-text'>Khoa xương khớp2</div></div>
-                        <div className='section-items'><div className='section-image section-medical-facility '></div><div className='section-text'>Khoa xương khớp3</div></div>
-                        <div className='section-items'><div className='section-image section-medical-facility '></div><div className='section-text'>Khoa xương khớp4</div></div>
-                        <div className='section-items'><div className='section-image section-medical-facility '></div><div className='section-text'>Khoa xương khớp5</div></div>
-                        <div className='section-items'><div className='section-image section-medical-facility '></div><div className='section-text'>Khoa xương khớp6</div></div>
-                        <div className='section-items'><div className='section-image section-medical-facility '></div><div className='section-text'>Khoa xương khớp7</div></div>
-                        <div className='section-items'><div className='section-image section-medical-facility '></div><div className='section-text'>Khoa xương khớp8</div></div>
-                        <div className='section-items'><div className='section-image section-medical-facility '></div><div className='section-text'>Khoa xương khớp9</div></div>
-                        <div className='section-items'><div className='section-image section-medical-facility '></div><div className='section-text'>Khoa xương khớp10</div></div>
-                    </Carousel>
+                    {this.state.allClinic && this.state.allClinic.length > 0 &&
+                        <Carousel
+                            swipeable={false}
+                            draggable={false}
+                            showDots={false}
+                            responsive={this.props.responsive}
+                            ssr={true} // means to render carousel on server-side.   
+                            infinite={false}
+                            autoPlay={false}
+                            autoPlaySpeed={1000}
+                            keyBoardControl={true}
+                            customTransition="all .5"
+                            transitionDuration={500}
+                            containerClass="carousel-container"
+                            removeArrowOnDeviceType={[]}
+                            deviceType={this.props.deviceType}
+                            dotListClass="custom-dot-list-style"
+                            itemClass="carousel-item-padding-40-px"
+                        >
+
+                            {this.state.allClinic && this.state.allClinic.length > 0 && this.state.allClinic.map(item => {
+                                let imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+
+                                return (
+                                    <><div
+                                        onClick={() => this.handleOnClickSpecialty(item)}
+                                        className='section-items specialty'>
+                                        <div
+                                            className='section-image section-medical-facility'
+                                            style={{ backgroundImage: `url(${imageBase64})` }}
+                                        ></div>
+                                        <div className='section-text section-facility'>{item.name}</div>
+                                    </div>
+                                    </>
+                                )
+                            })}
+                        </Carousel>
+
+                    }
                 </div>
             </div>
         );
@@ -55,12 +91,14 @@ class MedicalFacility extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
+        allClinic: state.admin.allClinic
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getAllClinicStart: () => dispatch(actions.getAllClinicStart())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalFacility);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MedicalFacility));

@@ -118,26 +118,30 @@ let createNewUser = (data) => {
                     errMessage: "Your email has already in our system.Please try other email!"
                 })
             }
-            let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-            const avatarBuffer = data.avatar instanceof Buffer ? data.avatar : Buffer.from(data.avatar, 'base64');
-            await db.User.create({
-                email: data.email,
-                password: hashPasswordFromBcrypt,
-                firstName: data.firstName,
-                lastName: data.lastName,
-                address: data.address,
-                phoneNumber: data.phoneNumber,
-                avatar: data.avatar,
-                gender: data.genderId,
-                roleId: data.roleId,
-                positionId: data.positionId
-            })
+            else {
+                let hashPasswordFromBcrypt = await hashUserPassword(data.password);
+                const avatarBuffer = data.avatar instanceof Buffer ? data.avatar : Buffer.from(data.avatar, 'base64');
+                await db.User.create({
+                    email: data.email,
+                    password: hashPasswordFromBcrypt,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    address: data.address,
+                    phoneNumber: data.phoneNumber,
+                    avatar: data.avatar,
+                    gender: data.genderId,
+                    roleId: data.roleId,
+                    positionId: data.positionId
+                })
 
 
-            resolve({
-                errCode: 0,
-                errMessage: "OK",
-            });
+                resolve({
+                    errCode: 0,
+                    errMessage: "OK",
+                });
+
+            }
+
         }
         catch (e) {
             console.log('start');

@@ -2,7 +2,7 @@ import actionTypes from "./actionTypes";
 import { createBookingService, getDetailSpecialtyService } from "../../services/userService";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { emitter } from '../../utils/emitter';
 
 export const createBookingStart = (data) => {
     return async (dispatch, getState) => {
@@ -40,6 +40,7 @@ export const createBookingStart = (data) => {
 
 export const createBookingSuccess = () => {
     toast.success('Đặt lịch thành công!');
+
 
     return {
         type: actionTypes.GET_DOCTOR_INFORMATIONS_SUCCESS,
