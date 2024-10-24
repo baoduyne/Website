@@ -13,6 +13,7 @@
 
     &.section-medical-facility {
         background-color: white;
+        background-size : contain;
 
     }
 
@@ -177,7 +178,7 @@
         .carousel-container {
             margin-left: 2% !important;
             width      : 95%;
-            height     : 250px;
+            height     : 260px;
             overflow   : hidden;
 
             .react-multi-carousel-track {
@@ -208,7 +209,7 @@
 
             .section-items {
                 width          : 245px;
-                height         : 250px;
+                height         : 260px;
                 display        : flex;
                 flex-direction : column;
                 align-items    : center;
@@ -242,7 +243,9 @@
                     background-size  : cover;
 
 
-                    &.section-medical-facility {}
+                    &.section-medical-facility {
+                        background-size: contain;
+                    }
 
                     &.section-outstanding-doctor {
                         background-image: url('../../assets/Out-Standing-Doctor.jpg');
