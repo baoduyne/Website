@@ -44,5 +44,15 @@ export const ROLEID = {
 
 export const TYPE = {
     SPECIALTY: 'SPECIALTY',
-    DOCTOR: 'DOCTOR'
+    DOCTOR: 'DOCTOR',
+    ALL: 'ALL'
+}
+
+export const STICKY_ELEMENT = {
+    SECTION1: 'SECTION1',
+    SECTION2: 'SECTION2',
+    SECTION3: 'SECTION3',
+    SECTION4: 'SECTION4',
+    SECTION5: 'SECTION5',
+    SECTION6: 'SECTION6',
 }

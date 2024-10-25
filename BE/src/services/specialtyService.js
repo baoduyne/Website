@@ -102,17 +102,31 @@ let getDetailSpecialty = (specialtyId, provinceId, type) => {
 
                 else {
                     if (provinceId === 'ALL') {
-                        let doctorData = await db.Doctor_infor.findAll({
-                            where: { specialtyId: specialtyId },
-                            attributes: ['doctorId']
+                        if (specialtyId === 'ALL') {
+                            let doctorData = await db.Doctor_infor.findAll({
+                                attributes: ['doctorId']
+                            })
+                            let arrDoctorId = [];
 
-                        })
-                        let arrDoctorId = [];
+                            doctorData.map(item => {
+                                arrDoctorId.push(item.doctorId);
+                            })
+                            data.doctorData = arrDoctorId;
+                        }
+                        else {
+                            let doctorData = await db.Doctor_infor.findAll({
+                                where: { specialtyId: specialtyId },
+                                attributes: ['doctorId']
 
-                        doctorData.map(item => {
-                            arrDoctorId.push(item.doctorId);
-                        })
-                        data.doctorData = arrDoctorId;
+                            })
+                            let arrDoctorId = [];
+
+                            doctorData.map(item => {
+                                arrDoctorId.push(item.doctorId);
+                            })
+                            data.doctorData = arrDoctorId;
+                        }
+
                     }
                     else {
                         let doctorData = await db.Doctor_infor.findAll({

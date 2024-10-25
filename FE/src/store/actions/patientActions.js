@@ -1,5 +1,5 @@
 import actionTypes from "./actionTypes";
-import { createBookingService, getDetailSpecialtyService } from "../../services/userService";
+import { createBookingService, getDetailSpecialtyService, getDetailClinicService } from "../../services/userService";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { emitter } from '../../utils/emitter';
@@ -88,5 +88,41 @@ export const getDetailSpecialtyFail = () => {
     toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
     return {
         type: actionTypes.GET_DETAIL_SPECIALTY
+    }
+}
+
+export const getDetailClinicStart = (clinicId) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.GET_DETAIL_CLINIC_START })
+
+            let response = await getDetailClinicService(clinicId);
+
+            if (response && response.errCode === 0) {
+                dispatch(getDetailClinicSuccess(response.data));
+            }
+            else {
+                dispatch(getDetailClinicFail());
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(getDetailClinicFail());
+        }
+    }
+
+}
+
+export const getDetailClinicSuccess = (data) => {
+    return {
+        type: actionTypes.GET_DETAIL_CLINIC_SUCCESS,
+        data: data
+    }
+}
+
+export const getDetailClinicFail = () => {
+    toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
+    return {
+        type: actionTypes.GET_DETAIL_CLINIC_FAIL
     }
 }

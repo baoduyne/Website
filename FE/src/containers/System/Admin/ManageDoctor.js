@@ -35,6 +35,7 @@ class ManageDoctor extends Component {
             priceData: '',
             paymentData: '',
             provinceData: '',
+            clinicData: '',
 
             priceSelected: '',
             paymentSelected: '',
@@ -48,25 +49,30 @@ class ManageDoctor extends Component {
             clinicList: '',
             specialtyList: '',
             selectClinic: '',
-            selectSpecialty: ''
+            selectSpecialty: '',
+
+
         }
     }
     componentDidMount = async () => {
         await this.props.getAllDoctorsStart();
         await this.props.getDoctorInformationAllCodeStart();
         await this.props.getAllSpecialtyStart();
+        await this.props.getAllClinicStart();
     }
 
     componentDidUpdate(prevProps, prevState) {
         if ((this.props.allDoctors && prevProps.allDoctors !== this.props.allDoctors)
             || (this.props.priceData && prevProps.priceData !== this.props.priceData)
             || (this.props.allSpecialty && prevProps.allSpecialty !== this.props.allSpecialty)
+            || (this.props.allClinic && prevProps.allClinic !== this.props.allClinic)
         ) {
             let priceData = this.builtDataInputSelect(this.props.priceData, 'PRICES');
             let paymentData = this.builtDataInputSelect(this.props.paymentData, 'PAYMENTS');
             let provinceData = this.builtDataInputSelect(this.props.provinceData, 'PROVINCES');
             let dataInputSelect = this.builtDataInputSelect(this.props.allDoctors, 'DOCTORS');
             let specialtyList = this.builtDataInputSelect(this.props.allSpecialty, 'SPECIALTY');
+            let clinicList = this.builtDataInputSelect(this.props.allClinic, 'CLINIC');
             this.setState({
                 allDoctors: dataInputSelect,
                 selectedOption: dataInputSelect[0],
@@ -76,7 +82,8 @@ class ManageDoctor extends Component {
                 priceSelected: priceData[0],
                 paymentSelected: paymentData[0],
                 provinceSelected: provinceData[0],
-                specialtyList: specialtyList
+                specialtyList: specialtyList,
+                clinicList: clinicList,
             });
             this.handleChange(dataInputSelect[0], 'DOCTORS');
         }
@@ -103,7 +110,7 @@ class ManageDoctor extends Component {
                     object.value = item.id;
                     object.label = this.props.language === LANGUAGES.VI ? valueVi : valueEn;
                 }
-                else if (type === 'SPECIALTY') {
+                else if (type === 'SPECIALTY' || type === 'CLINIC') {
                     object.value = item.id;
                     object.label = item.name;
                 }
@@ -138,6 +145,8 @@ class ManageDoctor extends Component {
                     let paymentSelected = '';
                     let provinceSelected = '';
                     let specialtySelected = '';
+                    let clinicSelected = '';
+                    console.log('test doctor', this.props.selectDoctor);
                     this.state.priceData.map(item => {
                         if (item.value === selectDoctor.doctorInforData.priceId) {
                             priceSelected = item;
@@ -162,6 +171,12 @@ class ManageDoctor extends Component {
                         }
                     })
 
+                    this.state.clinicList.map(item => {
+                        if (item.value === selectDoctor.doctorInforData.clinicId) {
+                            clinicSelected = item;
+                        }
+                    })
+
 
 
                     this.setState({
@@ -174,6 +189,7 @@ class ManageDoctor extends Component {
                         paymentSelected: paymentSelected,
                         provinceSelected: provinceSelected,
                         selectSpecialty: specialtySelected,
+                        selectClinic: clinicSelected,
 
                         clinicName: selectDoctor.doctorInforData.nameClinic,
                         clinicAddress: selectDoctor.doctorInforData.addressClinic,
@@ -200,54 +216,54 @@ class ManageDoctor extends Component {
                     })
                 }
             }
-            else if (type === 'PRICES') {
+            else {
                 if (selectedOption.value && selectedOption.label) {
                     let copyState = { ...this.state }
-                    copyState.priceSelected = selectedOption;
+                    copyState[type] = selectedOption;
 
                     this.setState({
                         ...copyState
                     })
                 }
             }
-            else if (type === 'PAYMENTS') {
-                if (selectedOption.value && selectedOption.label) {
-                    let copyState = { ...this.state }
-                    copyState.paymentSelected = selectedOption;
-                    this.setState({
-                        ...copyState
-                    })
-                }
-            }
-            else if (type === 'PROVINCES') {
+            // else if (type === 'PAYMENTS') {
+            //     if (selectedOption.value && selectedOption.label) {
+            //         let copyState = { ...this.state }
+            //         copyState.paymentSelected = selectedOption;
+            //         this.setState({
+            //             ...copyState
+            //         })
+            //     }
+            // }
+            // else if (type === 'PROVINCES') {
 
-                if (selectedOption.value && selectedOption.label) {
-                    let copyState = { ...this.state }
-                    copyState.provinceSelected = selectedOption;
-                    this.setState({
-                        ...copyState
-                    })
-                }
-            }
-            else if (type === 'SPECIALTY') {
-                if (selectedOption.value && selectedOption.label) {
-                    let copyState = { ...this.state }
-                    copyState.selectSpecialty = selectedOption;
-                    this.setState({
-                        ...copyState
-                    })
-                }
-            }
+            //     if (selectedOption.value && selectedOption.label) {
+            //         let copyState = { ...this.state }
+            //         copyState.provinceSelected = selectedOption;
+            //         this.setState({
+            //             ...copyState
+            //         })
+            //     }
+            // }
+            // else if (type === 'SPECIALTY') {
+            //     if (selectedOption.value && selectedOption.label) {
+            //         let copyState = { ...this.state }
+            //         copyState.selectSpecialty = selectedOption;
+            //         this.setState({
+            //             ...copyState
+            //         })
+            //     }
+            // }
 
-            else if (type === 'CLINIC') {
-                if (selectedOption.value && selectedOption.label) {
-                    let copyState = { ...this.state }
-                    copyState.selectClinic = selectedOption;
-                    this.setState({
-                        ...copyState
-                    })
-                }
-            }
+            // else if (type === 'CLINIC') {
+            //     if (selectedOption.value && selectedOption.label) {
+            //         let copyState = { ...this.state }
+            //         copyState.selectClinic = selectedOption;
+            //         this.setState({
+            //             ...copyState
+            //         })
+            //     }
+            // }
         }
 
     };
@@ -308,6 +324,7 @@ class ManageDoctor extends Component {
 
                 // clinicId: this.state.selectClinic.value,
                 specialtyId: this.state.selectSpecialty.value,
+                clinicId: this.state.selectClinic.value,
 
                 contentHTML: this.state.contentHTML,
                 contentMarkdown: this.state.contentMarkdown,
@@ -492,7 +509,7 @@ class ManageDoctor extends Component {
                                             <label for='select'>Giá khám bệnh</label>
                                             <Select
                                                 value={priceSelected}
-                                                onChange={(event) => this.handleChange(event, 'PRICES')}
+                                                onChange={(event) => this.handleChange(event, "priceSelected")}
                                                 options={priceData}
                                                 id='select'
                                             />
@@ -501,7 +518,7 @@ class ManageDoctor extends Component {
                                             <label for='select'>Phương thức thanh toán</label>
                                             <Select
                                                 value={paymentSelected}
-                                                onChange={(event) => this.handleChange(event, 'PAYMENTS')}
+                                                onChange={(event) => this.handleChange(event, "paymentSelected")}
                                                 options={paymentData}
                                                 id='select'
                                             />
@@ -510,7 +527,7 @@ class ManageDoctor extends Component {
                                             <label for='select'>Tỉnh thành</label>
                                             <Select
                                                 value={provinceSelected}
-                                                onChange={(event) => this.handleChange(event, 'PROVINCES')}
+                                                onChange={(event) => this.handleChange(event, "provinceSelected")}
                                                 options={provinceData}
                                                 id='select'
                                             />
@@ -557,7 +574,7 @@ class ManageDoctor extends Component {
                                             <label for='select'>Chọn chuyên khoa</label>
                                             <Select
                                                 value={selectSpecialty}
-                                                onChange={(event) => this.handleChange(event, 'SPECIALTY')}
+                                                onChange={(event) => this.handleChange(event, "selectSpecialty")}
                                                 options={specialtyList}
                                                 id='select'
                                             />
@@ -566,7 +583,7 @@ class ManageDoctor extends Component {
                                             <label for='select'>Chọn phòng khám</label>
                                             <Select
                                                 value={selectClinic}
-                                                onChange={(event) => this.handleChange(event, 'CLINIC')}
+                                                onChange={(event) => this.handleChange(event, "selectClinic")}
                                                 options={clinicList}
                                                 id='select'
                                             />
@@ -652,7 +669,8 @@ const mapStateToProps = state => {
         priceData: state.admin.priceData,
         paymentData: state.admin.paymentData,
         provinceData: state.admin.provinceData,
-        allSpecialty: state.admin.allSpecialty
+        allSpecialty: state.admin.allSpecialty,
+        allClinic: state.admin.allClinic
     };
 };
 
@@ -662,7 +680,8 @@ const mapDispatchToProps = dispatch => {
         saveSelectDoctorStart: (inforDoctor) => dispatch(actions.saveSelectDoctorStart(inforDoctor)),
         getSelectDoctorStart: (id) => dispatch(actions.getSelectDoctorStart(id)),
         getDoctorInformationAllCodeStart: () => dispatch(actions.getDoctorInformationAllCodeStart()),
-        getAllSpecialtyStart: () => dispatch(actions.getAllSpecialtyStart())
+        getAllSpecialtyStart: () => dispatch(actions.getAllSpecialtyStart()),
+        getAllClinicStart: () => dispatch(actions.getAllClinicStart())
     };
 };
 

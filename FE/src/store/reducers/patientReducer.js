@@ -5,10 +5,12 @@ import _ from 'lodash';
 const initialState = {
     isLoading: true,
     specialtyData: [],
-    arrDoctorId: []
+    arrDoctorId: [],
+    selectedClinic: []
 }
 
 const patientReducer = (state = initialState, action) => {
+    let copyState = { ...state };
     switch (action.type) {
         case actionTypes.CREATE_BOOKING_START:
             return {
@@ -32,7 +34,7 @@ const patientReducer = (state = initialState, action) => {
             }
         case actionTypes.GET_DETAIL_SPECIALTY_SUCCESS:
 
-            let copyState = { ...state };
+            copyState = { ...state };
 
             if (action.data.specialtyData && !_.isEmpty(action.data.specialtyData)) {
                 copyState.specialtyData = action.data.specialtyData;
@@ -48,6 +50,24 @@ const patientReducer = (state = initialState, action) => {
                 isLoading: false
             }
         case actionTypes.GET_DETAIL_SPECIALTY_FAIL:
+            return {
+                ...state,
+                isLoading: false
+            }
+
+        case actionTypes.GET_DETAIL_CLINIC_START:
+            return {
+                ...state,
+            }
+        case actionTypes.GET_DETAIL_CLINIC_SUCCESS:
+
+            copyState = { ...state };
+            copyState.selectedClinic = action.data
+            return {
+                ...copyState,
+                isLoading: false
+            }
+        case actionTypes.GET_DETAIL_CLINIC_FAIL:
             return {
                 ...state,
                 isLoading: false

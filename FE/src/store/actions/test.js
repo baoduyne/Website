@@ -1,36 +1,17 @@
-case actionTypes.CREATE_CLINIC_START:
-copyState = { ...state }
+case actionTypes.GET_DETAIL_CLINIC_START:
 return {
-    ...state
+    ...state,
 }
-        case actionTypes.CREATE_CLINIC_SUCCESS:
-copyState = { ...state }
-copyState.isLoading = false;
-return {
-    ...copyState
-}
-        case actionTypes.CREATE_CLINIC_FAIL:
-copyState = { ...state }
-copyState.isLoading = false;
-return {
-    ...copyState
-}
+case actionTypes.GET_DETAIL_CLINIC_SUCCESS:
 
-        case actionTypes.GET_ALL_CLINIC_START:
-copyState = { ...state }
+let copyState = { ...state };
+copyState.selectedClinic = action.data
 return {
-    ...copyState
+    ...copyState,
+    isLoading: false
 }
-        case actionTypes.GET_ALL_CLINIC_SUCCESS:
-copyState = { ...state }
-copyState.allClinic = action.data
-copyState.isLoading = false;
+case actionTypes.GET_DETAIL_CLINIC_FAIL:
 return {
-    ...copyState
-}
-        case actionTypes.GET_ALL_CLINIC_FAIL:
-copyState = { ...state }
-copyState.isLoading = false;
-return {
-    ...copyState
+    ...state,
+    isLoading: false
 }

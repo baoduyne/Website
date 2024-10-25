@@ -96,9 +96,13 @@ let getDetailClinic = (clinicId) => {
             }
             else {
                 let data = {}
-                data = await db.Doctor_infor.findAll({
+
+                data.doctorData = await db.Doctor_infor.findAll({
                     where: { clinicId: clinicId },
                     attributes: ['doctorId']
+                })
+                data.clinicData = await db.Clinic.findOne({
+                    where: { id: clinicId }
                 })
 
                 if (data) {

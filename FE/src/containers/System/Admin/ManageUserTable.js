@@ -41,6 +41,7 @@ class ManageUserTable extends Component {
                         <thead>
                             <tr>
                                 <th>Number</th>
+                                <th>User Id</th>
                                 <th>Email</th>
                                 <th>FirstName</th>
                                 <th>LastName</th>
@@ -55,6 +56,7 @@ class ManageUserTable extends Component {
                                 return (
                                     <tr>
                                         <td className="font-weight-bold">{index}</td>
+                                        <td>{item.id}</td>
                                         <td>{item.email}</td>
                                         <td>{item.firstName}</td>
                                         <td>{item.lastName}</td>

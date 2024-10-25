@@ -86,9 +86,8 @@ const getAllClinicService = () => {
 }
 
 const getDetailClinicService = (clinicId) => {
-    return axios.get(`/api/get-detail-clinic?ClinicId=${clinicId}`,);
+    return axios.get(`/api/get-detail-clinic?clinicId=${clinicId}`,);
 }
-
 
 export {
     handleLoginApi,

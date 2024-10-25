@@ -122,7 +122,7 @@ class SpecialtyDetail extends Component {
 
 
     render() {
-        console.log('check render', this.state)
+
         return (
             <>
                 <HomeHeader

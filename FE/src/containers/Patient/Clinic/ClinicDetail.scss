@@ -1,0 +1,180 @@
+.clinic-detail-background {
+    width   : 100%;
+    height  : 307px;
+    position: absolute;
+    left    : 0;
+
+    background-repeat  : no-repeat;
+    background-size    : cover;
+    background-position: center
+}
+
+.clinic-detail-container {
+    width     : 100%;
+    padding   : 0 12%;
+    margin-top: 9%;
+    position  : absolute;
+
+    .clinic-detail-content {
+        width           : 100%;
+        background-color: white;
+
+        .clinic-detail-header {
+            width         : 100%;
+            height        : 170px;
+            display       : flex;
+            flex-direction: row;
+            box-shadow    : rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+            .clinic-header-content-left {
+                width : 20%;
+                height: 100%;
+
+                .content-left-logo {
+                    width              : 100%;
+                    height             : 100%;
+                    background-repeat  : no-repeat;
+                    background-size    : cover;
+                    background-position: center;
+                }
+            }
+
+            .clinic-header-content-right {
+                width       : 80%;
+                height      : 100%;
+                padding-left: 20px;
+
+                .content-right-text {
+
+                    width          : 100%;
+                    height         : 100%;
+                    display        : flex;
+                    flex-direction : column;
+                    gap            : 10px;
+                    justify-content: center;
+
+                    .clinic-detail-name {
+                        font-size  : 130%;
+                        font-weight: 600;
+                    }
+
+                    .clinic-detail-address {
+                        font-size: 110%;
+                    }
+                }
+            }
+        }
+
+        .clinic-sticky-header {
+            width           : 100%;
+            height          : 40px;
+            box-shadow      : rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            display         : flex;
+            flex-direction  : row;
+            gap             : 30px;
+            align-items     : center;
+            justify-content : center;
+            position        : sticky;
+            top             : 0;
+            z-index         : 2;
+            background-color: white;
+
+            .sticky-child {
+                cursor     : pointer;
+                padding    : 0 10px;
+                font-size  : 110%;
+                font-weight: 600;
+            }
+        }
+
+        .clinic-detail-description-up {
+            margin-top      : 20px;
+            background-color: rgb(255, 236, 178);
+            color           : black;
+            padding         : 20px;
+            opacity         : 0.8;
+            font-size       : 16px;
+        }
+
+        .clinic-detail-description-down {
+            margin-top      : 20px;
+            margin-top      : 20px;
+            background-color: rgb(212, 239, 252);
+            color           : black;
+            padding         : 20px;
+            opacity         : 0.8;
+            font-size       : 16px;
+
+            .description-down-header {}
+
+            .description-down-list {
+                margin-top: 10px
+            }
+        }
+
+        .clinic-detail-contentHTML {
+            width     : 100%;
+            margin-top: 50px;
+        }
+
+        .clinic-detail-doctor {
+            width     : 100%;
+            margin-top: 100px;
+
+            .content-down-child {
+                width         : 100%;
+                display       : flex;
+                flex-direction: row;
+                gap           : 20px;
+                box-shadow    : rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+                padding       : 30px 30px;
+                margin-top    : 15px;
+
+                .content-down-left {
+                    width : 50%;
+                    height: fit-content;
+                    cursor: pointer;
+                }
+
+                .content-down-right {
+                    width         : 50%;
+                    display       : flex;
+                    flex-direction: column;
+                    gap           : 10px;
+                    border-left   : 1px solid rgba(100, 100, 111, 0.2);
+                    padding-left  : 15px;
+
+                    .right-schedule-container {
+                        width: 100%;
+
+                        .doctor-schedule-client-container .doctor-schedule-client-content .schedule-header {
+                            padding: 6px 0 !important;
+                        }
+
+                        .doctor-schedule-client-container .doctor-schedule-client-content .schedule-list {
+                            padding: 5px 0 !important;
+                        }
+
+                        .doctor-schedule-client-container .doctor-schedule-client-content .schedule-description {
+                            padding: 16px 0 !important;
+                        }
+                    }
+
+                    .right-information-container {
+                        width: 100%;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+.spacee {
+    margin-top   : 100%;
+    margin-bottom: 100%;
+}
+
+.home-header-container .home-header-content {
+    position: relative;
+}

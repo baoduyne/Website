@@ -19,6 +19,7 @@ import { CustomToastCloseButton } from '../components/CustomToast';
 import DetailDoctor from './Patient/Doctor/DetailDoctor.js';
 import VerifyEmail from './Patient/VerifyEmail/VerifyEmail.js';
 import DetailSpecialty from './Patient/Specialty/SpecialtyDetail.js';
+import ClinicDetail from './Patient/Clinic/ClinicDetail.js'
 
 class App extends Component {
 
@@ -43,6 +44,7 @@ class App extends Component {
     render() {
         return (
             <Fragment>
+
                 <Router history={history}>
                     <div className="main-container">
 
@@ -57,12 +59,13 @@ class App extends Component {
                                     <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
                                     <Route path={path.VERIFY_APPOINMENT} component={VerifyEmail}></Route>
                                     <Route path={path.SPECIALTY} component={DetailSpecialty}></Route>
-                                    <Route path={path.CLINIC} component={DetailSpecialty}></Route>
+                                    <Route path={path.CLINIC} component={ClinicDetail}></Route>
                                 </Switch>
                             </CustomScrollbars>
                         </span>
                     </div>
                 </Router>
+
                 <ToastContainer
                     position="bottom-right"
                     autoClose={5000}

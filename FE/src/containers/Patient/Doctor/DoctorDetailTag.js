@@ -201,7 +201,7 @@ class DoctorDetailTag extends Component {
 
 
     render() {
-        console.log('check render', this.state);
+
 
         let { firstName, lastName, address, avatar, phoneNumber, positionVi, positionEn, description,
             bookingPrice, bookingPayment, bookingSchedule
