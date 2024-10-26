@@ -22,7 +22,6 @@ let sendSimpleEmail = async (emailData) => {
         from: '"Đặt lịch khám bệnh" <bookingcare@gmail.com>', // sender address
         to: emailData.receiverEmail, // list of receivers
         subject: "Thông tin đặt lịch khám bệnh", // Subject line
-        text: "Hello", // plain text body
         attachments: [{
             filename: 'logo.png',
             path: '../FE/src/assets/logo.png',
