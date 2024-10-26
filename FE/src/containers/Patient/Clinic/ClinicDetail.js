@@ -66,7 +66,6 @@ class ClinicDetail extends Component {
                 selectedClinic: this.props.selectedClinic,
                 image: imageBase64,
                 backgroundImage: backgroundImageBase64,
-
             })
         }
 
@@ -75,17 +74,34 @@ class ClinicDetail extends Component {
                 arrDoctorId: this.props.arrDoctorId
             })
         }
+
     }
 
     scrollIntoView = (valueSection) => {
 
-        const element = document.getElementById(valueSection);
+        let searchString = valueSection;
+        let elements = document.getElementsByTagName('strong');
+        let result = '';
 
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-        });
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].innerHTML.indexOf(searchString) !== -1) {
+                // Change the ID of the found blockquote
+                elements[i].id = valueSection;
+                result = elements[i]
+                break;
+            }
+        }
+
+        // const element = document.getElementById(valueSection);
+        if (result && result !== '') {
+            result.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+        }
+
     }
+
 
 
 
@@ -122,10 +138,10 @@ class ClinicDetail extends Component {
 
                         <div className='clinic-sticky-header'>
                             <span onClick={() => this.scrollIntoView(STICKY_ELEMENT.SECTION1)} className='sticky-child'>GIỚI THIỆU</span>
-                            <span onClick={() => this.scrollIntoView(STICKY_ELEMENT.SECTION1)} className='sticky-child'>THẾ MẠNH CHUYÊN MÔN</span>
-                            <span onClick={() => this.scrollIntoView(STICKY_ELEMENT.SECTION1)} className='sticky-child'>TRANG THIẾT BỊ</span>
-                            <span onClick={() => this.scrollIntoView(STICKY_ELEMENT.SECTION1)} className='sticky-child'>VỊ TRÍ</span>
-                            <span onClick={() => this.scrollIntoView(STICKY_ELEMENT.SECTION1)} className='sticky-child'>QUY TRÌNH KHÁM</span>
+                            <span onClick={() => this.scrollIntoView(STICKY_ELEMENT.SECTION2)} className='sticky-child'>THẾ MẠNH CHUYÊN MÔN</span>
+                            <span onClick={() => this.scrollIntoView(STICKY_ELEMENT.SECTION3)} className='sticky-child'>TRANG THIẾT BỊ</span>
+                            <span onClick={() => this.scrollIntoView(STICKY_ELEMENT.SECTION4)} className='sticky-child'>VỊ TRÍ</span>
+                            <span onClick={() => this.scrollIntoView(STICKY_ELEMENT.SECTION5)} className='sticky-child'>QUY TRÌNH ĐI KHÁM</span>
                             <span onClick={() => this.scrollIntoView(STICKY_ELEMENT.SECTION6)} className='sticky-child'>ĐỘI NGŨ BÁC SĨ</span>
                         </div>
 
@@ -145,25 +161,15 @@ class ClinicDetail extends Component {
                         </div>
 
                         <section
-                            id={STICKY_ELEMENT.SECTION1}
                             className='clinic-detail-contentHTML'
                         >
                             <div
-
-                                className='clinic-detail-contentHTML-header text-primary'>
-                                GIỚI THIỆU
-                            </div>
-                            <div
-
+                                className='clinic-detail-contentHTML-content'
                                 dangerouslySetInnerHTML={{ __html: selectedClinic ? selectedClinic.clinicData.contentHTML : '' }}
                             ></div>
                         </section>
                         <section id={STICKY_ELEMENT.SECTION6} className='clinic-detail-doctor'>
-                            <div
-
-                                className='clinic-detail-contentHTML-header text-primary'>
-                                ĐỘI NGŨ BÁC SĨ
-                            </div>
+                            <strong className='clinic-detail-contentHTML-header text-primary'>ĐỘI NGŨ BÁC SĨ</strong>
                             {arrDoctorId && arrDoctorId.length > 0 && arrDoctorId.map(item => {
 
                                 return (

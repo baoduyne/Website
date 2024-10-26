@@ -49,10 +49,10 @@ export const TYPE = {
 }
 
 export const STICKY_ELEMENT = {
-    SECTION1: 'SECTION1',
-    SECTION2: 'SECTION2',
-    SECTION3: 'SECTION3',
-    SECTION4: 'SECTION4',
-    SECTION5: 'SECTION5',
-    SECTION6: 'SECTION6',
+    SECTION1: 'GIỚI THIỆU',
+    SECTION2: 'THẾ MẠNH CHUYÊN MÔN',
+    SECTION3: 'TRANG THIẾT BỊ',
+    SECTION4: 'SƠ ĐỒ BỆNH VIỆN',
+    SECTION5: 'QUY TRÌNH ĐI KHÁM',
+    SECTION6: 'ĐỘI NGŨ BÁC SĨ',
 }

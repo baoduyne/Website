@@ -1,7 +1,8 @@
-import { NIL as NIL_UUID } from 'uuid';
+
 const dotenv = require('dotenv').config;
 import nodemailer from 'nodemailer';
-import { EmptyResultError } from 'sequelize';
+
+
 
 let sendSimpleEmail = async (emailData) => {
 
@@ -22,6 +23,11 @@ let sendSimpleEmail = async (emailData) => {
         to: emailData.receiverEmail, // list of receivers
         subject: "Thông tin đặt lịch khám bệnh", // Subject line
         text: "Hello", // plain text body
+        attachments: [{
+            filename: 'logo.png',
+            path: '../FE/src/assets/logo.png',
+            cid: 'logo'
+        }],
         html: createHTMLContent(emailData, emailData.language),
     });
 }
@@ -29,7 +35,7 @@ let sendSimpleEmail = async (emailData) => {
 let createHTMLContent = (emailData, language) => {
     if (language === 'vi')
         return (`<h1>Xin chào ${emailData.patientName}</h1> 
-    <p>Bạn nhận được email này vì đã đặt lịch khám bệnh online trên github : https://github.com/baoduyne </p>
+    <p>Bạn nhận được email này vì đã đặt lịch khám bệnh online trên : <a href = 'https://github.com/baoduyne'>bookingcare.com</a> </p>
     <p>Thông tin đặt lịch khám bệnh: </p>
     <p>Thời gian: ${emailData.date}</p>
     <p>Bác sĩ đảm nhiệm: ${emailData.doctorName}</p>
@@ -38,10 +44,13 @@ let createHTMLContent = (emailData, language) => {
     <a href = '${emailData.redirectLink}'>Xác nhận lịch hẹn
     </a>
     </div>
+    <img 
+    style= "margin:50px 0"  
+    src = 'cid:logo'></img>
 `)
     else {
         return (`<h1>Hello ${emailData.patientName}</h1> 
-        <p>You received this email as you have booked a schedule in github : https://github.com/baoduyne </p>
+        <p>You received this email as you have booked a schedule : <a href = 'https://github.com/baoduyne'>bookingcare.com</a> </p>
         <p>booking informations: </p>
         <p>Time: ${emailData.date}</p>
         <p>Doctor: ${emailData.doctorName}</p>
@@ -50,11 +59,15 @@ let createHTMLContent = (emailData, language) => {
         <a href = '${emailData.redirectLink}'>Confirm booking
         </a>
         </div>
+        <img 
+        style= "margin:50px 0"
+        src = 'cid:logo'></img>
+        
     `)
     }
 }
 
-
+{/* <img src = '../../../FE/src/assets/logo.png'>this is logo</img> */ }
 
 module.exports = {
     sendSimpleEmail
