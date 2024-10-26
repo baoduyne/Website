@@ -27,7 +27,7 @@ class MedicalFacility extends Component {
 
 
     handleOnClickClinic = (Clinic) => {
-        this.props.history.push(`/clinic/${Clinic.id}`)
+        this.props.history.push(`/clinic-detail/${Clinic.id}`)
     }
 
     render() {
@@ -67,7 +67,7 @@ class MedicalFacility extends Component {
 
                                 return (
                                     <><div
-                                        onClick={() => this.handleOnClickSpecialty(item)}
+                                        onClick={() => this.handleOnClickClinic(item)}
                                         className='section-items specialty'>
                                         <div
                                             className='section-image section-medical-facility'

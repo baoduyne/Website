@@ -24,7 +24,7 @@ class Specialty extends Component {
     }
 
     handleOnClickSpecialty = (specialty) => {
-        this.props.history.push(`/specialty/${specialty.id}`)
+        this.props.history.push(`/specialty-detail/${specialty.id}`)
     }
 
     render() {

@@ -147,9 +147,23 @@ class ClinicDetail extends Component {
                         <section
                             id={STICKY_ELEMENT.SECTION1}
                             className='clinic-detail-contentHTML'
-                            dangerouslySetInnerHTML={{ __html: selectedClinic ? selectedClinic.clinicData.contentHTML : '' }}
-                        ></section>
+                        >
+                            <div
+
+                                className='clinic-detail-contentHTML-header text-primary'>
+                                GIỚI THIỆU
+                            </div>
+                            <div
+
+                                dangerouslySetInnerHTML={{ __html: selectedClinic ? selectedClinic.clinicData.contentHTML : '' }}
+                            ></div>
+                        </section>
                         <section id={STICKY_ELEMENT.SECTION6} className='clinic-detail-doctor'>
+                            <div
+
+                                className='clinic-detail-contentHTML-header text-primary'>
+                                ĐỘI NGŨ BÁC SĨ
+                            </div>
                             {arrDoctorId && arrDoctorId.length > 0 && arrDoctorId.map(item => {
 
                                 return (
