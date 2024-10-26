@@ -39,12 +39,21 @@ class BookingModal extends Component {
 
             reasonBooking: '',
 
-            selectDoctor: ''
+            selectDoctor: '',
+
+            scheduleData: '',
+            doctorId: '',
+
+
         }
     }
 
     componentDidMount = async () => {
-
+        this.setState({
+            scheduleData: this.props.scheduleData,
+            doctorId: this.props.doctorId
+        }
+        )
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -52,6 +61,12 @@ class BookingModal extends Component {
             this.setState({ selectDoctor: this.props.selectDoctor })
         }
 
+        if (this.props.scheduleData && this.props.scheduleData !== prevProps.scheduleData) {
+            this.setState({ scheduleData: this.props.scheduleData })
+        }
+        if (this.props.doctorId && this.props.doctorId !== prevProps.doctorId) {
+            this.setState({ doctorId: this.props.doctorId })
+        }
     }
 
 
@@ -241,9 +256,9 @@ class BookingModal extends Component {
                 address: this.state.address,
                 phoneNumber: this.state.phoneNumber,
                 genderId: this.state.gender,
-                doctorId: this.props.doctorId,
-                date: this.props.scheduleData.date,
-                timeType: this.props.scheduleData.timeType,
+                doctorId: this.state.doctorId,
+                date: this.state.scheduleData.date,
+                timeType: this.state.scheduleData.timeType,
                 note: this.state.reasonBooking,
 
                 language: this.props.language,
@@ -262,6 +277,7 @@ class BookingModal extends Component {
 
             await this.props.createBookingStart(data);
 
+            this.componentDidMount();
 
         }
         else {
@@ -272,7 +288,7 @@ class BookingModal extends Component {
     }
 
     render() {
-
+        console.log('check modal render', this.state)
         let {
             firstName,
             lastName,
@@ -316,9 +332,9 @@ class BookingModal extends Component {
                                 <div className="doctor-section-container">
                                     <div className='horizon-line'></div>
                                     <DoctorDetailTag
-                                        doctorId={this.props.doctorId}
+                                        doctorId={this.state.doctorId}
                                         doctorDescriptionIsShow={false}
-                                        scheduleData={this.props.scheduleData}
+                                        scheduleData={this.state.scheduleData}
                                     ></DoctorDetailTag>
                                 </div>
 

@@ -10,7 +10,7 @@ import localization from 'moment/locale/vi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListUl } from '@fortawesome/free-solid-svg-icons';
 import BookingModal from './BookingModal'
-
+import _ from 'lodash'
 class DoctorSchedule extends Component {
 
     constructor(props) {
@@ -142,22 +142,23 @@ class DoctorSchedule extends Component {
     }
 
     handleChooseSchedule = (data) => {
-        let { allDoctorSchedules } = this.state;
+        if (data && !_.isEmpty(data)) {
+            let { allDoctorSchedules } = this.state;
 
-        allDoctorSchedules = allDoctorSchedules.map((item, index) => {
-            if (item.id === data.id) {
-                item.isSelected = !item.isSelected;
-            }
-            return (item);
-        })
+            allDoctorSchedules = allDoctorSchedules.map((item, index) => {
+                if (item.id === data.id) {
+                    item.isSelected = !item.isSelected;
+                }
+                return (item);
+            })
 
-        this.setState({
-            allDoctorSchedules: allDoctorSchedules,
-            scheduleData: data,
-            modalIsOpen: !this.state.modalIsOpen
-        })
+            this.setState({
+                allDoctorSchedules: allDoctorSchedules,
+                scheduleData: data,
+                modalIsOpen: !this.state.modalIsOpen
+            })
 
-
+        }
     }
 
     toggleModalFromParent = () => {

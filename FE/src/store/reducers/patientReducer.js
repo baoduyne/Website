@@ -60,9 +60,10 @@ const patientReducer = (state = initialState, action) => {
                 ...state,
             }
         case actionTypes.GET_DETAIL_CLINIC_SUCCESS:
-
             copyState = { ...state };
-            copyState.selectedClinic = action.data
+            copyState.selectedClinic = action.data.clinicData;
+            copyState.arrDoctorId = action.data.doctorData;
+            console.log('chec redux', copyState)
             return {
                 ...copyState,
                 isLoading: false

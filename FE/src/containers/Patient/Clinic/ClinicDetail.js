@@ -34,7 +34,7 @@ class ClinicDetail extends Component {
             console.log('id', id)
             await this.props.getDetailClinicStart(id)
             await this.props.fetchAllCodeStart();
-            await this.props.getDetailSpecialtyStart(TYPE.ALL, TYPE.ALL, TYPE.DOCTOR);
+            // await this.props.getDetailSpecialtyStart(TYPE.ALL, TYPE.ALL, TYPE.DOCTOR);
         }
     }
 
@@ -60,8 +60,8 @@ class ClinicDetail extends Component {
 
     componentDidUpdate = async (prevProps, prevState) => {
         if (this.props.selectedClinic !== prevProps.selectedClinic && this.props.selectedClinic) {
-            let imageBase64 = new Buffer(this.props.selectedClinic.clinicData.image, 'base64').toString('binary');
-            let backgroundImageBase64 = new Buffer(this.props.selectedClinic.clinicData.backgroundImage, 'base64').toString('binary');
+            let imageBase64 = new Buffer(this.props.selectedClinic.image, 'base64').toString('binary');
+            let backgroundImageBase64 = new Buffer(this.props.selectedClinic.backgroundImage, 'base64').toString('binary');
             this.setState({
                 selectedClinic: this.props.selectedClinic,
                 image: imageBase64,
@@ -108,7 +108,7 @@ class ClinicDetail extends Component {
 
 
     render() {
-        console.log('check render state arr ', this.props.arrDoctorId)
+        console.log('check render state arr ', this.state.selectedClinic)
         let { selectedClinic, image, backgroundImage, arrDoctorId } = this.state;
         return (
             <>
@@ -131,8 +131,8 @@ class ClinicDetail extends Component {
                             </div>
                             <div className='clinic-header-content-right'>
                                 <div className='content-right-text'>
-                                    <span className='clinic-detail-name'>{selectedClinic && selectedClinic.clinicData && selectedClinic.clinicData.name}</span>
-                                    <span className='clinic-detail-address'>{selectedClinic && selectedClinic.clinicData && selectedClinic.clinicData.address}</span></div>
+                                    <span className='clinic-detail-name'>{selectedClinic && selectedClinic.name}</span>
+                                    <span className='clinic-detail-address'>{selectedClinic && selectedClinic.address}</span></div>
                             </div>
                         </div>
 
@@ -165,8 +165,9 @@ class ClinicDetail extends Component {
                         >
                             <div
                                 className='clinic-detail-contentHTML-content'
-                                dangerouslySetInnerHTML={{ __html: selectedClinic ? selectedClinic.clinicData.contentHTML : '' }}
+                                dangerouslySetInnerHTML={{ __html: selectedClinic ? selectedClinic.contentHTML : '' }}
                             ></div>
+
                         </section>
                         <section id={STICKY_ELEMENT.SECTION6} className='clinic-detail-doctor'>
                             <strong className='clinic-detail-contentHTML-header text-primary'>ĐỘI NGŨ BÁC SĨ</strong>
@@ -218,7 +219,7 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodeStart: () => dispatch(actions.fetchAllCodeStart()),
         getDetailClinicStart: (clinicId) => dispatch(actions.getDetailClinicStart(clinicId)),
-        getDetailSpecialtyStart: (specialtyId, provinceId, type) => dispatch(actions.getDetailSpecialtyStart(specialtyId, provinceId, type)),
+        // getDetailSpecialtyStart: (specialtyId, provinceId, type) => dispatch(actions.getDetailSpecialtyStart(specialtyId, provinceId, type)),
     };
 };
 

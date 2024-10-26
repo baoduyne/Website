@@ -158,10 +158,6 @@ let getDetailSpecialty = (specialtyId, provinceId, type) => {
 
 
             }
-
-
-
-
         }
         catch (e) {
             console.log(e);

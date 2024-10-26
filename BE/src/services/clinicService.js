@@ -97,10 +97,22 @@ let getDetailClinic = (clinicId) => {
             else {
                 let data = {}
 
+
                 data.doctorData = await db.Doctor_infor.findAll({
                     where: { clinicId: clinicId },
                     attributes: ['doctorId']
                 })
+
+                let arrOjbect = [];
+
+                if (data.doctorData) {
+                    data.doctorData.map(item => {
+                        arrOjbect.push(item.doctorId)
+                    })
+                }
+                if (arrOjbect) {
+                    data.doctorData = arrOjbect;
+                }
                 data.clinicData = await db.Clinic.findOne({
                     where: { id: clinicId }
                 })
