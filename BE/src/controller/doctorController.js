@@ -159,6 +159,29 @@ let getDoctorInfors = async (req, res) => {
     }
 }
 
+let getBookingInforForDoctor = async (req, res) => {
+    try {
+        let doctorId = req.query.doctorId;
+        let time = req.query.time;
+        let response = await doctorService.getBookingInforForDoctor(doctorId, time);
+
+        if (response) {
+            res.status(200).json({
+                errCode: response.errCode,
+                errMessage: response.errMessage,
+                data: response.data
+            })
+        }
+
+    }
+
+    catch (e) {
+        res.status(200).json({
+            errCode: -1,
+            errMessage: 'Err from sever...'
+        })
+    }
+}
 
 
 module.exports = {
@@ -168,5 +191,6 @@ module.exports = {
     getDoctorMarkdown: getDoctorMarkdown,
     saveDoctorSchedules: saveDoctorSchedules,
     getDoctorSchedules: getDoctorSchedules,
-    getDoctorInfors: getDoctorInfors
+    getDoctorInfors: getDoctorInfors,
+    getBookingInforForDoctor: getBookingInforForDoctor
 }

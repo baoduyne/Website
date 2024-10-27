@@ -35,10 +35,38 @@ class Doctor extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (this.props.allDoctors && (prevProps.allDoctors !== this.props.allDoctors)) {
-            let data = this.builtDataInputSelect(this.props.allDoctors);
-            this.setState({
-                allDoctors: data
-            })
+            let data = '';
+            console.log('doctor info', this.props.userInfo)
+            console.log('asd', this.props.allDoctors)
+            if (this.props.userInfo && this.props.userInfo.roleId === 'R2' && this.props.userInfo.id) {
+
+                let doctorData = '';
+
+                this.props.allDoctors.map(item => {
+                    if (item.id === this.props.userInfo.id) {
+                        doctorData = item
+                    }
+                })
+
+
+                if (doctorData) {
+                    data = this.builtDataInputSelect(doctorData);
+                    this.setState({
+                        allDoctors: data,
+                        selectedOption: data[0],
+                    })
+
+                }
+
+            }
+            else if (this.props.userInfo && this.props.userInfo.roleId === 'R1') {
+                data = this.builtDataInputSelect(this.props.allDoctors);
+                this.setState({
+                    allDoctors: data
+                })
+            }
+
+
         }
         if (this.props.allSchedules && (prevProps.allSchedules !== this.props.allSchedules)) {
 
@@ -57,7 +85,7 @@ class Doctor extends Component {
 
     builtDataInputSelect(inputData) {
         let result = [];
-        if (inputData) {
+        if (inputData && inputData.length > 1) {
             inputData.map((item, index) => {
                 let object = {};
                 let valueVi = item.id + " - " + item.firstName + " " + item.lastName;
@@ -68,6 +96,16 @@ class Doctor extends Component {
 
                 result.push(object)
             })
+        }
+        else {
+            let object = {};
+            let valueVi = inputData.id + " - " + inputData.firstName + " " + inputData.lastName;
+            let valueEn = inputData.id + " - " + inputData.lastName + " " + inputData.firstName;
+
+            object.value = inputData.id;
+            object.label = this.props.language === LANGUAGES.VI ? valueVi : valueEn;
+
+            result.push(object)
         }
 
         return result;
@@ -194,12 +232,21 @@ class Doctor extends Component {
                         <div className='content-up'>
                             <div className='select-container'>
                                 <label for='select'><FormattedMessage id='menu.doctor.Choose-doctor' /></label>
-                                <Select
-                                    value={this.state.selectedOption}
-                                    onChange={this.handleChange}
-                                    options={this.state.allDoctors}
-                                    id='select'
-                                />
+                                {this.props.userInfo.roleId && this.props.userInfo.roleId === 'R2' ?
+                                    <Select
+                                        value={this.state.selectedOption}
+                                        onChange={this.handleChange}
+                                        options={this.state.allDoctors}
+                                        id='select'
+                                        isDisabled={true}
+                                    /> : <Select
+                                        value={this.state.selectedOption}
+                                        onChange={this.handleChange}
+                                        options={this.state.allDoctors}
+                                        id='select'
+                                    />
+                                }
+
                             </div>
                             <div className='select-date'>
                                 {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
@@ -240,6 +287,7 @@ class Doctor extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
+        userInfo: state.user.userInfo,
         isLoggedIn: state.user.isLoggedIn,
         data: state.user,
         allDoctors: state.admin.allDoctors,

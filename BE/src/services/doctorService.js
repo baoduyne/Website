@@ -303,6 +303,77 @@ let getDoctorInfors = (id) => {
     })
 }
 
+
+let getBookingInforForDoctor = (doctorId, time) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!doctorId || !time) {
+                resolve({
+                    errCode: -1,
+                    errMessage: 'Missing parameter...',
+                    data: ''
+                })
+            }
+            else {
+                let data = '';
+                if (time === 'ALL') {
+                    data = await db.Booking.findAll({
+                        where: {
+                            statusId: 'S2',
+                            doctorId: doctorId,
+                        },
+
+                        include: [
+                            {
+                                model: db.User, as: 'patientData', attributes: {
+                                    exclude: ["avatar"]
+                                },
+                            }
+                        ]
+                    })
+                }
+                else {
+                    data = await db.Booking.findAll({
+                        where: {
+                            statusId: 'S2',
+                            doctorId: doctorId,
+                            time: time
+                        },
+                        include: [
+                            {
+                                model: db.User, as: 'patientData', attributes: {
+                                    exclude: ["avatar"]
+                                },
+                            }
+                        ],
+
+                    })
+                }
+
+                if (data) {
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'Get booking data for doctor completed!',
+                        data: data
+                    })
+                }
+                else {
+                    resolve({
+                        errCode: -1,
+                        errMessage: 'Err from sever!',
+                        data: ''
+                    })
+                }
+            }
+        }
+        catch (e) {
+            console.log(e);
+            reject(e);
+        }
+    })
+}
+
+
 module.exports = {
     getTopDoctorHome: getTopDoctorHome,
     getAllDoctors: getAllDoctors,
@@ -310,5 +381,6 @@ module.exports = {
     getDoctorMarkdown: getDoctorMarkdown,
     saveDoctorSchedules: saveDoctorSchedules,
     getDoctorSchedules: getDoctorSchedules,
-    getDoctorInfors: getDoctorInfors
+    getDoctorInfors: getDoctorInfors,
+    getBookingInforForDoctor: getBookingInforForDoctor
 }

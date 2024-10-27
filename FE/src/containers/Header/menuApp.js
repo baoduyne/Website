@@ -10,6 +10,10 @@ export const adminMenu = [
             },
             {
                 name: 'menu.doctor.schedule', link: '/doctor/manage-schedule'
+            },
+
+            {
+                name: 'menu.doctor.patient', link: '/doctor/manage-patient'
             }
             // { name: 'menu.system.system-parameter.header', link: '/system/system-parameter' },
         ]
@@ -41,8 +45,13 @@ export const doctorMenu = [
         name: 'menu.doctor.manage-schedule',
         menus: [
             {
-                name: 'menu.doctor.schedule', link: '/doctor/manage-schedule'
+
+                name: 'menu.doctor.schedule', link: '/doctor/manage-schedule',
+
             },
+            {
+                name: 'menu.doctor.patient', link: '/doctor/manage-patient'
+            }
         ]
     }
 ]
