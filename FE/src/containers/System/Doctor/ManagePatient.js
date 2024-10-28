@@ -241,7 +241,7 @@ class ManagePatient extends Component {
                                 <div className="section-content">
                                     {this.state.isShowSupportTable === false ?
                                         <table class="table">
-                                            <caption>List of users</caption>
+                                            <caption>List of patients</caption>
                                             <thead>
                                                 <tr>
                                                     <th scope='col' className=" ">STT</th>
@@ -254,7 +254,7 @@ class ManagePatient extends Component {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {bookingList && bookingList.map((item, index) => {
+                                                {bookingList && bookingList.length > 0 ? bookingList.map((item, index) => {
 
                                                     let formattedDateVi = moment.unix(item.date / 1000).format('dddd - DD/MM/YYYY');
                                                     let formattedDateEn = moment.unix(item.date / 1000).locale('en').format('dddd - DD/MM/YYYY');
@@ -269,16 +269,16 @@ class ManagePatient extends Component {
                                                             <td>{item.note}</td>
                                                         </tr>
                                                     )
-                                                })}
+                                                }) : <div className='no-data-content'>No data...</div>}
 
 
                                             </tbody>
                                         </table>
                                         :
                                         <table className="table w-100">
-                                            <caption>List of users</caption>
+                                            <caption>List of patients</caption>
                                             <thead className='w-100'>
-                                                <tr className='w-100'>
+                                                <tr className='adjust-table-row w-100'>
                                                     <th scope="col ">STT</th>
                                                     <th scope="col ">Họ tên người bảo hộ</th>
                                                     <th scope="col ">Sdt người bảo hộ</th>
@@ -291,8 +291,7 @@ class ManagePatient extends Component {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {supportBookingList && supportBookingList.map((item, index) => {
-
+                                                {supportBookingList && supportBookingList.length > 0 ? supportBookingList.map((item, index) => {
                                                     let formattedDateVi = moment.unix(item.date / 1000).format('dddd - DD/MM/YYYY');
                                                     let formattedDateEn = moment.unix(item.date / 1000).locale('en').format('dddd - DD/MM/YYYY');
                                                     return (
@@ -302,13 +301,19 @@ class ManagePatient extends Component {
                                                             <td>{item.patientData.phoneNumber}</td>
                                                             <td>{item.supportFirstName + ' ' + item.supportLastName}</td>
                                                             <td>{item.supportBirthDay}</td>
-                                                            <td>{item.supportAddress}</td>
+                                                            <td>{item.patientData.address}</td>
                                                             <td>{item.supportPhoneNumber}</td>
                                                             <td>{item.timeData && item.timeData.valueVi && item.timeData.valueEn && this.props.language === LANGUAGES.VI ? formattedDateVi + " | " + item.timeData.valueVi : formattedDateEn + " | " + item.timeData.valueEn}</td>
                                                             <td class='set-width-note'>{item.note}</td>
                                                         </tr>
                                                     )
-                                                })}
+                                                })
+                                                    :
+
+                                                    <div className='no-data-content'>No data...</div>
+
+
+                                                }
 
 
                                             </tbody>

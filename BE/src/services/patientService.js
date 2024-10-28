@@ -66,7 +66,7 @@ let createBooking = (data) => {
                         doctorId: data.doctorId,
                         patientId: user.id,
                         date: data.date,
-                        timeType: data.timeType,
+                        timeMap: data.timeType,
                         supportFirstName: data.supportFirstName,
                         supportLastName: data.supportLastName,
                         supportPhoneNumber: data.supportPhoneNumber,

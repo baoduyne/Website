@@ -158,6 +158,20 @@
 }
 
 .adjust-table-row {
+    // height  : 80px;
+    // overflow: scroll;
+}
 
-    overflow: scroll;
+table {
+    min-height: 300px;
+}
+
+.no-data-content {
+    position      : absolute;
+    left          : 50%;
+    // top     : -30px;
+    // bottom     : 100px;
+    margin-top    : 120px;
+    font-size     : 110%;
+    font-weight   : 600;
 }

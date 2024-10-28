@@ -28,7 +28,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      timeType: {
+      timeMap: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -44,6 +44,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      supportBirthDay: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       supportGender: {
         type: Sequelize.STRING,
         allowNull: true
@@ -56,16 +60,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      // createdAt: {
-      //   allowNull: true,
-      //   type: Sequelize.DATE,
-      //   defaultValue: Sequelize.DATE
-      // },
-      // updatedAt: {
-      //   allowNull: true,
-      //   type: Sequelize.DATE,
-      //   defaultValue: Sequelize.DATE
-      // }
+      createdAt: {
+        allowNull: true,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: true,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE
+      }
 
     });
   },
