@@ -6,12 +6,6 @@ const { sequelize } = require('../models');
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('bookings', {
-      //     statusId: DataTypes.STRING,
-      // doctorId: DataTypes.INTEGER,
-      // patientId: DataTypes.INTEGER,
-      // date:DataTypes.Date,
-      // timeType:DataTypes.STRING,
-      // roleid: DataTypes.STRING
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -55,14 +49,23 @@ module.exports = {
         allowNull: true
       },
       note: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT('LONG'),
         allowNull: false
       },
       token: {
         type: Sequelize.STRING,
         allowNull: false
       },
-
+      // createdAt: {
+      //   allowNull: true,
+      //   type: Sequelize.DATE,
+      //   defaultValue: Sequelize.DATE
+      // },
+      // updatedAt: {
+      //   allowNull: true,
+      //   type: Sequelize.DATE,
+      //   defaultValue: Sequelize.DATE
+      // }
 
     });
   },

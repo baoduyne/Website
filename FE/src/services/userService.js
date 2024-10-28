@@ -88,6 +88,9 @@ const getAllClinicService = () => {
 const getDetailClinicService = (clinicId) => {
     return axios.get(`/api/get-detail-clinic?clinicId=${clinicId}`,);
 }
+const getBookingService = (doctorId, time) => {
+    return axios.get(`/api/get-booking-infor-for-doctor?doctorId=${doctorId}&time=${time}`,);
+}
 
 export {
     handleLoginApi,
@@ -105,5 +108,5 @@ export {
     getDoctorInforsService,
     createBookingService, verifyUserBookingAppoinmentService,
     createSpecialtyService, getAllSpecialtyService, getDetailSpecialtyService,
-    getDetailClinicService, getAllClinicService, createClinicService
+    getDetailClinicService, getAllClinicService, createClinicService, getBookingService
 }

@@ -328,22 +328,30 @@ let getBookingInforForDoctor = (doctorId, time) => {
                                 model: db.User, as: 'patientData', attributes: {
                                     exclude: ["avatar"]
                                 },
+                            },
+                            {
+                                model: db.Allcode, as: 'timeData'
                             }
                         ]
                     })
                 }
                 else {
+
                     data = await db.Booking.findAll({
                         where: {
                             statusId: 'S2',
                             doctorId: doctorId,
-                            time: time
+                            date: time
                         },
                         include: [
                             {
                                 model: db.User, as: 'patientData', attributes: {
                                     exclude: ["avatar"]
                                 },
+
+                            },
+                            {
+                                model: db.Allcode, as: 'timeData'
                             }
                         ],
 
@@ -360,7 +368,7 @@ let getBookingInforForDoctor = (doctorId, time) => {
                 else {
                     resolve({
                         errCode: -1,
-                        errMessage: 'Err from sever!',
+                        errMessage: 'err from sever!',
                         data: ''
                     })
                 }

@@ -256,7 +256,7 @@ class ManageClinic extends Component {
     render() {
         // imageBase64 = new Buffer(user.avatar, 'base64').toString('binary');
         const mdParser = new MarkdownIt(/* Markdown-it options */);
-        console.log('check state manage Clinic =>>', this.state)
+
         return (
             <>
                 <div className='manage-Clinic-container'>

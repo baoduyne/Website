@@ -1,0 +1,163 @@
+.manage-patient-container {
+    width        : 100%;
+    padding      : 0 3%;
+    margin-top   : 2%;
+    margin-bottom: 10%;
+
+    .manage-patient-content {
+        border        : 1px solid rgba(0, 0, 0, 0.2);
+        width         : 100%;
+        height        : 100%;
+        display       : flex;
+        flex-direction: column;
+
+        .Patient-logo {
+            width     : 100%;
+            height    : 3%;
+            margin-top: 20px;
+
+            .logo {
+                width                : 28%;
+                height               : 30px;
+                background-image     : url('../../../assets/logo.png');
+                background-size      : contain;
+                background-repeat    : no-repeat;
+                background-position-x: center;
+                cursor               : pointer;
+                margin-left          : auto;
+                margin-right         : auto;
+            }
+        }
+
+        .title-container {
+            width         : 100%;
+            height        : 5%;
+            display       : flex;
+            flex-direction: column;
+            align-items   : center;
+            margin        : 19px 0;
+
+            .Patient-title {
+                height     : 50%;
+                font-size  : 120%;
+                font-weight: 600;
+            }
+
+            .Patient-description {
+                height    : 50%;
+                opacity   : 0.6;
+                margin-top: 10px;
+            }
+        }
+
+        .horizon-line {
+            width           : 100%;
+            height          : 2px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius   : 3px;
+        }
+
+        .Patient-form {
+            width         : 100%;
+            height        : 80%;
+            display       : flex;
+            flex-direction: column;
+            gap           : 0px;
+            padding       : 0 35px;
+            margin-top    : 30px;
+
+            .Patient-section-container {
+                width: 100%;
+
+                .section-content {
+                    display        : flex;
+                    flex-direction : column;
+                    width          : 100%;
+                    justify-content: center;
+
+
+
+
+
+                    .time-container {
+                        width          : 100%;
+                        display        : flex;
+                        flex-direction : row;
+                        margin-top     : 45px;
+                        margin-bottom  : 10px;
+                        gap            : 30px;
+                        justify-content: space-between;
+
+
+                        .date-picker-content {
+                            display       : flex;
+                            flex-direction: column;
+                            width         : 50%;
+                            height        : 38px;
+
+                            .date-picker-child {
+                                width: 100%;
+
+                            }
+
+                            .date-picker-detail {
+                                width     : 100%;
+                                font-size : 96%;
+                                text-align: left;
+                                font-style: italic;
+
+                                .date-picker-detail-all {
+                                    color : darkturquoise;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+
+                        label {
+                            width        : 12%;
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    .table-options-container {
+                        width         : 100%;
+                        display       : flex;
+                        flex-direction: row;
+                        margin-top    : 50px;
+                        gap           : 20px;
+
+                        .changeBtn {
+                            font-size  : 100%;
+                            font-weight: 600;
+                            cursor     : pointer;
+
+                            &:hover {
+                                opacity: 0.8;
+                            }
+                        }
+
+                        .changeBtnSecond {
+                            opacity: 0.4;
+                        }
+                    }
+
+
+
+                }
+            }
+        }
+    }
+}
+
+.set-width-note {
+    width: 300px
+}
+
+.set-width-note-child {
+    overflow: auto;
+}
+
+.adjust-table-row {
+
+    overflow: scroll;
+}

@@ -1,17 +1,18 @@
-case actionTypes.GET_DETAIL_CLINIC_START:
+case actionTypes.GET_BOOKING_START:
+copyState = { ...state }
 return {
-    ...state,
+    ...copyState
 }
-case actionTypes.GET_DETAIL_CLINIC_SUCCESS:
-
-let copyState = { ...state };
-copyState.selectedClinic = action.data
+        case actionTypes.GET_BOOKING_SUCCESS:
+copyState = { ...state }
+copyState.allBooking = action.data
+copyState.isLoading = false;
 return {
-    ...copyState,
-    isLoading: false
+    ...copyState
 }
-case actionTypes.GET_DETAIL_CLINIC_FAIL:
+        case actionTypes.GET_BOOKING_FAIL:
+copyState = { ...state }
+copyState.isLoading = false;
 return {
-    ...state,
-    isLoading: false
+    ...copyState
 }

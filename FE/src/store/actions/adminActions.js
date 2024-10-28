@@ -6,7 +6,7 @@ import {
     saveSelectDoctorService, getSelectDoctorService,
     saveDoctorSchedulesService, getDoctorSchedulesService,
     getDoctorInforsService, createSpecialtyService, getAllSpecialtyService,
-    getDetailClinicService, getAllClinicService, createClinicService
+    getDetailClinicService, getAllClinicService, createClinicService, getBookingService
 } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -821,5 +821,44 @@ export const getAllClinicFail = () => {
     toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
     return {
         type: actionTypes.GET_ALL_CLINIC_FAIL
+    }
+}
+
+
+export const getBookingStart = (doctorId, time) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.GET_BOOKING_START })
+
+
+            let response = await getBookingService(doctorId, time);
+
+            if (response && response.errCode === 0) {
+                dispatch(getBookingSuccess(response.data));
+            }
+            else {
+                dispatch(getBookingFail());
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(getBookingFail());
+        }
+    }
+
+}
+
+export const getBookingSuccess = (data) => {
+
+    return {
+        type: actionTypes.GET_BOOKING_SUCCESS,
+        data: data
+    }
+}
+
+export const getBookingFail = () => {
+    toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
+    return {
+        type: actionTypes.GET_BOOKING_FAIL
     }
 }
