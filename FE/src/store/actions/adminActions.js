@@ -6,7 +6,7 @@ import {
     saveSelectDoctorService, getSelectDoctorService,
     saveDoctorSchedulesService, getDoctorSchedulesService,
     getDoctorInforsService, createSpecialtyService, getAllSpecialtyService,
-    getDetailClinicService, getAllClinicService, createClinicService, getBookingService
+    getDetailClinicService, getAllClinicService, createClinicService, getBookingService, sendBillToPatientService
 } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -860,5 +860,52 @@ export const getBookingFail = () => {
     toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
     return {
         type: actionTypes.GET_BOOKING_FAIL
+    }
+}
+
+export const sendBillStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.SEND_BILL_START })
+
+            toast('Đang xử lý thông tin hóa đơn...', {
+                position: "bottom-right",
+                autoClose: 2800,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            let response = await sendBillToPatientService(data);
+
+            if (response && response.errCode === 0) {
+                dispatch(sendBillSuccess(response.data));
+            }
+            else {
+                dispatch(sendBillFail());
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(sendBillFail());
+        }
+    }
+
+}
+
+export const sendBillSuccess = (data) => {
+    toast.success('Gửi hóa đơn thành công!');
+    return {
+        type: actionTypes.SEND_BILL_SUCCESS,
+        data: data
+    }
+}
+
+export const sendBillFail = () => {
+    toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
+    return {
+        type: actionTypes.SEND_BILL_FAIL
     }
 }

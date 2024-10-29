@@ -59,14 +59,14 @@ class SendMailModal extends Component {
         }
     }
 
-    handleOnclickSubbmit = () => {
+    handleOnclickSubbmit = async () => {
         let data = {
             email: this.state.email,
             pillPrice: this.state.pillPrice,
             note: this.state.note,
             bookingData: this.props.bookingData
         }
-        console.log("sadads", data)
+        await this.props.sendBillStart(data)
     }
 
 
@@ -183,7 +183,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        sendBillStart: (data) => dispatch(actions.sendBillStart(data))
     };
 };
 

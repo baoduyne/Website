@@ -393,6 +393,7 @@ let sendBillToPatient = (email, pillPrice, note, bookingData) => {
             }
 
             else {
+                let data = {}
                 resolve({
                     errCode: 0,
                     errMessage: 'Save email completed!',

@@ -92,6 +92,11 @@ const getBookingService = (doctorId, time) => {
     return axios.get(`/api/get-booking-infor-for-doctor?doctorId=${doctorId}&time=${time}`,);
 }
 
+
+const sendBillToPatientService = (data) => {
+    return axios.post('/api/send-bill-to-patient', data);
+}
+
 export {
     handleLoginApi,
     getAllUsers,
@@ -108,5 +113,5 @@ export {
     getDoctorInforsService,
     createBookingService, verifyUserBookingAppoinmentService,
     createSpecialtyService, getAllSpecialtyService, getDetailSpecialtyService,
-    getDetailClinicService, getAllClinicService, createClinicService, getBookingService
+    getDetailClinicService, getAllClinicService, createClinicService, getBookingService, sendBillToPatientService
 }
