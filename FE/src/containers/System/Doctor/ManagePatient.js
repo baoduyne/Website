@@ -51,7 +51,7 @@ class ManagePatient extends Component {
         else if (this.props.userInfo.roleId === 'R2') {
             this.setState({
                 selectedDoctor: { value: this.props.userInfo.id, label: this.props.userInfo.id + ' - ' + this.props.userInfo.firstName + ' ' + this.props.userInfo.lastName }
-            })
+            }, async () => await this.props.getBookingStart(this.state.selectedDoctor.value, 'ALL'))
         }
 
     }
@@ -174,8 +174,6 @@ class ManagePatient extends Component {
     render() {
         let { selectedOption, allSchedules, allBooking, bookingList, supportBookingList, isShowSupportTable } = this.state;
         let { language } = this.props;
-        console.log('props 2', this.props)
-        console.log('state', this.state)
         return (
             <React.Fragment>
                 <div className='manage-patient-container'>

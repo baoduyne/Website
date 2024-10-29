@@ -59,8 +59,7 @@ class DoctorDetailTag extends Component {
 
     handleOnchangeProps = () => {
         if (this.props.selectDoctor.id && this.props.doctorId && this.props.doctorId === this.props.selectDoctor.id) {
-            console.log('check doctor', this.props.selectDoctor.lastName)
-            console.log('check hasolddata', this.state.hasOldData)
+
             let copySelectDoctor = { ...this.props.selectDoctor };
             if (copySelectDoctor && copySelectDoctor.avatar) {
                 copySelectDoctor.avatar = new Buffer(copySelectDoctor.avatar, 'base64').toString('binary');

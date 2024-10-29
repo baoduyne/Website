@@ -14,7 +14,7 @@ import { faCheck, faTrash, faPaperPlane } from '@fortawesome/free-solid-svg-icon
 import ReactDOM from 'react-dom';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
-
+import { NumericFormat } from 'react-number-format';
 // import Button from '@mui/material/Button';
 // import Pagination from '@mui/material/Pagination';
 // import Stack from '@mui/material/Stack';
@@ -31,12 +31,21 @@ class SendMailModal extends Component {
         }
     }
     componentDidMount = async () => {
+        if (this.props.patientData) {
+            this.setState({
+                email: this.props.bookingData.patientData.email
+            })
+        }
 
 
     }
 
     componentDidUpdate(prevProps, prevState) {
-
+        if (prevProps.bookingData !== this.props.bookingData && this.props.bookingData) {
+            this.setState({
+                email: this.props.bookingData.patientData.email
+            })
+        }
 
     }
 
@@ -64,13 +73,15 @@ class SendMailModal extends Component {
             email: this.state.email,
             pillPrice: this.state.pillPrice,
             note: this.state.note,
-            bookingData: this.props.bookingData
+            bookingData: this.props.bookingData,
+            language: this.props.language
         }
         await this.props.sendBillStart(data)
     }
 
 
     render() {
+
         return (
             <React.Fragment>
                 <Modal open={this.props.isOpenModal} onClose={this.props.onCloseModalFromParent} center>
@@ -88,7 +99,7 @@ class SendMailModal extends Component {
                                         <div className="content-right">
                                             <div class="form-group d-flex gap-3 justify-content-center flex-column">
                                                 <div class="form-group col-12">
-                                                    <label for="inputEmail4">Email</label>
+                                                    <label for="inputEmail4">Email bệnh nhân</label>
                                                     <input
                                                         className='form-control'
                                                         placeholder="Email"
@@ -125,14 +136,14 @@ class SendMailModal extends Component {
                                             <div class="form-group d-flex gap-3 justify-content-center flex-column">
                                                 <div class="form-group col-12">
                                                     <label for="inputEmail4">Thông tin bổ sung</label>
-                                                    <input
+                                                    <textarea
                                                         type="text"
                                                         class="form-control text-field-mail"
                                                         id="inputAddress"
                                                         placeholder=""
                                                         value={this.state.note}
                                                         onChange={(event) => this.handleOnchangeInput(event, 'note')}
-                                                    ></input>
+                                                    ></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,9 +157,9 @@ class SendMailModal extends Component {
                                         <div className="content-right">
                                             <div className='specialty-section-description margin-up'>
                                                 <p><strong>LƯU Ý</strong></p>
-                                                <p>Thông tin anh/chị cung cấp sẽ được sử dụng làm thông tin chuyên khoa, khi điền thông tin anh/chị vui lòng:</p>
+                                                <p>Thông tin anh/chị cung cấp sẽ được sử dụng để gửi hóa đơn cho bệnh nhân, khi điền thông tin anh/chị vui lòng:</p>
                                                 <ul>
-                                                    <li>Ghi rõ tên chuyên khoa, viết hoa chữ cái đầu tiên, ví dụ: <strong>Khoa sương khớp</strong></li>
+                                                    <li>Không thêm các ký tự theo giá của loại tiền tệ theo quốc tịch của bệnh nhân ví dụ : <strong>VNĐ hoặc $</strong></li>
                                                     <li>Điền đầy đủ, đúng và vui lòng kiểm tra lại thông tin trước khi ấn &quot;Xác nhận&quot;</li>
 
                                                 </ul>

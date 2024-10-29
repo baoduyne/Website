@@ -2,6 +2,7 @@ import { reject } from "bcrypt/promises";
 import db from "../models/index";
 require('dotenv').config();
 import _, { includes } from 'lodash';
+import { sendBillEmail } from "./emailService";
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
 let getTopDoctorHome = (limit) => {
@@ -381,10 +382,10 @@ let getBookingInforForDoctor = (doctorId, time) => {
     })
 }
 
-let sendBillToPatient = (email, pillPrice, note, bookingData) => {
+let sendBillToPatient = (email, pillPrice, note, bookingData, language) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!email || !pillPrice || !note || !bookingData) {
+            if (!email || !pillPrice || !note || !bookingData || !language) {
                 resolve(
                     {
                         errCode: -2,
@@ -394,11 +395,43 @@ let sendBillToPatient = (email, pillPrice, note, bookingData) => {
 
             else {
                 let data = {}
-                resolve({
-                    errCode: 0,
-                    errMessage: 'Save email completed!',
-                    data: data
+                let doctorData = await db.Doctor_infor.findOne({
+                    where: {
+                        doctorId: bookingData.doctorId
+                    },
+                    include: [
+                        { model: db.User, as: 'doctorInforData' },
+                        { model: db.Allcode, as: 'priceData' },
+                        { model: db.Allcode, as: 'proviceData' },
+                        { model: db.Allcode, as: 'paymentData' },
+                    ],
+                    exclude: ['avatar'],
+
                 })
+                if (doctorData) {
+                    await sendBillEmail(email, pillPrice, note, bookingData, doctorData, language)
+
+                    let booking = await db.Booking.findOne({
+                        where: { id: bookingData.id }
+                    })
+                    if (booking) {
+                        booking.set({
+                            statusId: 'S3'
+                        })
+                        booking.save()
+                    }
+                    await db.History.create({
+                        bookingId: bookingData.id,
+                        pillPrice: pillPrice,
+                        note: note
+                    })
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'Save email completed!',
+                        data: data
+                    })
+                }
+
             }
         }
 

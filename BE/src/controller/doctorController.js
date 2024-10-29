@@ -186,9 +186,10 @@ let sendBillToPatient = async (req, res) => {
     try {
         let email = req.body.email;
         let pillPrice = req.body.pillPrice;
-        let note = req.body.pillPrice;
+        let note = req.body.note;
         let bookingData = req.body.bookingData;
-        let response = await doctorService.sendBillToPatient(email, pillPrice, note, bookingData);
+        let language = req.body.language
+        let response = await doctorService.sendBillToPatient(email, pillPrice, note, bookingData, language);
 
         if (response) {
             res.status(200).json({
