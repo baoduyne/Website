@@ -27,46 +27,14 @@ let sendSimpleEmail = async (emailData) => {
         //     path: '../FE/src/assets/logo.png',
         //     cid: 'logo'
         // }],
-        html: createHTMLContent_test(emailData, emailData.language),
+        html: createHTMLContent(emailData, emailData.language),
     });
 }
 // style = "color : black ; display : flex ; flex-direction : column"
 //createHTMLContent(emailData, emailData.language)
-let createHTMLContent = (emailData, language) => {
-    if (language === 'vi')
-        return (`
-    <img
-    style= "margin:15px 0 ;color : black;width:178px"  
-    src = 'cid:logo'></img>
-    
-    <h1 style = "color : black" >Xin chào ${emailData.patientName}</h1> 
-    <p style = "color : black">Bạn nhận được email này vì đã đặt lịch khám bệnh online trên : <a href = 'https://github.com/baoduyne'>bookingcare.com</a> </p>
-    <p style = "color : black" >Thông tin đặt lịch khám bệnh: </p>
-    <p style = "display:float;color:black">Thời gian: ${emailData.date}</p>
-    <p style = "display:float;color:black">Bác sĩ đảm nhiệm: ${emailData.doctorName}</p>
-    <p style = "display:float;color:black" >Nếu thông tin này là thật xin vui lòng click vào đường link bên dưới để xác nhận và hoàn tất thủ tục khám bệnh</p>
-    <a style = "display:float" href = '${emailData.redirectLink}'>Xác nhận lịch hẹn</a>
-`)
-    else {
-        return (`<h1>Hello ${emailData.patientName}</h1> 
-        <p>You received this email as you have booked a schedule : <a href = 'https://github.com/baoduyne'>bookingcare.com</a> </p>
-        <p>booking informations: </p>
-        <p>Time: ${emailData.date}</p>
-        <p>Doctor: ${emailData.doctorName}</p>
-        <p>In case all the informations above are correct, please click the link below to confirm and redirect to complete booking form</p>
-        <div>
-        <a href = '${emailData.redirectLink}'>Confirm booking
-        </a>
-        </div>
-        <img 
-        style= "margin:50px 0"
-        src = 'cid:logo'></img>
-        
-    `)
-    }
-}
 
-let createHTMLContent_test = (emailData, language) => {
+
+let createHTMLContent = (emailData, language) => {
     if (language === 'vi') {
         return (
             `<body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
@@ -266,7 +234,36 @@ let createHTMLContent_test = (emailData, language) => {
 
 }
 
-{/* <img src = '../../../FE/src/assets/logo.png'>this is logo</img> */ }
+
+let sendBillEmail = async (emailData) => {
+
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false, // true for port 465, false for other ports
+        auth: {
+            user: process.env.EMAIL_APP,
+            pass: process.env.EMAIL_APP_PASSWORD,
+        },
+    });
+
+    // send mail with defined transport object
+    const info = await transporter.sendMail({
+        from: '"Đặt lịch khám bệnh" <bookingcare@gmail.com>', // sender address
+        to: emailData.receiverEmail, // list of receivers
+        subject: "Thông tin đặt lịch khám bệnh", // Subject line
+        // attachments: [{
+        //     filename: 'logo.png',
+        //     path: '../FE/src/assets/logo.png',
+        //     cid: 'logo'
+        // }],
+        html: createHTMLContent(emailData, emailData.language),
+    });
+}
+
+
+
+
 
 module.exports = {
     sendSimpleEmail

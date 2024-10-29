@@ -13,25 +13,24 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      parientId:{
-        type:Sequelize.INTEGER
+      bookingId: {
+        type: Sequelize.INTEGER
       },
-      doctorId:{
-        type:Sequelize.INTEGER
+      pillPrice: {
+        type: Sequelize.INTEGER
       },
-      description:{
-        type:Sequelize.TEXT
+      note: {
+        type: Sequelize.TEXT('LONG')
       },
       createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      file:{
-        type:Sequelize.TEXT
+        allowNull: true,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        allowNull: true,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE
       }
 
     });

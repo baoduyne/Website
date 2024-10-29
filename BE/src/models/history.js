@@ -10,17 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      History.belongsTo(models.Booking, { foreignKey: 'bookingId', targetKey: 'id', as: 'bookingData' })
     }
   }
   History.init({
-    patientId:DataTypes.INTEGER,
-    doctorId:DataTypes.INTEGER,
-    description: DataTypes.TEXT,
-    files: DataTypes.TEXT,
+    bookingId: DataTypes.INTEGER,
+    pillPrice: DataTypes.STRING,
+    note: DataTypes.TEXT('LONG'),
   }, {
     sequelize,
     modelName: 'History',
   });
+  History.sync();
   return History;
 };

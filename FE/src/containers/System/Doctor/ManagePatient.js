@@ -12,6 +12,9 @@ import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faTrash, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import SendMailModal from './SendMailModal';
 
 // import Button from '@mui/material/Button';
 // import Pagination from '@mui/material/Pagination';
@@ -29,10 +32,13 @@ class ManagePatient extends Component {
             currentDate: moment(new Date()).startOf('day').valueOf(),
 
             isShowSupportTable: false,
+            isOpenModal: false,
 
             allBooking: '',
             bookingList: '',
-            supportBookingList: ''
+            supportBookingList: '',
+
+            selectedBooking: '',
 
         }
     }
@@ -157,6 +163,13 @@ class ManagePatient extends Component {
         }
     }
 
+    onCloseModalFromParent = (event) => {
+        this.setState({
+            isOpenModal: !this.state.isOpenModal,
+            selectedBooking: event
+        })
+    }
+
 
     render() {
         let { selectedOption, allSchedules, allBooking, bookingList, supportBookingList, isShowSupportTable } = this.state;
@@ -244,13 +257,14 @@ class ManagePatient extends Component {
                                             <caption>List of patients</caption>
                                             <thead>
                                                 <tr>
-                                                    <th scope='col' className=" ">STT</th>
-                                                    <th scope='col' className=" ">Họ và Tên</th>
-                                                    <th scope='col' className=" ">Email</th>
-                                                    <th scope='col' className=" ">Số điện thoại</th>
-                                                    <th scope='col' className=" ">Địa chỉ</th>
-                                                    <th scope='col' className=" ">Thời gian khám</th>
-                                                    <th scope='col' className="set-width-note">Lý do khám</th>
+                                                    <th scope='col' className="set-width-note ele0">STT</th>
+                                                    <th scope='col' className="set-width-note ele1 ">Họ và Tên</th>
+                                                    <th scope='col' className="set-width-note ele2 ">Email</th>
+                                                    <th scope='col' className="set-width-note ele3 ">Số điện thoại</th>
+                                                    <th scope='col' className="set-width-note ele1 ">Địa chỉ</th>
+                                                    <th scope='col' className="set-width-note ele4 ">Thời gian khám</th>
+                                                    <th scope='col' className='set-width-note ele5'>Lý do khám</th>
+                                                    <th scope="col" className='set-width-note ele6'>Gửi hóa đơn</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -267,6 +281,15 @@ class ManagePatient extends Component {
                                                             <td>{item.patientData.address}</td>
                                                             <td>{item.timeData && item.timeData.valueVi && item.timeData.valueEn && this.props.language === LANGUAGES.VI ? formattedDateVi + " | " + item.timeData.valueVi : formattedDateEn + " | " + item.timeData.valueEn}</td>
                                                             <td>{item.note}</td>
+                                                            <td>
+                                                                <div className='table-group-btn'>
+                                                                    <button
+                                                                        onClick={() => this.onCloseModalFromParent(item)}
+                                                                        className='btn btn-primary'><FontAwesomeIcon icon={faPaperPlane} /></button>
+                                                                    <button className='btn btn-light'><FontAwesomeIcon icon={faTrash} /></button>
+                                                                </div>
+
+                                                            </td>
                                                         </tr>
                                                     )
                                                 }) : <div className='no-data-content'>No data...</div>}
@@ -279,15 +302,16 @@ class ManagePatient extends Component {
                                             <caption>List of patients</caption>
                                             <thead className='w-100'>
                                                 <tr className='adjust-table-row w-100'>
-                                                    <th scope="col ">STT</th>
-                                                    <th scope="col ">Họ tên người bảo hộ</th>
-                                                    <th scope="col ">Sdt người bảo hộ</th>
-                                                    <th scope="col ">Họ tên bệnh nhân</th>
-                                                    <th scope="col ">Năm sinh</th>
-                                                    <th scope="col ">Địa chỉ</th>
-                                                    <th scope="col ">Số điện thoại</th>
-                                                    <th scope="col ">Thời gian khám</th>
-                                                    <th scope="col " className="set-width-note">Lý do khám</th>
+                                                    <th scope="col " className='set-width-note-1 ele0'>STT</th>
+                                                    <th scope="col " className='set-width-note-1 ele1'>Tên người bảo hộ</th>
+                                                    <th scope="col " className='set-width-note-1 ele1'>Sdt người bảo hộ</th>
+                                                    <th scope="col " className='set-width-note-1 ele1'>Tên bệnh nhân</th>
+                                                    <th scope="col " className='set-width-note-1 ele2' >Năm sinh</th>
+                                                    {/* <th scope="col ">Địa chỉ</th> */}
+                                                    <th scope="col " className='set-width-note-1 ele3'>Số điện thoại</th>
+                                                    <th scope="col " className='set-width-note-1 ele4'>Thời gian khám</th>
+                                                    <th scope="col " className="set-width-note-1 ele5">Lý do khám</th>
+                                                    <th scope="col " className="set-width-note-1 ele6">Gửi hóa đơn</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -301,10 +325,23 @@ class ManagePatient extends Component {
                                                             <td>{item.patientData.phoneNumber}</td>
                                                             <td>{item.supportFirstName + ' ' + item.supportLastName}</td>
                                                             <td>{item.supportBirthDay}</td>
-                                                            <td>{item.patientData.address}</td>
-                                                            <td>{item.supportPhoneNumber}</td>
-                                                            <td>{item.timeData && item.timeData.valueVi && item.timeData.valueEn && this.props.language === LANGUAGES.VI ? formattedDateVi + " | " + item.timeData.valueVi : formattedDateEn + " | " + item.timeData.valueEn}</td>
+                                                            {/* <td>{item.patientData.address}</td> */}
+                                                            <td
+
+                                                            >{item.supportPhoneNumber}</td>
+                                                            <td
+
+                                                            >{item.timeData && item.timeData.valueVi && item.timeData.valueEn && this.props.language === LANGUAGES.VI ? formattedDateVi + " | " + item.timeData.valueVi : formattedDateEn + " | " + item.timeData.valueEn}</td>
                                                             <td class='set-width-note'>{item.note}</td>
+                                                            <td>
+                                                                <div className='table-group-btn table2'>
+                                                                    <button
+                                                                        onClick={() => this.onCloseModalFromParent(item)}
+                                                                        className='btn btn-primary'><FontAwesomeIcon icon={faPaperPlane} /></button>
+                                                                    <button className='btn btn-light'><FontAwesomeIcon icon={faTrash} /></button>
+                                                                </div>
+
+                                                            </td>
                                                         </tr>
                                                     )
                                                 })
@@ -332,6 +369,12 @@ class ManagePatient extends Component {
 
                     </div>
                 </div>
+                <SendMailModal
+                    onCloseModalFromParent={this.onCloseModalFromParent}
+                    isOpenModal={this.state.isOpenModal}
+                    bookingData={this.state.selectedBooking}
+                ></SendMailModal>
+
             </React.Fragment>
         );
     }

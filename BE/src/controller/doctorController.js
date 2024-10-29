@@ -182,6 +182,32 @@ let getBookingInforForDoctor = async (req, res) => {
         })
     }
 }
+let sendBillToPatient = async (req, res) => {
+    try {
+        let email = req.body.email;
+        let pillPrice = req.body.pillPrice;
+        let note = req.body.pillPrice;
+        let bookingData = req.body.bookingData;
+        let response = await doctorService.sendBillToPatient(email, pillPrice, note, bookingData);
+
+        if (response) {
+            res.status(200).json({
+                errCode: response.errCode,
+                errMessage: response.errMessage,
+                data: response.data
+            })
+        }
+
+    }
+
+    catch (e) {
+        res.status(200).json({
+            errCode: -1,
+            errMessage: 'Err from sever...'
+        })
+    }
+}
+
 
 
 module.exports = {
@@ -192,5 +218,6 @@ module.exports = {
     saveDoctorSchedules: saveDoctorSchedules,
     getDoctorSchedules: getDoctorSchedules,
     getDoctorInfors: getDoctorInfors,
-    getBookingInforForDoctor: getBookingInforForDoctor
+    getBookingInforForDoctor: getBookingInforForDoctor,
+    sendBillToPatient: sendBillToPatient
 }

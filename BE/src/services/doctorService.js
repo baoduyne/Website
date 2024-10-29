@@ -381,6 +381,36 @@ let getBookingInforForDoctor = (doctorId, time) => {
     })
 }
 
+let sendBillToPatient = (email, pillPrice, note, bookingData) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!email || !pillPrice || !note || !bookingData) {
+                resolve(
+                    {
+                        errCode: -2,
+                        errMessage: 'Missing parameter...'
+                    })
+            }
+
+            else {
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Save email completed!',
+                    data: data
+                })
+            }
+        }
+
+
+        catch (e) {
+            console.log(e);
+            reject(e);
+        }
+
+    })
+
+}
+
 
 module.exports = {
     getTopDoctorHome: getTopDoctorHome,
@@ -390,5 +420,6 @@ module.exports = {
     saveDoctorSchedules: saveDoctorSchedules,
     getDoctorSchedules: getDoctorSchedules,
     getDoctorInfors: getDoctorInfors,
-    getBookingInforForDoctor: getBookingInforForDoctor
+    getBookingInforForDoctor: getBookingInforForDoctor,
+    sendBillToPatient: sendBillToPatient
 }

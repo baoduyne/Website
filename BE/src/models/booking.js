@@ -12,8 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Booking.belongsTo(models.User, { foreignKey: 'patientId', as: 'patientData' })
       Booking.belongsTo(models.Allcode, { foreignKey: 'timeMap', targetKey: 'keyMap', as: 'timeData' })
+      Booking.hasMany(models.Doctor_infor, { foreignKey: 'doctorId', as: 'doctorData' })
+      Booking.hasMany(models.History, { foreignKey: 'bookingId', as: "bookingData" })
     }
   }
+
+
   Booking.init({
     statusId: DataTypes.STRING,
     doctorId: DataTypes.INTEGER,

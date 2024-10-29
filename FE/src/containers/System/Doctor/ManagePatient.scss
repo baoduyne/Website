@@ -52,7 +52,7 @@
 
         .horizon-line {
             width           : 100%;
-            height          : 2px;
+            height          : 1px;
             background-color: rgba(0, 0, 0, 0.1);
             border-radius   : 3px;
         }
@@ -150,17 +150,88 @@
 }
 
 .set-width-note {
-    width: 300px
+    font-size: 100%;
+
+
+    &.ele0 {
+        width: 50px;
+    }
+
+    &.ele1 {
+        width: 110px;
+    }
+
+    &.ele2 {
+        width: 170px;
+    }
+
+    &.ele3 {
+        width: 130px;
+    }
+
+    &.ele4 {
+        width: 150px;
+    }
+
+    &.ele5 {
+        width     : 273px;
+        text-align: center;
+    }
+
+    &.ele6 {
+        width: 87px;
+    }
 }
 
-.set-width-note-child {
-    overflow: auto;
+
+.set-width-note-1 {
+    // width    : 150px;
+    font-size: 92%;
+
+
+    &.ele0 {
+        width: 50px;
+    }
+
+    &.ele1 {
+        width: 104px;
+    }
+
+    &.ele2 {
+        width: 78px;
+    }
+
+    &.ele3 {
+        width: 90px;
+    }
+
+    &.ele4 {
+        width: 126px;
+    }
+
+    &.ele5 {
+        width     : 230px;
+        text-align: center;
+    }
+
+    &.ele6 {
+        width     : 87px;
+        text-align: center;
+    }
 }
 
-.adjust-table-row {
-    // height  : 80px;
-    // overflow: scroll;
+.table-group-btn {
+    width          : 100%;
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+
+    &.table2 {
+        justify-content: center;
+        gap            : 20px
+    }
 }
+
 
 table {
     min-height: 300px;

@@ -50,6 +50,8 @@ let initwebRoutes = (app) => {
     router.post('/api/create-clinic', clinicController.createClinic);
     router.get('/api/get-all-clinic', clinicController.getAllClinic);
     router.get('/api/get-detail-clinic', clinicController.getDetailClinic);
+    //history
+    router.post('/api/send-bill-to-patient', doctorController.sendBillToPatient);
     return app.use("/", router);
 }
 
