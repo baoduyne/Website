@@ -5,6 +5,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { TYPE } from '../../../utils';
 
 class MedicalFacility extends Component {
 
@@ -30,17 +31,21 @@ class MedicalFacility extends Component {
         this.props.history.push(`/clinic-detail/${Clinic.id}`)
     }
 
+    handleOnClickList = () => {
+        this.props.history.push(`/list/${TYPE.CLINIC}`)
+        //<Redirect to = {`/detail-doctor/${doctor.id}`}></Redirect>
+    }
+
     render() {
-        console.log('this props', this.props)
 
         return (
             <div className='section-container section-medical-facility'>
                 <div className='section-content'>
-
-
                     <div className="section-detail">
                         <span><FormattedMessage id='section.medicalFacility'></FormattedMessage></span>
-                        <button><FormattedMessage id="section.more"></FormattedMessage></button>
+                        <button
+                            onClick={() => this.handleOnClickList()}
+                        ><FormattedMessage id="section.more"></FormattedMessage></button>
                     </div>
                     {this.state.allClinic && this.state.allClinic.length > 0 &&
                         <Carousel
@@ -61,7 +66,6 @@ class MedicalFacility extends Component {
                             dotListClass="custom-dot-list-style"
                             itemClass="carousel-item-padding-40-px"
                         >
-
                             {this.state.allClinic && this.state.allClinic.length > 0 && this.state.allClinic.map(item => {
                                 let imageBase64 = new Buffer(item.image, 'base64').toString('binary');
 
@@ -79,7 +83,6 @@ class MedicalFacility extends Component {
                                 )
                             })}
                         </Carousel>
-
                     }
                 </div>
             </div>

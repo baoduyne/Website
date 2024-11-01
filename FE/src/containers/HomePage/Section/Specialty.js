@@ -5,6 +5,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { TYPE } from '../../../utils';
 class Specialty extends Component {
     constructor(props) {
         super(props);
@@ -27,6 +28,11 @@ class Specialty extends Component {
         this.props.history.push(`/specialty-detail/${specialty.id}`)
     }
 
+    handleOnClickList = () => {
+        this.props.history.push(`/list/${TYPE.SPECIALTY}`)
+        //<Redirect to = {`/detail-doctor/${doctor.id}`}></Redirect>
+    }
+
     render() {
         let { allSpecialty } = this.state;
 
@@ -37,7 +43,9 @@ class Specialty extends Component {
 
                     <div className="section-detail">
                         <span><FormattedMessage id="section.pupularSpecialty"></FormattedMessage></span>
-                        <button><FormattedMessage id='section.more'></FormattedMessage></button>
+                        <button
+                            onClick={() => this.handleOnClickList()}
+                        ><FormattedMessage id='section.more'></FormattedMessage></button>
                     </div>
                     {allSpecialty && allSpecialty.length > 0 &&
                         <Carousel

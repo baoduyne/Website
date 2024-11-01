@@ -8,7 +8,8 @@ export const path = {
     DETAIL_DOCTOR: '/detail-doctor/:id',
     VERIFY_APPOINMENT: '/verify-booking-appoinment',
     SPECIALTY: '/specialty-detail/:id',
-    CLINIC: '/clinic-detail/:id'
+    CLINIC: '/clinic-detail/:id',
+    LIST: "/list/:type"
 };
 
 export const LANGUAGES = {
@@ -45,6 +46,7 @@ export const ROLEID = {
 export const TYPE = {
     SPECIALTY: 'SPECIALTY',
     DOCTOR: 'DOCTOR',
+    CLINIC: 'CLINIC',
     ALL: 'ALL'
 }
 
@@ -56,3 +58,4 @@ export const STICKY_ELEMENT = {
     SECTION5: 'QUY TRÌNH ĐI KHÁM',
     SECTION6: 'ĐỘI NGŨ BÁC SĨ',
 }
+

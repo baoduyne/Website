@@ -34,6 +34,7 @@ class OutStandingDoctor extends Component {
     render() {
         let language = this.props.language;
         let { arrDoctor } = this.state;
+        console.log("top doctor", this.props.topDoctors)
         if (!arrDoctor) {
             this.componentDidMount();
         }
@@ -68,8 +69,8 @@ class OutStandingDoctor extends Component {
                                 let avatarUrl = '';
 
                                 if (item.avatar) { avatarUrl = new Buffer(item.avatar, 'base64').toString('binary'); }
-                                let nameVi = `${item.positionData.valueVi} ${item.firstName} ${item.lastName}`;
-                                let nameEn = `${item.positionData.valueEn} ${item.firstName} ${item.lastName}`;
+                                let nameVi = `${item.positionData.valueVi},  ${item.firstName} ${item.lastName}`;
+                                let nameEn = `${item.positionData.valueEn},  ${item.firstName} ${item.lastName}`;
 
                                 return (
                                     <div
@@ -79,6 +80,9 @@ class OutStandingDoctor extends Component {
                                         <div style={{ backgroundImage: `url(${avatarUrl})` }} className='section-image section-outstanding-doctor'></div>
                                         <div className='section-text section-outstanding-doctor'>
                                             {language === LANGUAGES.VI ? nameVi : nameEn}
+                                            <div className='section-text-description'>
+                                                chuyên khoa {item.doctorInforData.specialtyData.name}
+                                            </div>
 
                                         </div>
                                     </div>
