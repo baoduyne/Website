@@ -39,6 +39,14 @@ var getTopDoctorHome = function getTopDoctorHome(limit) {
                 model: _index["default"].Allcode,
                 as: "genderData",
                 attributes: ['valueEn', 'valueVi']
+              }, {
+                model: _index["default"].Doctor_infor,
+                as: "doctorInforData",
+                include: [{
+                  model: _index["default"].Specialty,
+                  as: "specialtyData",
+                  exclude: ['image']
+                }]
               }],
               raw: true,
               nest: true
