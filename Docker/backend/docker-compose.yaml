@@ -6,11 +6,12 @@ services:
     restart: always
     ports:
       - '3307:3306'
+    expose:
+      - 3306
     environment:
       - DATABASE_HOST=127.0.0.1
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=Duyngo123@
-      - POSTGRES_DB=my2
+      - MYSQL_ROOT_PASSWORD=Duyngo123@
+      - MYSQL_DATABASE=my2
   backend:
     build:
       context: ../../BE
