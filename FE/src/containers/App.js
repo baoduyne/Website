@@ -21,6 +21,7 @@ import VerifyEmail from './Patient/VerifyEmail/VerifyEmail.js';
 import DetailSpecialty from './Patient/Specialty/SpecialtyDetail.js';
 import ClinicDetail from './Patient/Clinic/ClinicDetail.js';
 import List from './Patient/List/List.js';
+import Policy from './Patient/About/Policy.js';
 
 class App extends Component {
 
@@ -62,6 +63,7 @@ class App extends Component {
                                     <Route path={path.SPECIALTY} component={DetailSpecialty}></Route>
                                     <Route path={path.CLINIC} component={ClinicDetail}></Route>
                                     <Route path={path.LIST} component={List}></Route>
+                                    <Route path={path.POLICY} component={Policy}></Route>
                                 </Switch>
                             </CustomScrollbars>
                         </span>

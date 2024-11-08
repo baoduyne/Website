@@ -35,6 +35,12 @@ class List extends Component {
             this.componentDidMount();
         }
 
+        if (this.props.match.params !== prevProps.match.params && this.props.match.params) {
+            this.setState({
+                type: this.props.match.params.type
+            })
+        }
+
         if (prevProps.allSpecialty !== this.props.allSpecialty && this.props.allSpecialty) {
             this.setState({
                 allSpecialty: this.props.allSpecialty

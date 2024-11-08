@@ -9,7 +9,8 @@ export const path = {
     VERIFY_APPOINMENT: '/verify-booking-appoinment',
     SPECIALTY: '/specialty-detail/:id',
     CLINIC: '/clinic-detail/:id',
-    LIST: "/list/:type"
+    LIST: "/list/:type",
+    POLICY: "/policy"
 };
 
 export const LANGUAGES = {
@@ -47,7 +48,9 @@ export const TYPE = {
     SPECIALTY: 'SPECIALTY',
     DOCTOR: 'DOCTOR',
     CLINIC: 'CLINIC',
-    ALL: 'ALL'
+    ALL: 'ALL',
+    SYSTEM: 'SYSTEM',
+    PATIENT: 'PATIENT'
 }
 
 export const STICKY_ELEMENT = {

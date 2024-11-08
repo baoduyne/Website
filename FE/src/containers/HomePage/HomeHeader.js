@@ -7,7 +7,8 @@ import { changeLanguageApp } from '../../store/actions/appActions';
 import { Redirect, withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
-
+import { TYPE } from '../../utils';
+import HomeDrawer from './HomeDrawer';
 class HomeHeader extends Component {
 
     constructor(props) {
@@ -31,6 +32,18 @@ class HomeHeader extends Component {
             drawerIsOpen: !this.state.drawerIsOpen
         })
     }
+
+    handleOnClickList = (type) => {
+        if (type === TYPE.CLINIC) {
+            this.props.history.push(`/list/${TYPE.CLINIC}`)
+        }
+        else if (type === TYPE.SPECIALTY) {
+            this.props.history.push(`/list/${TYPE.SPECIALTY}`)
+        }
+        //<Redirect to = {`/detail-doctor/${doctor.id}`}></Redirect>
+    }
+
+
     render() {
 
         return (
@@ -47,11 +60,15 @@ class HomeHeader extends Component {
                                 className="header-logo "></div>
                         </div>
                         <div className='center-content'>
-                            <div className='child-content'>
+                            <div
+                                onClick={() => this.handleOnClickList(TYPE.SPECIALTY)}
+                                className='child-content'>
                                 <div className='titles'><b><FormattedMessage id="home-header.speciality"></FormattedMessage></b></div>
                                 <div className='subs-title'><FormattedMessage id="home-header.searchdoctor"></FormattedMessage></div>
                             </div>
-                            <div className='child-content'>
+                            <div
+                                onClick={() => this.handleOnClickList(TYPE.CLINIC)}
+                                className='child-content'>
                                 <div className='titles'><b><FormattedMessage id="home-header.health-facility"></FormattedMessage></b></div>
                                 <div className='subs-title'><FormattedMessage id="home-header.select-room"></FormattedMessage></div>
                             </div>
@@ -109,14 +126,11 @@ class HomeHeader extends Component {
                     </div>
                 </div>}
 
-                <Drawer
-                    open={this.state.drawerIsOpen}
-                    onClose={() => this.handleOnClickDrawer()}
-                    direction='left'
-                    className='bla bla bla'
+                <HomeDrawer
+                    handleOnClickDrawer={this.handleOnClickDrawer}
+                    drawerIsOpen={this.state.drawerIsOpen}
                 >
-                    <div>Hello World</div>
-                </Drawer>
+                </HomeDrawer>
             </React.Fragment>
 
 
