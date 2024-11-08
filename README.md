@@ -29,12 +29,14 @@
 ## Cài đặt và sử dụng
 
 1. Clone project về máy
-  
 3. Cài đặt các dependencies cần thiết:
    ```
    npm install
    ```
 4. Tạo file .env và customize theo ý của bạn ( cấu trúc của file .env có trong .env-example...):
+5. Customize lại file docker-compose.yml trong file product
+6. Sử dụng docker để điều khiển và kiểm tra sever.
+7. (Optional : Tải DBeaver để quản lý Database và nhập DB port theo nội dung file docker-compose mà bạn đã cài đặt)
 
 ## Công nghệ sử dụng
 ### Front-end
