@@ -36,9 +36,6 @@
    ```
 4. Tạo file .env và customize theo ý của bạn ( cấu trúc của file .env có trong .env-example...):
 
-
-Tuyệt, tôi sẽ bổ sung thông tin về công nghệ sử dụng của dự án dựa trên các dependencies được liệt kê trong hai file `package.json` của frontend và backend.
-
 ## Công nghệ sử dụng
 ### Front-end
 - **Framework**: React.js v17.0.2
