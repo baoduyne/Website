@@ -1,4 +1,4 @@
-Tôi có thể giúp bạn viết một README file cho dự án GitHub của bạn. Dựa trên những công nghệ được sử dụng trong dự án, đây là một cấu trúc gợi ý cho README file:
+
 
 # Booking Medical Schedule Website
 
