@@ -37,9 +37,33 @@ Tôi có thể giúp bạn viết một README file cho dự án GitHub của b�
 4. Tạo file .env và customize theo ý của bạn ( cấu trúc của file .env có trong .env-example...):
 
 
-## Công nghệ sử dụng
-- Front-end: React.js v17.0.2
-- Back-end: Node.js v14.17.0
-- Framework: Express, Bootstrap
+Tuyệt, tôi sẽ bổ sung thông tin về công nghệ sử dụng của dự án dựa trên các dependencies được liệt kê trong hai file `package.json` của frontend và backend.
 
+## Công nghệ sử dụng
+### Front-end
+- **Framework**: React.js v17.0.2
+- **UI Library**: Chakra UI, Material UI
+- **Styling**: Styled Components
+- **Routing**: React Router v5.2.0
+- **State Management**: Redux, Redux Thunk
+- **HTTP Client**: Axios
+- **Internationalization**: React Intl
+- **Date/Time Handling**: Moment.js, React Datepicker
+- **Markdown Editor**: @uiw/react-markdown-editor
+- **Carousel**: React Multi Carousel
+- **Table/Filter**: React Bootstrap Table Next
+- **Image Lightbox**: React Image Lightbox
+- **Drawer**: React Modern Drawer
+- **Toast Notification**: React Toastify
+
+### Back-end
+- **Runtime**: Node.js
+- **Web Framework**: Express.js
+- **Database**: MySQL, Sequelize ORM
+- **Authentication**: bcrypt
+- **Email Sending**: Nodemailer
+- **Transpiler**: Babel
+- **Dev Server**: Nodemon
+
+Với các công nghệ được sử dụng ở cả frontend và backend, dự án này được xây dựng dựa trên kiến trúc fullstack, sử dụng React.js cho phía client và Node.js/Express.js cho phía server. Ngoài ra, có sử dụng các thư viện phổ biến như Redux, Axios, Moment.js, Sequelize... để hỗ trợ các tính năng như quản lý trạng thái, gọi API, xử lý thời gian, kết nối cơ sở dữ liệu.
 
