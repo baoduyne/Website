@@ -103,7 +103,13 @@ class HomeDrawer extends Component {
                                     <div className='drawer-section-child-description'>Liên hệ</div>
                                 </div>
 
+
                             </div>
+
+                            <div className='drawer-section'>
+                                <div className='drawer-section-title font-weight-light font-italic'>© 2024 BaoDuy, Inc.</div>
+                            </div>
+
 
 
                         </div>
