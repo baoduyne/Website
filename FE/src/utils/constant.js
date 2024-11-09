@@ -50,7 +50,8 @@ export const TYPE = {
     CLINIC: 'CLINIC',
     ALL: 'ALL',
     SYSTEM: 'SYSTEM',
-    PATIENT: 'PATIENT'
+    PATIENT: 'PATIENT',
+    POLICY: "POLICY"
 }
 
 export const STICKY_ELEMENT = {

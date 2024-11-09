@@ -24,8 +24,11 @@ class HomeDrawer extends Component {
         if (type === TYPE.DOCTOR) {
             this.props.history.push(`/doctor/manage-patient`)
         }
-        if (type === TYPE.PATIENT) {
+        else if (type === TYPE.PATIENT) {
             this.props.history.push(`/list/${TYPE.SPECIALTY}`)
+        }
+        else if (type === TYPE.POLICY) {
+            this.props.history.push(`/policy`)
         }
     }
 
@@ -71,23 +74,31 @@ class HomeDrawer extends Component {
                             <div className='drawer-section'>
                                 <div className='drawer-section-title'>Pháp lý</div>
 
-                                <div className='drawer-section-child'>
+                                <div
+                                    onClick={() => this.handleOnClickList(TYPE.POLICY)}
+                                    className='drawer-section-child'>
                                     <div className='drawer-section-child-icon'><FontAwesomeIcon icon={faCopyright} /></div>
                                     <div className='drawer-section-child-description'>Chính sách & bảo mật</div>
                                 </div>
 
-                                <div className='drawer-section-child'>
+                                <div
+                                    onClick={() => this.handleOnClickList(TYPE.POLICY)}
+                                    className='drawer-section-child'>
                                     <div className='drawer-section-child-icon'><FontAwesomeIcon icon={faBook} /></div>
                                     <div className='drawer-section-child-description'>Điều khoản sử dụng</div>
                                 </div>
 
-                                <div className='drawer-section-child'>
+                                <div
+                                    onClick={() => this.handleOnClickList(TYPE.POLICY)}
+                                    className='drawer-section-child'>
                                     <div className='drawer-section-child-icon'><FontAwesomeIcon icon={faComments} /></div>
                                     <div className='drawer-section-child-description'>Câu hỏi thường gặp</div>
                                 </div>
 
 
-                                <div className='drawer-section-child'>
+                                <div
+                                    onClick={() => this.handleOnClickList(TYPE.POLICY)}
+                                    className='drawer-section-child'>
                                     <div className='drawer-section-child-icon'><FontAwesomeIcon icon={faPhone} /></div>
                                     <div className='drawer-section-child-description'>Liên hệ</div>
                                 </div>
