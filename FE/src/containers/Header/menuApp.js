@@ -13,7 +13,7 @@ export const adminMenu = [
             },
 
             {
-                name: 'menu.doctor.patient', link: '/doctor/manage-patient'
+                name: 'menu.doctor.Send-bill', link: '/doctor/manage-patient'
             }
             // { name: 'menu.system.system-parameter.header', link: '/system/system-parameter' },
         ]
@@ -36,7 +36,11 @@ export const adminMenu = [
     },
     //cẩm nang
     {
-        name: "menu.admin.handbook", link: "system/user-manage",
+        name: "menu.admin.handbook",
+        menus: [
+            {
+                name: 'menu.admin.handbook', link: "/doctor/manage-handbook"
+            }]
     }
 ];
 
@@ -45,12 +49,13 @@ export const doctorMenu = [
         name: 'menu.doctor.manage-schedule',
         menus: [
             {
-
                 name: 'menu.doctor.schedule', link: '/doctor/manage-schedule',
-
             },
             {
                 name: 'menu.doctor.patient', link: '/doctor/manage-patient'
+            },
+            {
+                name: 'menu.admin.handbook', link: '/doctor/manage-handbook'
             }
         ]
     }

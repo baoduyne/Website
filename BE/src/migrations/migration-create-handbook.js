@@ -13,6 +13,14 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            title: {
+                allowNull: false,
+                type: Sequelize.TEXT
+            },
+            image: {
+                allowNull: false,
+                type: Sequelize.BLOB('LONG')
+            },
             contentMarkdown: {
                 allowNull: false,
                 type: Sequelize.TEXT('LONG')

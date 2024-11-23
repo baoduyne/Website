@@ -20,7 +20,8 @@ const initialState = {
     doctorInfors: [],
     allSpecialty: [],
     allClinic: [],
-    allBooking: []
+    allBooking: [],
+    allHandbook: [],
 }
 
 const appReducer = (state = initialState, action) => {
@@ -422,6 +423,43 @@ const appReducer = (state = initialState, action) => {
                 ...copyState
             }
         case actionTypes.SEND_BILL_FAIL:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+
+        case actionTypes.CREATE_CLINIC_START:
+            copyState = { ...state }
+            return {
+                ...state
+            }
+        case actionTypes.CREATE_CLINIC_SUCCESS:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+        case actionTypes.CREATE_CLINIC_FAIL:
+            copyState = { ...state }
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+
+        case actionTypes.GET_DATA_HANDBOOK_START:
+            copyState = { ...state }
+            return {
+                ...copyState
+            }
+        case actionTypes.GET_DATA_HANDBOOK_SUCCESS:
+            copyState = { ...state }
+            copyState.allHandbook = action.data
+            copyState.isLoading = false;
+            return {
+                ...copyState
+            }
+        case actionTypes.GET_DATA_HANDBOOK_FAIL:
             copyState = { ...state }
             copyState.isLoading = false;
             return {

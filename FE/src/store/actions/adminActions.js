@@ -6,7 +6,8 @@ import {
     saveSelectDoctorService, getSelectDoctorService,
     saveDoctorSchedulesService, getDoctorSchedulesService,
     getDoctorInforsService, createSpecialtyService, getAllSpecialtyService,
-    getDetailClinicService, getAllClinicService, createClinicService, getBookingService, sendBillToPatientService
+    getDetailClinicService, getAllClinicService, createClinicService, getBookingService, sendBillToPatientService,
+    createHandbookService, getDataHandbookService
 } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -907,5 +908,95 @@ export const sendBillFail = () => {
     toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
     return {
         type: actionTypes.SEND_BILL_FAIL
+    }
+}
+
+
+export const getDataHandbookStart = (type, id) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.GET_DATA_HANDBOOK_START })
+
+
+            let response = await getDataHandbookService(type, id);
+            console.log('res1', response)
+            if (response && response.errCode === 0) {
+                console.log('res2', response)
+                dispatch(getDataHandbookSuccess(response.data));
+            }
+            else {
+                dispatch(getDataHandbookFail());
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(getDataHandbookFail());
+        }
+    }
+
+}
+
+export const getDataHandbookSuccess = (data) => {
+
+    return {
+        type: actionTypes.GET_DATA_HANDBOOK_SUCCESS,
+        data: data
+    }
+}
+
+export const getDataHandbookFail = () => {
+    toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
+    return {
+        type: actionTypes.GET_DATA_HANDBOOK_FAIL
+    }
+}
+
+export const createHandbookStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.CREATE_HANDBOOK_START })
+            console.log('dt', data)
+            toast('Đang xử lý thông tin ...', {
+                position: "bottom-right",
+                autoClose: 2800,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+
+            let response = await createHandbookService(data);
+
+            if (response && response.errCode === 0) {
+                dispatch(createHandbookSuccess());
+            }
+            else {
+                dispatch(createHandbookFail());
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(createHandbookFail());
+        }
+    }
+
+}
+
+export const createHandbookSuccess = () => {
+    toast.success('Xử lý thông tin thành công!');
+
+    return {
+        type: actionTypes.CREATE_HANDBOOK_SUCCESS,
+    }
+}
+
+export const createHandbookFail = () => {
+    toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
+    return {
+        type: actionTypes.CREATE_HANDBOOK_FAIL
+
     }
 }

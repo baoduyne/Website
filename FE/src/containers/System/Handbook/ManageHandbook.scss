@@ -1,0 +1,177 @@
+.manage-handbook-container {
+    width        : 100%;
+    padding      : 0 20%;
+    margin-top   : 2%;
+    margin-bottom: 10%;
+
+    .manage-handbook-content {
+        border        : 1px solid rgba(0, 0, 0, 0.2);
+        width         : 100%;
+        height        : 100%;
+        display       : flex;
+        flex-direction: column;
+
+        .Handbook-logo {
+            width     : 100%;
+            height    : 3%;
+            margin-top: 20px;
+
+            .logo {
+                width                : 28%;
+                height               : 30px;
+                background-image     : url('../../../assets/logo.png');
+                background-size      : contain;
+                background-repeat    : no-repeat;
+                background-position-x: center;
+                cursor               : pointer;
+                margin-left          : auto;
+                margin-right         : auto;
+            }
+        }
+
+        .title-container {
+            width         : 100%;
+            height        : 5%;
+            display       : flex;
+            flex-direction: column;
+            align-items   : center;
+            margin        : 19px 0;
+
+            .Handbook-title {
+                height     : 50%;
+                font-size  : 120%;
+                font-weight: 600;
+            }
+
+            .Handbook-description {
+                height    : 50%;
+                opacity   : 0.6;
+                margin-top: 10px;
+            }
+        }
+
+        .horizon-line {
+            width           : 100%;
+            height          : 1px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius   : 3px;
+        }
+
+        .Handbook-form {
+            width         : 100%;
+            height        : 80%;
+            display       : flex;
+            flex-direction: column;
+            gap           : 25px;
+            padding       : 0 35px;
+
+            .Handbook-section-container {
+                width     : 100%;
+                margin-top: 30px;
+
+                .section-content {
+                    display        : flex;
+                    flex-direction : row;
+                    width          : 100%;
+                    margin-top     : 15px;
+                    justify-content: center;
+
+                    .content-left {
+                        width      : 30%;
+                        height     : 100%;
+                        font-weight: 600;
+                    }
+
+                    .content-right {
+                        width : 70%;
+                        height: 100%;
+
+                    }
+                }
+            }
+        }
+
+        .Clinic-section-description {
+            width        : 100%;
+            background   : #D4EFFC;
+            margin-bottom: 10px;
+            padding      : 10px;
+            border-radius: 3px;
+            margin-bottom: 15px;
+        }
+
+        .button-submit {
+            background-color: #FFC419;
+            color           : white;
+            border          : none;
+            outline         : none;
+            height          : 40px;
+            border-radius   : 5px;
+            font-size       : 120%;
+            margin-bottom   : 30px;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+
+        .button-edit {
+            border       : none;
+            outline      : none;
+            height       : 40px;
+            border-radius: 5px;
+            font-size    : 120%;
+            margin-bottom: 30px;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+
+        .Handbook-section-description {
+            width        : 100%;
+            background   : #D4EFFC;
+            margin-bottom: 10px;
+            padding      : 10px;
+            border-radius: 3px;
+            margin-bottom: 15px;
+        }
+
+        .image-content {
+            display        : flex;
+            flex-direction : row;
+            width          : 100%;
+            height         : 168px;
+            justify-content: left;
+            gap            : 30px;
+
+            .image-group-button {
+                width          : 50%;
+                height         : 100%;
+                display        : flex;
+                flex-direction : column;
+                justify-content: center;
+                gap            : 10px;
+
+                .preview-button {
+                    width : 180px;
+                    height: 33px;
+                }
+            }
+
+
+
+            .preview-box {
+                width              : 30%;
+                height             : 100%;
+                border             : 1px solid rgba(0, 0, 0, 0.2);
+                background-repeat  : no-repeat;
+                background-size    : cover;
+                background-position: center;
+                border-radius      : 0px;
+                margin-bottom      : 10px;
+            }
+        }
+
+    }
+}

@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
     Handbook.init({
+        title: DataTypes.TEXT,
+        image: DataTypes.BLOB('LONG'),
         contentMarkdown: DataTypes.TEXT('LONG'),
         contentHTML: DataTypes.TEXT('LONG'),
         specialtyId: DataTypes.INTEGER,

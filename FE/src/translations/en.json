@@ -87,7 +87,8 @@
             "Choose-doctor": "Choose doctor",
             "Choose-day": "Choose day",
             "Choose-schedule": "Choose schedule",
-            "Save-informations": "Save informations"
+            "Save-informations": "Save informations",
+            "Send-bill": "Send bill"
         }
     },
     "patient": {

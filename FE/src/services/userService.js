@@ -97,6 +97,14 @@ const sendBillToPatientService = (data) => {
     return axios.post('/api/send-bill-to-patient', data);
 }
 
+const getDataHandbookService = (type, id) => {
+    return axios.get(`/api/get-data-handbook?type=${type}&id=${id}`,);
+}
+
+const createHandbookService = (data) => {
+    return axios.post(`/api/create-handbook`, data);
+}
+
 export {
     handleLoginApi,
     getAllUsers,
@@ -113,5 +121,6 @@ export {
     getDoctorInforsService,
     createBookingService, verifyUserBookingAppoinmentService,
     createSpecialtyService, getAllSpecialtyService, getDetailSpecialtyService,
-    getDetailClinicService, getAllClinicService, createClinicService, getBookingService, sendBillToPatientService
+    getDetailClinicService, getAllClinicService, createClinicService, getBookingService, sendBillToPatientService,
+    getDataHandbookService, createHandbookService
 }

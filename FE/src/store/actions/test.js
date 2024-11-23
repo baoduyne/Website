@@ -1,16 +1,16 @@
-case actionTypes.SEND_BILL_START:
+case actionTypes.GET_HANDBOOK_START:
 copyState = { ...state }
 return {
     ...copyState
 }
-case actionTypes.SEND_BILL_SUCCESS:
+case actionTypes.GET_HANDBOOK_SUCCESS:
 copyState = { ...state }
-
+copyState.allHandbook = action.data
 copyState.isLoading = false;
 return {
     ...copyState
 }
-case actionTypes.SEND_BILL_FAIL:
+case actionTypes.GET_HANDBOOK_FAIL:
 copyState = { ...state }
 copyState.isLoading = false;
 return {

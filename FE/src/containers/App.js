@@ -64,6 +64,7 @@ class App extends Component {
                                     <Route path={path.CLINIC} component={ClinicDetail}></Route>
                                     <Route path={path.LIST} component={List}></Route>
                                     <Route path={path.POLICY} component={Policy}></Route>
+
                                 </Switch>
                             </CustomScrollbars>
                         </span>

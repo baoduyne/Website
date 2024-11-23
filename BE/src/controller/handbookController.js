@@ -5,7 +5,8 @@ let createHandbook = async (req, res) => {
         let response = await handbookService.createHandbook(data);
         if (response) {
             return res.status(200).json({
-                response
+                errCode: response.errCode,
+                errMessage: response.errMessage,
             })
         }
         else {
@@ -28,13 +29,15 @@ let createHandbook = async (req, res) => {
 
 let getDataHandbook = async (req, res) => {
     try {
-        console.log(req.query)
+
         let type = req.query.type;
         let id = req.query.id;
         let response = await handbookService.getDataHandbook(type, id);
         if (response) {
             return res.status(200).json({
-                response
+                errCode: response.errCode,
+                errMessage: response.errMessage,
+                data: response.data
             })
         }
         else {

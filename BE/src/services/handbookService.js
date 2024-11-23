@@ -3,7 +3,7 @@ import db from "../models/index";
 let createHandbook = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.contentMarkdown || !data.contentHTML || !data.specialtyId) {
+            if (!data.title || !data.image || !data.contentMarkdown || !data.contentHTML || !data.specialtyId) {
                 resolve({
                     errCode: -1,
                     errMessage: "Missing parameter!"
@@ -11,12 +11,29 @@ let createHandbook = async (data) => {
             }
             else {
 
-                let handbook = await db.Handbook.create({
-                    contentMarkdown: data.contentMarkdown,
-                    contentHTML: data.contentHTML,
-                    specialtyId: data.specialtyId
+                let handbook;
+                if (data.action = 'CREATE') {
+                    handbook = await db.Handbook.create({
+                        title: data.title,
+                        image: data.image,
+                        contentMarkdown: data.contentMarkdown,
+                        contentHTML: data.contentHTML,
+                        specialtyId: data.specialtyId
+                    })
                 }
-                )
+                else {
+                    handbook = await db.Handbook.findOne({ where: { id: data.id } })
+                    if (handbook) {
+                        handbook.title = data.title;
+                        handbook.image = data.image;
+                        handbook.contentMarkdown = data.contentMarkdown;
+                        handbook.contentHTML = data.contentHTML;
+                        handbook.specialtyId = data.specialtyId;
+
+                        await handbook.save();
+                    }
+                }
+
                 if (handbook) {
                     resolve({
                         errCode: 0,
@@ -58,7 +75,7 @@ let getDataHandbook = async (type, id) => {
                     })
                 }
                 if (data) {
-                    console.log(data)
+
                     resolve({
                         errCode: 0,
                         errMessage: "get handbook data complete!",

@@ -87,7 +87,8 @@
             "Choose-doctor": "Chọn bác sĩ",
             "Choose-day": "Chọn ngày",
             "Choose-schedule": "Chọn lịch khám",
-            "Save-informations": "Lưu thông tin"
+            "Save-informations": "Lưu thông tin",
+            "Send-bill": "Gửi hóa đơn"
         }
     },
     "patient": {
