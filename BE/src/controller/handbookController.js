@@ -2,6 +2,7 @@ import handbookService from '../services/handbookService'
 let createHandbook = async (req, res) => {
     try {
         let data = req.body;
+
         let response = await handbookService.createHandbook(data);
         if (response) {
             return res.status(200).json({

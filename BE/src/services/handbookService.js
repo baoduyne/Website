@@ -12,7 +12,7 @@ let createHandbook = async (data) => {
             else {
 
                 let handbook;
-                if (data.action = 'CREATE') {
+                if (data.action === 'CREATE') {
                     handbook = await db.Handbook.create({
                         title: data.title,
                         image: data.image,
@@ -22,7 +22,11 @@ let createHandbook = async (data) => {
                     })
                 }
                 else {
-                    handbook = await db.Handbook.findOne({ where: { id: data.id } })
+                    handbook = await db.Handbook.findOne({
+                        where: { id: data.id },
+
+                        raw: false
+                    })
                     if (handbook) {
                         handbook.title = data.title;
                         handbook.image = data.image;

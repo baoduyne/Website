@@ -955,7 +955,7 @@ export const createHandbookStart = (data) => {
     return async (dispatch, getState) => {
         try {
             dispatch({ type: actionTypes.CREATE_HANDBOOK_START })
-            console.log('dt', data)
+
             toast('Đang xử lý thông tin ...', {
                 position: "bottom-right",
                 autoClose: 2800,

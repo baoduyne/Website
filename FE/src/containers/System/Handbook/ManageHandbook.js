@@ -114,18 +114,24 @@ class ManageHandbook extends Component {
 
         }
         if (Handbook) {
-            console.log('check hand', Handbook)
+
             let imageBase64Avatar = new Buffer(Handbook.image, 'base64').toString('binary');
-            let specialtySelected = this.state.specialtyOptions.map(item => {
+            let selected = '';
+            this.state.specialtyOptions.map(item => {
                 if (item.value === Handbook.specialtyId) {
-                    return item
+                    selected = item
                 }
             })
+            let specialtySelected = selected;
+
+
+
+            console.log('test img', imageBase64Avatar)
             this.setState({
                 title: Handbook.title,
 
                 image: imageBase64Avatar,
-                objectImageUrl: imageBase64Avatar,
+                objectImageURL: imageBase64Avatar,
                 specialtySelected: specialtySelected,
                 contentMarkdown: Handbook.contentMarkdown,
                 contentHTML: Handbook.contentHTML,
@@ -139,7 +145,7 @@ class ManageHandbook extends Component {
                 title: '',
 
                 image: '',
-                objectImageUrl: '',
+                objectImageURL: '',
                 specialtySelected: '',
                 contentMarkdown: '',
                 contentHTML: '',
@@ -220,10 +226,12 @@ class ManageHandbook extends Component {
                 contentMarkdown: this.state.contentMarkdown,
                 action: this.state.hasOldData === true ? ACTIONS.EDIT : ACTIONS.CREATE
             }
+            console.log('test data', data);
             await this.props.createHandbookStart(data);
 
             this.setState({
-                handbookSelected: this.state.handbookOptions[size() - 1],
+                handbookSelected: '',
+                specialtySelected: '',
                 title: '',
 
                 image: '',
@@ -303,7 +311,7 @@ class ManageHandbook extends Component {
                                                     type="text"
                                                     class="form-control"
                                                     id="inputName"
-                                                    placeholder="Tên phòng khám"
+                                                    placeholder="Tên cẩm nang"
                                                     value={this.state.title}
                                                     onChange={(event) => this.handleOnchangeInput(event, 'title')}
                                                 ></input>
