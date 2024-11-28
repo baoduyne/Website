@@ -226,7 +226,7 @@ class ManageHandbook extends Component {
                 contentMarkdown: this.state.contentMarkdown,
                 action: this.state.hasOldData === true ? ACTIONS.EDIT : ACTIONS.CREATE
             }
-            console.log('test data', data);
+
             await this.props.createHandbookStart(data);
 
             this.setState({

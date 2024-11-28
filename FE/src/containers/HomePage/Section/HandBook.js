@@ -3,9 +3,35 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { getDataHandbookStart } from '../../../store/actions/adminActions';
+
+import * as actions from '../../../store/actions';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { TYPE } from '../../../utils';
 class HandBook extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            allHandbook: ''
+        }
+    }
+
+    componentDidMount = async () => {
+        await this.props.getDataHandbookStart(TYPE.ALL, -1);
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if (this.props.allHandbook !== prevProps.allHandbook && this.props.allHandbook) {
+            this.setState({ allHandbook: this.props.allHandbook })
+        }
+    }
+    handleOnClickHandbook = (id) => {
+        this.props.history.push(`/handbook-detail/${id}`)
+    }
 
     render() {
+        console.log('all handbook', this.state.allHandbook)
+        let { allHandbook } = this.state;
         return (
 
             <div className='section-container section-hand-book'>
@@ -14,35 +40,43 @@ class HandBook extends Component {
                         <span>Cẩm nang</span>
                         <button>Xem thêm</button>
                     </div>
-                    <Carousel
-                        swipeable={false}
-                        draggable={false}
-                        showDots={false}
-                        responsive={this.props.responsive}
-                        ssr={true} // means to render carousel on server-side.   
-                        infinite={false}
-                        autoPlay={false}
-                        autoPlaySpeed={1000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={[]}
-                        deviceType={this.props.deviceType}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                    >
-                        <div className='section-items section-hand-book'><div className='section-image section-hand-book'></div><div className='section-text section-hand-book'>This text is styled with some of the text formatting properties. The heading uses the text-align, text-transform, and color properties. The paragraph is indented, aligned, and the space between characters is specified. The underline is removed from this colored "Try it Yourself" link.</div></div>
-                        <div className='section-items section-hand-book'><div className='section-image section-hand-book'></div><div className='section-text section-hand-book'>Khoa xương khớp2</div></div>
-                        <div className='section-items section-hand-book'><div className='section-image section-hand-book'></div><div className='section-text section-hand-book'>Khoa xương khớp3</div></div>
-                        <div className='section-items section-hand-book'><div className='section-image section-hand-book'></div><div className='section-text section-hand-book'>Khoa xương khớp4</div></div>
-                        <div className='section-items section-hand-book'><div className='section-image section-hand-book'></div><div className='section-text section-hand-book'>Khoa xương khớp5</div></div>
-                        <div className='section-items section-hand-book'><div className='section-image section-hand-book'></div><div className='section-text section-hand-book'>Khoa xương khớp6</div></div>
-                        <div className='section-items section-hand-book'><div className='section-image section-hand-book'></div><div className='section-text section-hand-book'>Khoa xương khớp7</div></div>
-                        <div className='section-items section-hand-book'><div className='section-image section-hand-book'></div><div className='section-text section-hand-book'>Khoa xương khớp8</div></div>
-                        <div className='section-items section-hand-book'><div className='section-image section-hand-book'></div><div className='section-text section-hand-book'>Khoa xương khớp9</div></div>
-                        <div className='section-items section-hand-book'><div className='section-image section-hand-book'></div><div className='section-text section-hand-book'>Khoa xương khớp10</div></div>
-                    </Carousel>
+                    {allHandbook && allHandbook.length > 1 &&
+                        <Carousel
+                            swipeable={false}
+                            draggable={false}
+                            showDots={false}
+                            responsive={this.props.responsive}
+                            ssr={true} // means to render carousel on server-side.   
+                            infinite={false}
+                            autoPlay={false}
+                            autoPlaySpeed={1000}
+                            keyBoardControl={true}
+                            customTransition="all .5"
+                            transitionDuration={500}
+                            containerClass="carousel-container"
+                            removeArrowOnDeviceType={[]}
+                            deviceType={this.props.deviceType}
+                            dotListClass="custom-dot-list-style"
+                            itemClass="carousel-item-padding-40-px"
+
+                        >
+                            {allHandbook && allHandbook.length > 1 && allHandbook.map(item => {
+                                let imgBase64 = new Buffer(item.image, 'base64').toString('binary');
+                                return (
+                                    <div
+                                        onClick={() => this.handleOnClickHandbook((item.id))}
+                                        className='section-items section-hand-book'>
+                                        <div className='section-image section-hand-book ' style={{ backgroundImage: `url(${imgBase64})` }}></div>
+                                        <div className='section-text section-hand-book'>{item.title}
+                                        </div>
+                                    </div>
+                                )
+                            })
+                            }
+
+
+
+                        </Carousel>}
                 </div>
             </div>
         );
@@ -53,12 +87,14 @@ class HandBook extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
+        allHandbook: state.admin.allHandbook
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getDataHandbookStart: (type, id) => dispatch(actions.getDataHandbookStart(type, id))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HandBook);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HandBook));

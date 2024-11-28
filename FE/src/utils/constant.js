@@ -9,6 +9,7 @@ export const path = {
     VERIFY_APPOINMENT: '/verify-booking-appoinment',
     SPECIALTY: '/specialty-detail/:id',
     CLINIC: '/clinic-detail/:id',
+    HANDBOOK: '/handbook-detail/:id',
     LIST: "/list/:type",
     POLICY: "/policy"
 };

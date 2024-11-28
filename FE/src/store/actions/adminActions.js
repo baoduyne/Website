@@ -919,9 +919,9 @@ export const getDataHandbookStart = (type, id) => {
 
 
             let response = await getDataHandbookService(type, id);
-            console.log('res1', response)
+
             if (response && response.errCode === 0) {
-                console.log('res2', response)
+
                 dispatch(getDataHandbookSuccess(response.data));
             }
             else {

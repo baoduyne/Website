@@ -73,7 +73,10 @@ class List extends Component {
 
     }
 
-    handleOnClickSpecialty = (clinic) => {
+    handleOnClickSpecialty = (specialty) => {
+        this.props.history.push(`/specialty-detail/${specialty.id}`)
+    }
+    handleOnClickClinic = (clinic) => {
         this.props.history.push(`/clinic-detail/${clinic.id}`)
     }
 
@@ -94,7 +97,7 @@ class List extends Component {
                             let base64Image = new Buffer(item.image, 'base64').toString('binary');
                             return (
                                 <div
-                                    onClick={() => this.handleOnClickSpecialty(item)}
+                                    onClick={() => this.handleOnClickClinic(item)}
                                     className='list-specialty-child list-specialty-child-clinic'  >
                                     <div className='list-specialty-content '>
                                         <div

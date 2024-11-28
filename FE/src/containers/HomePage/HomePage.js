@@ -31,7 +31,7 @@ class HomePage extends Component {
         const responsiveHandBook = {
             desktop: {
                 breakpoint: { max: 3000, min: 1024 },
-                items: 2,
+                items: 3,
                 slidesToSlide: 1 // optional, default to 1.
             },
             tablet: {
@@ -47,11 +47,11 @@ class HomePage extends Component {
         };
         return (
             <div>
-                <HomeHeader isShowBanner = {true}></HomeHeader>
-                <Specialty responsive = {responsive}></Specialty>
-                <MedicalFacility responsive = {responsive}></MedicalFacility>
-                <OutStandingDoctor responsive = {responsive}></OutStandingDoctor>
-                <HandBook responsive = {responsiveHandBook}></HandBook>
+                <HomeHeader isShowBanner={true}></HomeHeader>
+                <Specialty responsive={responsive}></Specialty>
+                <MedicalFacility responsive={responsive}></MedicalFacility>
+                <OutStandingDoctor responsive={responsive}></OutStandingDoctor>
+                <HandBook responsive={responsiveHandBook}></HandBook>
                 <About></About>
                 <HomeFooter></HomeFooter>
             </div>
