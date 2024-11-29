@@ -35,6 +35,10 @@ module.exports = function (sequelize, DataTypes) {
           foreignKey: 'specialtyId',
           as: 'specialtyData'
         });
+        Specialty.hasMany(models.Handbook, {
+          foreignKey: 'specialtyId',
+          as: 'specialtyData2'
+        });
       }
     }]);
   }(Model);
