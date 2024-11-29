@@ -66,4 +66,3 @@
 
 Với các công nghệ được sử dụng ở cả frontend và backend, dự án này được xây dựng dựa trên kiến trúc fullstack, sử dụng React.js cho phía client và Node.js/Express.js cho phía server. Ngoài ra, có sử dụng các thư viện phổ biến như Redux, Axios, Moment.js, Sequelize... để hỗ trợ các tính năng như quản lý trạng thái, gọi API, xử lý thời gian, kết nối cơ sở dữ liệu.
 
-p/s: Tính năng cẩm nang (handbooking) đang trong quá trình phát triển,...
