@@ -1,5 +1,3 @@
-I'll translate the README.md file from Vietnamese to English:
-
 # Booking Medical Schedule Website
 
 ## Introduction
@@ -63,5 +61,3 @@ This is a project to create a website for booking doctor appointments. The websi
 - **Dev Server**: Nodemon
 
 With the technologies used on both frontend and backend, this project is built on a full-stack architecture, using React.js for the client-side and Node.js/Express.js for the server-side. Additionally, popular libraries like Redux, Axios, Moment.js, Sequelize... are used to support features such as state management, API calls, time processing, and database connection.
-
-P.S.: The handbook feature is currently under development...
