@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { getDataHandbookStart } from '../../../store/actions/adminActions';
-
 import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { TYPE } from '../../../utils';
@@ -30,7 +29,7 @@ class HandBook extends Component {
     }
 
     render() {
-        console.log('all handbook', this.state.allHandbook)
+
         let { allHandbook } = this.state;
         return (
 

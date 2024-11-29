@@ -75,7 +75,8 @@ let getDataHandbook = async (type, id) => {
                 }
                 else {
                     data = await db.Handbook.findOne({
-                        where: { id: id }
+                        where: { id: id },
+                        include: { model: db.Specialty, as: 'SpecialtyData2' },
                     })
                 }
                 if (data) {

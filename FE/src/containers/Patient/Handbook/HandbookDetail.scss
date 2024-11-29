@@ -1,0 +1,156 @@
+.handbook-banner-container {
+    width                : 100%;
+    height               : 220px;
+    padding              : 5% 15%;
+    background-image     : url('../../../assets/header-background.jpg');
+    background-position-y: 15%;
+    background-position-x: 75%;
+    opacity              : 0.5;
+    position             : absolute;
+
+
+}
+
+.handbook-banner-outline {
+    width           : 100%;
+    height          : 220px;
+    position        : absolute;
+    background-color: rgba(22, 24, 35, 0.3);
+    aspect-ratio    : 2.5 / 1;
+}
+
+.handbook-banner-content {
+    display       : flex;
+    flex-direction: column;
+    width         : 100%;
+    height        : 100%;
+    position      : absolute;
+    left          : 0;
+    top           : 150px;
+    color         : white;
+
+    .handbook-banner-text1 {
+        width     : 100%;
+        text-align: center;
+        font-size : 120%;
+
+    }
+
+    .handbook-banner-text2 {
+        width      : 100%;
+        text-align : center;
+        font-size  : 210%;
+        font-weight: 600;
+    }
+}
+
+.handbook-container {
+    width     : 100%;
+    padding   : 0 12%;
+    position  : relative;
+    margin-top: 240px;
+    height    : 100%;
+
+    .handbook-content {
+
+
+        .content-section1-container {
+            .content-section1-content {
+                display       : flex;
+                flex-direction: row;
+                height        : 100%;
+
+                .section1-content-left {
+                    width         : 65%;
+                    display       : flex;
+                    flex-direction: column;
+
+                    .section1-image {
+                        width            : 100%;
+                        height           : 390px;
+                        background-size  : contain;
+                        background-repeat: no-repeat;
+                    }
+
+                    .section1-handbook {
+                        width    : 100%;
+                        font-size: 110%;
+
+                        img {
+                            width: 100%;
+                        }
+
+                    }
+                }
+
+                .section1-content-right {
+                    width      : 35%;
+                    padding    : 1% 1%;
+                    margin-left: 30px;
+                    height     : 3000px;
+                    height     : auto;
+
+                    .main-schedule {
+                        width          : 100%;
+                        height         : 450px;
+                        display        : flex;
+                        flex-direction : column;
+                        justify-content: space-between;
+                        position       : sticky;
+                        box-shadow     : rgba(149, 157, 165, 0.2) 0px 8px 24px;
+                        padding        : 20px;
+                        top            : 0;
+
+                        .main-schedule-title {
+                            width : 100%;
+                            height: 45px;
+
+
+                            .main-schedule-text {
+                                font-size  : 130%;
+                                font-weight: 600;
+                            }
+
+                            .main-schedule-dotline {
+                                width           : 60%;
+                                height          : 5px;
+                                background-color: rgb(255, 194, 14);
+                            }
+                        }
+
+                        .main-schedule-content {
+                            width   : 100%;
+                            height  : 65%;
+                            overflow: auto;
+
+                        }
+
+                        .main-scheule-submit {
+                            width : 100%;
+                            height: 60px;
+
+
+                            .main-schedule-button {
+                                width           : 100%;
+                                height          : 100%;
+                                background-color: rgb(255, 194, 14);
+                                color           : white;
+                                border-radius   : 5px;
+                                text-align      : center;
+                                padding-top     : 13px;
+                                font-size       : 150%;
+                                font-weight     : 600;
+                                margin-top      : 10px;
+                                cursor          : pointer;
+
+                                &:hover {
+                                    opacity: 0.7;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

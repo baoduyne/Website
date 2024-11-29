@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     class Handbook extends Model {
 
         static associate(models) {
-            Handbook.belongsTo(models.Specialty, { foreignKey: 'specialtyId', targetKey: 'id', as: 'SecialtyData2' })
+            Handbook.belongsTo(models.Specialty, { foreignKey: 'specialtyId', targetKey: 'id', as: 'SpecialtyData2' })
         }
     }
     Handbook.init({
