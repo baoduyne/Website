@@ -22,17 +22,6 @@ This is a project to create a website for booking doctor appointments. The websi
   - **Doctor Management (Admin Account)**: Administrators can add, edit, delete doctor information, and assign account permissions.
   - **Doctor Management (Hospital Account)**: Hospitals can manage the list of doctors working at the hospital, update information and work schedules.
 
-## Installation and Usage
-
-1. Clone the project to your machine
-2. Install necessary dependencies:
-   ```
-   npm install
-   ```
-3. Create a .env file and customize it according to your needs (the .env file structure is in .env-example...)
-4. Customize the docker-compose.yml file in the product folder
-5. Use docker to control and check the server
-6. (Optional: Download DBeaver to manage the Database and import DB port according to the docker-compose file you installed)
 
 ## Technologies Used
 ### Front-end

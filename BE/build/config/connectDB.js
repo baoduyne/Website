@@ -7,7 +7,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 var _require = require('sequelize'),
   Sequelize = _require.Sequelize;
 var sequelize = new Sequelize('my2', 'root', 'Duyngo123@', {
-  host: '127.0.0.1',
+  host: 'localhost',
   dialect: 'mysql',
   logging: false
 });
