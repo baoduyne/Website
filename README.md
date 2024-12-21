@@ -5,6 +5,8 @@ This is a project to create a website for booking doctor appointments. The websi
 
 ## Features
 
+- **Complex language**: This website included both vietnamese and english to support foreign customers.
+  
 - **Medical Appointment Booking**: Users can easily search and book appointments with doctors and medical facilities. Supports selecting location, specialty, and suitable time.
   
 - **Appointment Management**: Users can view, edit, or cancel previously booked appointments.
