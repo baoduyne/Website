@@ -5,22 +5,26 @@ This is a project to create a website for booking doctor appointments. The websi
 
 ## Features
 
+- **Complex language**: This website included both vietnamese and english to support foreign customers.
+  
 - **Medical Appointment Booking**: Users can easily search and book appointments with doctors and medical facilities. Supports selecting location, specialty, and suitable time.
   
 - **Appointment Management**: Users can view, edit, or cancel previously booked appointments.
   
 - **Appointment Notifications**: Users will receive notifications via email or message about upcoming appointments, helping them not miss any meetings.
   
-- **Doctor and Service Rating**: After the examination, users can rate the service quality and share their experience with the doctor.
-  
-- **Doctor Search and Comparison**: Users can easily search and compare information about doctors such as specialties, experience, prices, reviews...
-  
-- **Package Service Booking**: In addition to individual bookings, users can book complete medical service packages like general checkups, periodic health checks...
-  
+- **View top doctors and their experience**: Users can easily find and see information about 10 top doctors per week such as specialties, experience, prices...
+
+- **View Specialties**: Patient can find specialties via specialty's system and then booking doctor depend on patient issue and demand. 
+
+- **Reading a variety of handbook**: Viewer will have able to read a lot of handbooks which can be updated by adminstrators.
+
 - **Doctor Information Management**:
   - **Doctor Accounts**: Doctors can self-register accounts and manage personal information and work schedules.
   - **Doctor Management (Admin Account)**: Administrators can add, edit, delete doctor information, and assign account permissions.
-  - **Doctor Management (Hospital Account)**: Hospitals can manage the list of doctors working at the hospital, update information and work schedules.
+  - 
+- **Clinic and Handbook Content Management**:
+  - **Create more content**: Administrators will have full permistion to add,edit,delete all information about clinics and handbook .
 
 
 ## Technologies Used
