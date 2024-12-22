@@ -28,6 +28,11 @@ class HandBook extends Component {
         this.props.history.push(`/handbook-detail/${id}`)
     }
 
+    handleOnClickList = () => {
+        this.props.history.push(`/list/${TYPE.HANDBOOK}`)
+        //<Redirect to = {`/detail-doctor/${doctor.id}`}></Redirect>
+    }
+
     render() {
 
         let { allHandbook } = this.state;
@@ -37,7 +42,9 @@ class HandBook extends Component {
                 <div className='section-content'>
                     <div className="section-detail">
                         <span>Cẩm nang</span>
-                        <button>Xem thêm</button>
+                        <button
+                            onClick={() => this.handleOnClickList()}
+                        >Xem thêm</button>
                     </div>
                     {allHandbook && allHandbook.length > 1 &&
                         <Carousel

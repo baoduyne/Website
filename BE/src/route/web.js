@@ -53,10 +53,10 @@ let initwebRoutes = (app) => {
     router.get('/api/get-detail-clinic', clinicController.getDetailClinic);
     //history
     router.post('/api/send-bill-to-patient', doctorController.sendBillToPatient);
-
+    router.delete('/api/delete-bill', doctorController.deleteBill);
     //handbook
     router.post('/api/create-handbook', handbookController.createHandbook);
-    router.get('/api/get-data-handbook', handbookController.getDataHandbook)
+    router.get('/api/get-data-handbook', handbookController.getDataHandbook);
     return app.use("/", router);
 }
 

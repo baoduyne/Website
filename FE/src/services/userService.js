@@ -105,6 +105,10 @@ const createHandbookService = (data) => {
     return axios.post(`/api/create-handbook`, data);
 }
 
+const deleteBillService = (id) => {
+    return axios.delete(`/api/delete-bill?id=${id}`);
+}
+
 export {
     handleLoginApi,
     getAllUsers,
@@ -122,5 +126,5 @@ export {
     createBookingService, verifyUserBookingAppoinmentService,
     createSpecialtyService, getAllSpecialtyService, getDetailSpecialtyService,
     getDetailClinicService, getAllClinicService, createClinicService, getBookingService, sendBillToPatientService,
-    getDataHandbookService, createHandbookService
+    getDataHandbookService, createHandbookService, deleteBillService
 }

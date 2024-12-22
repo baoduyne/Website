@@ -6,6 +6,7 @@ import 'react-multi-carousel/lib/styles.css';
 import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils/constant';
 import { Redirect, withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { TYPE } from '../../../utils/constant';
 class OutStandingDoctor extends Component {
 
     constructor(props) {
@@ -31,10 +32,16 @@ class OutStandingDoctor extends Component {
         this.props.history.push(`/detail-doctor/${doctor.id}`)
         //<Redirect to = {`/detail-doctor/${doctor.id}`}></Redirect>
     }
+
+    handleOnClickList = () => {
+        this.props.history.push(`/list/${TYPE.ALLDOCTOR}`)
+        //<Redirect to = {`/detail-doctor/${doctor.id}`}></Redirect>
+    }
+
     render() {
         let language = this.props.language;
         let { arrDoctor } = this.state;
-        console.log("top doctor", this.props.topDoctors)
+
         if (!arrDoctor) {
             this.componentDidMount();
         }
@@ -44,7 +51,9 @@ class OutStandingDoctor extends Component {
                 <div className='section-content'>
                     <div className="section-detail">
                         <span><FormattedMessage id="section.outStandingDoctors"></FormattedMessage></span>
-                        <button><FormattedMessage id="section.more"></FormattedMessage></button>
+                        <button
+                            onClick={() => this.handleOnClickList()}
+                        ><FormattedMessage id="section.more"></FormattedMessage></button>
                     </div>
                     {arrDoctor && arrDoctor.length &&
                         <Carousel

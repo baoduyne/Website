@@ -52,11 +52,8 @@ export const doctorMenu = [
                 name: 'menu.doctor.schedule', link: '/doctor/manage-schedule',
             },
             {
-                name: 'menu.doctor.patient', link: '/doctor/manage-patient'
+                name: 'menu.doctor.Send-bill', link: '/doctor/manage-patient'
             },
-            {
-                name: 'menu.admin.handbook', link: '/doctor/manage-handbook'
-            }
         ]
     }
 ]

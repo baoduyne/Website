@@ -7,7 +7,7 @@ import {
     saveDoctorSchedulesService, getDoctorSchedulesService,
     getDoctorInforsService, createSpecialtyService, getAllSpecialtyService,
     getDetailClinicService, getAllClinicService, createClinicService, getBookingService, sendBillToPatientService,
-    createHandbookService, getDataHandbookService
+    createHandbookService, getDataHandbookService, deleteBillService
 } from "../../services/userService";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -997,6 +997,45 @@ export const createHandbookFail = () => {
     toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
     return {
         type: actionTypes.CREATE_HANDBOOK_FAIL
+
+    }
+}
+
+
+export const deleteBillStart = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.DELETE_BILL_START })
+
+            let response = await deleteBillService(id);
+
+            if (response && response.errCode === 0) {
+                dispatch(deleteBillSuccess());
+            }
+            else {
+                dispatch(deleteBillFail());
+            }
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(deleteBillFail());
+        }
+    }
+
+}
+
+export const deleteBillSuccess = () => {
+    toast.warn('Xóa người dùng thành công!');
+
+    return {
+        type: actionTypes.DELETE_BILL_SUCCESS,
+    }
+}
+
+export const deleteBillFail = () => {
+    toast.warn('Có lỗi xảy ra vui lòng kiểm tra lại thông tin!');
+    return {
+        type: actionTypes.DELETE_BILL_FAIL
 
     }
 }

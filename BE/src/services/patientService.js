@@ -4,7 +4,8 @@ require('dotenv').config();
 import { sendSimpleEmail } from "./emailService";
 import _, { includes } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
-
+const bcrypt = require('bcrypt');
+const salt = bcrypt.genSaltSync(10);
 
 let createToken = (doctorId, token) => {
     let result = `${process.env.URL_REACT}/verify-booking-appoinment?token=${token}&doctorId=${doctorId}`
@@ -41,9 +42,11 @@ let createBooking = (data) => {
                 })
 
                 if (!user) {
+                    let hashPassword = await bcrypt.hashSync('123', salt);
                     await db.User.create({
                         email: data.email,
                         firstName: data.firstName,
+                        password: hashPassword,
                         lastName: data.lastName,
                         address: data.address,
                         phoneNumber: data.phoneNumber,

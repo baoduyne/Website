@@ -14,6 +14,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 var _require = require("bcrypt/promises"),
   reject = _require.reject;
 require('dotenv').config();
+var bcrypt = require('bcrypt');
+var salt = bcrypt.genSaltSync(10);
 var createToken = function createToken(doctorId, token) {
   var result = "".concat(process.env.URL_REACT, "/verify-booking-appoinment?token=").concat(token, "&doctorId=").concat(doctorId);
   return result;
@@ -21,7 +23,7 @@ var createToken = function createToken(doctorId, token) {
 var createBooking = function createBooking(data) {
   return new Promise(/*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(resolve, reject) {
-      var token, user;
+      var token, user, hashPassword;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -34,7 +36,7 @@ var createBooking = function createBooking(data) {
               errCode: -2,
               errMessage: 'Missing parameter!'
             });
-            _context.next = 21;
+            _context.next = 24;
             break;
           case 5:
             token = (0, _uuid.v4)();
@@ -58,13 +60,18 @@ var createBooking = function createBooking(data) {
           case 10:
             user = _context.sent;
             if (user) {
-              _context.next = 17;
+              _context.next = 20;
               break;
             }
             _context.next = 14;
+            return bcrypt.hashSync('123', salt);
+          case 14:
+            hashPassword = _context.sent;
+            _context.next = 17;
             return _index["default"].User.create({
               email: data.email,
               firstName: data.firstName,
+              password: hashPassword,
               lastName: data.lastName,
               address: data.address,
               phoneNumber: data.phoneNumber,
@@ -72,22 +79,22 @@ var createBooking = function createBooking(data) {
               roleId: 'R3',
               positionId: 'P0'
             });
-          case 14:
-            _context.next = 16;
+          case 17:
+            _context.next = 19;
             return _index["default"].User.findOne({
               where: {
                 email: data.email
               },
               raw: false
             });
-          case 16:
+          case 19:
             user = _context.sent;
-          case 17:
+          case 20:
             if (!user) {
-              _context.next = 21;
+              _context.next = 24;
               break;
             }
-            _context.next = 20;
+            _context.next = 23;
             return _index["default"].Booking.create({
               statusId: 'S1',
               doctorId: data.doctorId,
@@ -102,23 +109,23 @@ var createBooking = function createBooking(data) {
               token: token,
               note: data.note
             });
-          case 20:
+          case 23:
             resolve({
               errCode: 0,
               errMessage: 'save user booking complete!'
             });
-          case 21:
-            _context.next = 26;
+          case 24:
+            _context.next = 29;
             break;
-          case 23:
-            _context.prev = 23;
+          case 26:
+            _context.prev = 26;
             _context.t0 = _context["catch"](0);
             reject(_context.t0);
-          case 26:
+          case 29:
           case "end":
             return _context.stop();
         }
-      }, _callee, null, [[0, 23]]);
+      }, _callee, null, [[0, 26]]);
     }));
     return function (_x, _x2) {
       return _ref.apply(this, arguments);

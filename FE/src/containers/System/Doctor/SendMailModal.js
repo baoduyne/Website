@@ -41,7 +41,8 @@ class SendMailModal extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.bookingData !== this.props.bookingData && this.props.bookingData) {
+        if (prevProps.bookingData !== this.props.bookingData && this.props.bookingData && this.props.bookingData.patientData) {
+
             this.setState({
                 email: this.props.bookingData.patientData.email
             })
@@ -49,9 +50,28 @@ class SendMailModal extends Component {
 
     }
 
+    checkValidate = () => {
+        let isValid = true;
+        let arrValid = ['email', 'pillPrice', 'note'];
+        let validKey = '';
+        for (let i = 0; i < arrValid.length; i++) {
+            if (!this.state[arrValid[i]]) {
+                isValid = false;
+                validKey = arrValid[i];
+                break;
+            }
+        }
+        if (isValid === false) {
+            toast('Missing parameter : ' + validKey);
+            return isValid;
+        }
+        return isValid;
+    }
+
+
     handleOnchangeInput = (event, name) => {
         if (name === 'SELECT') {
-            console.log('asdsad', event.value);
+
             let copyState = { ...this.state };
             copyState.selectedClinic = event;
             this.setState({
@@ -69,14 +89,19 @@ class SendMailModal extends Component {
     }
 
     handleOnclickSubbmit = async () => {
-        let data = {
-            email: this.state.email,
-            pillPrice: this.state.pillPrice,
-            note: this.state.note,
-            bookingData: this.props.bookingData,
-            language: this.props.language
+        let isValid = this.checkValidate();
+        if (isValid === true) {
+            let data = {
+                email: this.state.email,
+                pillPrice: this.state.pillPrice,
+                note: this.state.note,
+                bookingData: this.props.bookingData,
+                language: this.props.language
+            }
+            await this.props.sendBillStart(data)
+            this.props.onCloseModalFromParent();
         }
-        await this.props.sendBillStart(data)
+
     }
 
 

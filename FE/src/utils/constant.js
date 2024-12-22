@@ -48,11 +48,15 @@ export const ROLEID = {
 export const TYPE = {
     SPECIALTY: 'SPECIALTY',
     DOCTOR: 'DOCTOR',
+    ALLDOCTOR: 'ALLDOCTOR',
     CLINIC: 'CLINIC',
+    HANDBOOK: 'HANDBOOK',
     ALL: 'ALL',
     SYSTEM: 'SYSTEM',
     PATIENT: 'PATIENT',
-    POLICY: "POLICY"
+    POLICY: "POLICY",
+    LOGIN: 'LOGIN',
+    LOGOUT: "LOGOUT"
 }
 
 export const STICKY_ELEMENT = {

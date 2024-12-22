@@ -489,6 +489,11 @@ class ManageUser extends Component {
 
                     </div>}
 
+                <div className="mx-5 mb-5"><hr></hr></div>
+                <h3 className="col-12 text-center mt-3 mb-5">
+                    Danh sách người dùng
+                </h3>
+
                 <ManageUserTable
                     handleEditUser={this.handleEditUser}
                 ></ManageUserTable>

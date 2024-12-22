@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
-import UserManage from '../containers/System/UserManage';
-import ProductManage from '../containers/System/ProductManage';
-import manageDoctor from "../containers/System/Admin/ManageDoctor";
-import Header from '../containers/Header/Header';
-import UserRedux from '../containers/System/Admin/ManageUser'
 
 class Home extends Component {
 

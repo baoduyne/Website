@@ -1,16 +1,15 @@
-case actionTypes.GET_HANDBOOK_START:
+case actionTypes.DELETE_BILL_START:
 copyState = { ...state }
 return {
     ...copyState
 }
-case actionTypes.GET_HANDBOOK_SUCCESS:
+case actionTypes.DELETE_BILL_SUCCESS:
 copyState = { ...state }
-copyState.allHandbook = action.data
 copyState.isLoading = false;
 return {
     ...copyState
 }
-case actionTypes.GET_HANDBOOK_FAIL:
+case actionTypes.DELETE_BILL_FAIL:
 copyState = { ...state }
 copyState.isLoading = false;
 return {

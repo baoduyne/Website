@@ -1,9 +1,58 @@
 .list-container {
-    width  : 100%;
-    padding: 0 10%;
+    width        : 100%;
+    padding      : 0 10%;
+    margin-bottom: 50px;
+    margin-top   : 30px;
 
     .list-content {
         width: 100%;
+
+
+        .content-down-child {
+            width         : 100%;
+            display       : flex;
+            flex-direction: row;
+            gap           : 20px;
+            box-shadow    : rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            padding       : 30px 30px;
+            margin-top    : 15px;
+
+            .content-down-left {
+                width : 50%;
+                height: fit-content;
+                cursor: pointer;
+            }
+
+            .content-down-right {
+                width         : 50%;
+                display       : flex;
+                flex-direction: column;
+                gap           : 10px;
+                border-left   : 1px solid rgba(100, 100, 111, 0.2);
+                padding-left  : 15px;
+
+                .right-schedule-container {
+                    width: 100%;
+
+                    .doctor-schedule-client-container .doctor-schedule-client-content .schedule-header {
+                        padding: 6px 0 !important;
+                    }
+
+                    .doctor-schedule-client-container .doctor-schedule-client-content .schedule-list {
+                        padding: 5px 0 !important;
+                    }
+
+                    .doctor-schedule-client-container .doctor-schedule-client-content .schedule-description {
+                        padding: 16px 0 !important;
+                    }
+                }
+
+                .right-information-container {
+                    width: 100%;
+                }
+
+            }
+        }
 
         .list-specialty-child {
             width     : 100%;

@@ -357,6 +357,44 @@ var sendBillToPatient = /*#__PURE__*/function () {
     return _ref9.apply(this, arguments);
   };
 }();
+var deleteBill = /*#__PURE__*/function () {
+  var _ref10 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10(req, res) {
+    var bill_id, response;
+    return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+      while (1) switch (_context10.prev = _context10.next) {
+        case 0:
+          _context10.prev = 0;
+          bill_id = req.query.id;
+          _context10.next = 4;
+          return _doctorService["default"].deleteBillService(bill_id);
+        case 4:
+          response = _context10.sent;
+          if (response) {
+            res.status(200).json({
+              errCode: response.errCode,
+              errMessage: response.errMessage,
+              data: response.data
+            });
+          }
+          _context10.next = 11;
+          break;
+        case 8:
+          _context10.prev = 8;
+          _context10.t0 = _context10["catch"](0);
+          res.status(200).json({
+            errCode: -1,
+            errMessage: 'Err from sever...'
+          });
+        case 11:
+        case "end":
+          return _context10.stop();
+      }
+    }, _callee10, null, [[0, 8]]);
+  }));
+  return function deleteBill(_x19, _x20) {
+    return _ref10.apply(this, arguments);
+  };
+}();
 module.exports = {
   getTopDoctorHome: getTopDoctorHome,
   getAllDoctors: getAllDoctors,
@@ -366,5 +404,6 @@ module.exports = {
   getDoctorSchedules: getDoctorSchedules,
   getDoctorInfors: getDoctorInfors,
   getBookingInforForDoctor: getBookingInforForDoctor,
-  sendBillToPatient: sendBillToPatient
+  sendBillToPatient: sendBillToPatient,
+  deleteBill: deleteBill
 };

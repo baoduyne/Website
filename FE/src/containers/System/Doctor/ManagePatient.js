@@ -15,6 +15,7 @@ import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTrash, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import SendMailModal from './SendMailModal';
+import DeleteBillModal from './DeleteBillModal';
 
 // import Button from '@mui/material/Button';
 // import Pagination from '@mui/material/Pagination';
@@ -40,19 +41,14 @@ class ManagePatient extends Component {
 
             selectedBooking: '',
 
+
+            isOpenDeleteModal: false
+
         }
     }
     componentDidMount = async () => {
+        await this.fetchBookingData();
 
-        await this.props.getBookingStart(this.props.userInfo.id, this.state.currentDate);
-        if (this.props.userInfo.roleId === 'R1') {
-            await this.props.getAllDoctorsStart();
-        }
-        else if (this.props.userInfo.roleId === 'R2') {
-            this.setState({
-                selectedDoctor: { value: this.props.userInfo.id, label: this.props.userInfo.id + ' - ' + this.props.userInfo.firstName + ' ' + this.props.userInfo.lastName }
-            }, async () => await this.props.getBookingStart(this.state.selectedDoctor.value, 'ALL'))
-        }
 
     }
 
@@ -84,6 +80,19 @@ class ManagePatient extends Component {
             })
         }
 
+    }
+
+    fetchBookingData = async () => {
+
+        await this.props.getBookingStart(this.props.userInfo.id, this.state.currentDate);
+        if (this.props.userInfo.roleId === 'R1') {
+            await this.props.getAllDoctorsStart();
+        }
+        else if (this.props.userInfo.roleId === 'R2') {
+            this.setState({
+                selectedDoctor: { value: this.props.userInfo.id, label: this.props.userInfo.id + ' - ' + this.props.userInfo.firstName + ' ' + this.props.userInfo.lastName }
+            }, async () => await this.props.getBookingStart(this.state.selectedDoctor.value, 'ALL'))
+        }
     }
 
     builtDataInputSelect(inputData) {
@@ -127,6 +136,7 @@ class ManagePatient extends Component {
 
     handleOnchangeDatePicker = async (date) => {
         if (date === 'ALL') {
+
             await this.props.getBookingStart(this.state.selectedDoctor.value, 'ALL');
         }
         else {
@@ -163,12 +173,25 @@ class ManagePatient extends Component {
         }
     }
 
-    onCloseModalFromParent = (event) => {
+    onCloseModalFromParent = async (event) => {
         this.setState({
             isOpenModal: !this.state.isOpenModal,
             selectedBooking: event
         })
+        await this.fetchBookingData();
+
     }
+
+
+    toggleDeleteModalFromParent = async (item) => {
+        this.setState({
+            isOpenDeleteModal: !this.state.isOpenDeleteModal,
+            selectedBooking: item
+        })
+        await this.fetchBookingData();
+    }
+
+
 
 
     render() {
@@ -214,7 +237,7 @@ class ManagePatient extends Component {
                                                 options={this.state.allDoctors}
                                                 id='select'
                                                 className='w-25'
-                                                hidden
+                                                isDisabled={true}
                                             />}
 
 
@@ -270,6 +293,7 @@ class ManagePatient extends Component {
 
                                                     let formattedDateVi = moment.unix(item.date / 1000).format('dddd - DD/MM/YYYY');
                                                     let formattedDateEn = moment.unix(item.date / 1000).locale('en').format('dddd - DD/MM/YYYY');
+                                                    console.log('check item id', item);
                                                     return (
                                                         <tr className='adjust-table-row'>
                                                             <th scope="row">{index}</th>
@@ -284,7 +308,9 @@ class ManagePatient extends Component {
                                                                     <button
                                                                         onClick={() => this.onCloseModalFromParent(item)}
                                                                         className='btn btn-primary'><FontAwesomeIcon icon={faPaperPlane} /></button>
-                                                                    <button className='btn btn-light'><FontAwesomeIcon icon={faTrash} /></button>
+                                                                    <button
+                                                                        onClick={() => this.toggleDeleteModalFromParent(item)}
+                                                                        className='btn btn-light'><FontAwesomeIcon icon={faTrash} /></button>
                                                                 </div>
 
                                                             </td>
@@ -335,8 +361,11 @@ class ManagePatient extends Component {
                                                                 <div className='table-group-btn table2'>
                                                                     <button
                                                                         onClick={() => this.onCloseModalFromParent(item)}
+
                                                                         className='btn btn-primary'><FontAwesomeIcon icon={faPaperPlane} /></button>
-                                                                    <button className='btn btn-light'><FontAwesomeIcon icon={faTrash} /></button>
+                                                                    <button
+                                                                        onClick={() => this.toggleDeleteModalFromParent(item)}
+                                                                        className='btn btn-light'><FontAwesomeIcon icon={faTrash} /></button>
                                                                 </div>
 
                                                             </td>
@@ -368,10 +397,18 @@ class ManagePatient extends Component {
                     </div>
                 </div>
                 <SendMailModal
+
                     onCloseModalFromParent={this.onCloseModalFromParent}
                     isOpenModal={this.state.isOpenModal}
                     bookingData={this.state.selectedBooking}
                 ></SendMailModal>
+
+                <DeleteBillModal
+
+                    isOpenDeleteModal={this.state.isOpenDeleteModal}
+                    toggleDeleteModalFromParent={this.toggleDeleteModalFromParent}
+                    billData={this.state.selectedBooking}
+                ></DeleteBillModal>
 
             </React.Fragment>
         );

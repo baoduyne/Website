@@ -1,5 +1,5 @@
 .booking-modal-container {
-    width        : 100%;
+    width        : 1087px;
     height       : 100%;
     padding      : 0 0%;
     margin-top   : 2%;
@@ -113,7 +113,7 @@
 
 .react-responsive-modal-modal {
     max-width: none !important;
-    width    : 69% !important;
+    width    : fit-content;
 }
 
 .support-booking-display-none {

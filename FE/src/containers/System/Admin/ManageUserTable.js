@@ -36,7 +36,7 @@ class ManageUserTable extends Component {
         let arrUsers = this.state.arrUsers;
         return (
             <div>
-                <div className="user-table mt-4 mx-1">
+                <div className="user-table mt-4 mx-5">
                     <table className="table" id="customers">
                         <thead>
                             <tr>
@@ -62,8 +62,13 @@ class ManageUserTable extends Component {
                                         <td>{item.lastName}</td>
                                         <td>{item.address}</td>
                                         <td>
-                                            <button className="btn btn-success" onClick={() => this.props.handleEditUser(item)}><i className="far fa-edit"></i></button>
-                                            <button className="btn btn-light ml-3" onClick={() => this.handleDeleteUser(item)}><i className="fas fa-trash-alt"></i></button>
+                                            <div
+                                                className="button-group d-flex flex-row "
+                                            >
+                                                <button className="btn btn-success" onClick={() => this.props.handleEditUser(item)}><i className="far fa-edit"></i></button>
+                                                <button className="btn btn-light ml-2" onClick={() => this.handleDeleteUser(item)}><i className="fas fa-trash-alt"></i></button>
+                                            </div>
+
                                         </td>
                                     </tr>
                                 )

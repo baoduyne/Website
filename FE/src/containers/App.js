@@ -23,6 +23,7 @@ import ClinicDetail from './Patient/Clinic/ClinicDetail.js';
 import List from './Patient/List/List.js';
 import Policy from './Patient/About/Policy.js';
 import HandbookDetail from './Patient/Handbook/HandbookDetail.js';
+import { userIsAdmin, userIsDoctor } from '../hoc/authentication';
 class App extends Component {
 
     handlePersistorState = () => {
@@ -55,10 +56,10 @@ class App extends Component {
                                 <Switch>
                                     <Route path={path.HOME} exact component={userIsAuthenticated(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
-                                    <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
+                                    <Route path={path.SYSTEM} component={userIsAdmin(System)} />
+                                    <Route path={path.DOCTOR} component={userIsDoctor(Doctor)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_DOCTOR} component={DetailDoctor}></Route>
-                                    <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
                                     <Route path={path.VERIFY_APPOINMENT} component={VerifyEmail}></Route>
                                     <Route path={path.SPECIALTY} component={DetailSpecialty}></Route>
                                     <Route path={path.CLINIC} component={ClinicDetail}></Route>

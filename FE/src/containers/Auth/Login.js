@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from "connected-react-router";
-
-//import * as actions from "../store/actions";
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import * as actions from "../../store/actions";
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 import { handleLoginApi } from '../../services/userService';
-//import adminService from '../services/adminService';
+
 
 class Login extends Component {
     constructor(props) {
@@ -18,6 +17,9 @@ class Login extends Component {
             isShowPassword: false,
             errMessage: ''
         }
+    }
+    componentDidMount = () => {
+        this.props.history.push('/login')
     }
 
     handleOnChangeInput = (event) => {
@@ -153,4 +155,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

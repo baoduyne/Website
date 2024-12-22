@@ -50,6 +50,13 @@
                     width : 100%;
                     height: 100%;
 
+                    .btn-group {
+                        display       : flex;
+                        flex-direction: row;
+                        align-items   : flex-end;
+                        gap           : 20px
+                    }
+
                     .type-book {
                         margin-left: 18px;
                         margin-top : 5px;
@@ -79,7 +86,7 @@
 
 .react-responsive-modal-modal {
     max-width: none !important;
-    width    : 42% !important;
+    width    : fit-content !important;
 }
 
 .react-responsive-modal-modal {

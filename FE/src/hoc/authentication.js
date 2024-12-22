@@ -9,8 +9,25 @@ export const userIsAuthenticated = connectedRouterRedirect({
     redirectPath: '/login'
 });
 
+export const userIsAdmin = connectedRouterRedirect({
+    authenticatedSelector: state => state.user.userInfo && state.user.userInfo.roleId == 'R1',
+    wrapperDisplayName: 'UserIsAdmin',
+    redirectPath: '/login',
+});
+
+export const userIsDoctor = connectedRouterRedirect({
+    authenticatedSelector: state => (state.user.userInfo && state.user.userInfo.roleId == 'R2') || (state.user.userInfo && state.user.userInfo.roleId == 'R1'),
+    wrapperDisplayName: 'UserIsDoctor',
+    redirectPath: '/login',
+});
+
+export const userIsNotStaff = connectedRouterRedirect({
+    authenticatedSelector: state => state.user.userInfo && state.user.userInfo.roleId == 'R3',
+    wrapperDisplayName: 'UserIsNotCustomer',
+    redirectPath: '/login',
+});
+
 export const userIsNotAuthenticated = connectedRouterRedirect({
-    // Want to redirect the user when they are authenticated
     authenticatedSelector: state => !state.user.isLoggedIn,
     wrapperDisplayName: 'UserIsNotAuthenticated',
     redirectPath: (state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || '/',

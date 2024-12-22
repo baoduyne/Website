@@ -434,6 +434,7 @@ class ManageDoctor extends Component {
 
                     <div className='content-down'>
                         <div className='horizon-line'></div>
+
                         <div className='preview-description'>
                             <div className='doctor-manage-section1'>
                                 <div
@@ -461,6 +462,8 @@ class ManageDoctor extends Component {
 
                             </div>
                         </div>
+
+
                     </div>
 
 

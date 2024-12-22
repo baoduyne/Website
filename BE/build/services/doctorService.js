@@ -691,6 +691,72 @@ var sendBillToPatient = function sendBillToPatient(email, pillPrice, note, booki
     };
   }());
 };
+var deleteBillService = function deleteBillService(id) {
+  return new Promise(/*#__PURE__*/function () {
+    var _ref10 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10(resolve, reject) {
+      var bill;
+      return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+        while (1) switch (_context10.prev = _context10.next) {
+          case 0:
+            _context10.prev = 0;
+            if (id) {
+              _context10.next = 5;
+              break;
+            }
+            resolve({
+              errCode: -2,
+              errMessage: 'Missing parameter...'
+            });
+            _context10.next = 15;
+            break;
+          case 5:
+            _context10.next = 7;
+            return _index["default"].Booking.findOne({
+              where: {
+                id: id
+              }
+            });
+          case 7:
+            bill = _context10.sent;
+            if (!bill) {
+              _context10.next = 14;
+              break;
+            }
+            _context10.next = 11;
+            return bill.destroy();
+          case 11:
+            resolve({
+              errCode: 0,
+              errMessage: 'Delete bill completed!',
+              data: ''
+            });
+            _context10.next = 15;
+            break;
+          case 14:
+            resolve({
+              errCode: -1,
+              errMessage: 'Err from sever service!',
+              data: ''
+            });
+          case 15:
+            _context10.next = 21;
+            break;
+          case 17:
+            _context10.prev = 17;
+            _context10.t0 = _context10["catch"](0);
+            console.log(_context10.t0);
+            reject(_context10.t0);
+          case 21:
+          case "end":
+            return _context10.stop();
+        }
+      }, _callee10, null, [[0, 17]]);
+    }));
+    return function (_x19, _x20) {
+      return _ref10.apply(this, arguments);
+    };
+  }());
+};
 module.exports = {
   getTopDoctorHome: getTopDoctorHome,
   getAllDoctors: getAllDoctors,
@@ -700,5 +766,6 @@ module.exports = {
   getDoctorSchedules: getDoctorSchedules,
   getDoctorInfors: getDoctorInfors,
   getBookingInforForDoctor: getBookingInforForDoctor,
-  sendBillToPatient: sendBillToPatient
+  sendBillToPatient: sendBillToPatient,
+  deleteBillService: deleteBillService
 };

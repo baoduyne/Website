@@ -119,6 +119,9 @@ class SpecialtyDetail extends Component {
 
         await this.props.getDetailSpecialtyStart(id, event.value, TYPE.DOCTOR);
     }
+    handleOnClickDoctor = (id) => {
+        this.props.history.push(`/detail-doctor/${id}`)
+    }
 
 
     render() {
@@ -154,7 +157,9 @@ class SpecialtyDetail extends Component {
                                     return (
                                         <>
                                             <div className='content-down-child'>
-                                                <div className='content-down-left'>
+                                                <div
+                                                    onClick={() => this.handleOnClickDoctor(item)}
+                                                    className='content-down-left'>
                                                     <DoctorDetailTag
                                                         doctorDescriptionIsShow={true}
                                                         doctorId={item}

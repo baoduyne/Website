@@ -54,7 +54,7 @@ var initwebRoutes = function initwebRoutes(app) {
   router.get('/api/get-detail-clinic', _clinicController["default"].getDetailClinic);
   //history
   router.post('/api/send-bill-to-patient', _doctorController["default"].sendBillToPatient);
-
+  router["delete"]('/api/delete-bill', _doctorController["default"].deleteBill);
   //handbook
   router.post('/api/create-handbook', _handbookController["default"].createHandbook);
   router.get('/api/get-data-handbook', _handbookController["default"].getDataHandbook);

@@ -54,9 +54,7 @@ let getAllDoctors = () => {
                 ],
             })
 
-            resolve({
-                doctors
-            })
+            resolve({ doctors })
         }
         catch (e) {
             reject(e);
@@ -446,6 +444,54 @@ let sendBillToPatient = (email, pillPrice, note, bookingData, language) => {
 
 }
 
+let deleteBillService = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!id) {
+                resolve(
+                    {
+                        errCode: -2,
+                        errMessage: 'Missing parameter...'
+                    })
+            }
+
+            else {
+                let bill = await db.Booking.findOne({
+                    where: { id: id }
+                })
+
+
+                if (bill) {
+                    await bill.destroy();
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'Delete bill completed!',
+                        data: ''
+                    })
+                }
+                else {
+                    resolve({
+                        errCode: -1,
+                        errMessage: 'Err from sever service!',
+                        data: ''
+                    })
+                }
+
+            }
+        }
+
+
+        catch (e) {
+            console.log(e);
+            reject(e);
+        }
+
+    })
+
+
+
+}
+
 
 module.exports = {
     getTopDoctorHome: getTopDoctorHome,
@@ -456,5 +502,6 @@ module.exports = {
     getDoctorSchedules: getDoctorSchedules,
     getDoctorInfors: getDoctorInfors,
     getBookingInforForDoctor: getBookingInforForDoctor,
-    sendBillToPatient: sendBillToPatient
+    sendBillToPatient: sendBillToPatient,
+    deleteBillService: deleteBillService
 }

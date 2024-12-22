@@ -16,6 +16,7 @@ class Doctor extends Component {
                     <Route path="/doctor/manage-schedule" component={DoctorSchedule}></Route>
                     <Route path='/doctor/manage-patient' component={ManagePatient}></Route>
                     <Route path='/doctor/manage-handbook' component={ManageHandbook}></Route>
+                    <Route component={() => { return (<Redirect to={'/doctor/manage-patient'} />) }} />
                 </Switch>
             </React.Fragment>
         );

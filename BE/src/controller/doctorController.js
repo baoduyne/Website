@@ -209,6 +209,29 @@ let sendBillToPatient = async (req, res) => {
     }
 }
 
+let deleteBill = async (req, res) => {
+    try {
+        let bill_id = req.query.id
+        let response = await doctorService.deleteBillService(bill_id);
+
+        if (response) {
+            res.status(200).json({
+                errCode: response.errCode,
+                errMessage: response.errMessage,
+                data: response.data
+            })
+        }
+
+    }
+
+    catch (e) {
+        res.status(200).json({
+            errCode: -1,
+            errMessage: 'Err from sever...'
+        })
+    }
+}
+
 
 
 module.exports = {
@@ -220,5 +243,6 @@ module.exports = {
     getDoctorSchedules: getDoctorSchedules,
     getDoctorInfors: getDoctorInfors,
     getBookingInforForDoctor: getBookingInforForDoctor,
-    sendBillToPatient: sendBillToPatient
+    sendBillToPatient: sendBillToPatient,
+    deleteBill: deleteBill
 }
